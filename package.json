@@ -12,7 +12,11 @@
     "start": "node server.js"
   },
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "eslint-config-pebble": "^4.0.0",
+    "eslint-plugin-standard": "^2.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matthewtole/codenames.git"

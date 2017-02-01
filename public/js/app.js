@@ -12,13 +12,11 @@ var EVENTS = {
     CREATED: 'game.created',
     UPDATED: 'game'
   },
+  TURN: {
+    END: 'turn.end'
+  },
   REVEAL: 'reveal',
   HIGHLIGHT: 'highlight'
-};
-
-var ROLES = {
-  CONTROLLER: 'controller',
-  VIEWER: 'viewer'
 };
 
 var MODES = {
@@ -38,45 +36,54 @@ var app = new Vue({
     isController: true,
     isViewer: false,
     game: null,
+    gameTag: 'ABCDEF',
+    wordList: MODES.ORIGINAL,
+    ruleSet: RULESETS.DEFAULT,
     message: null,
-    games: []
+    games: [],
+    rulesets: Object.keys(RULESETS).map(function (set) { return RULESETS[set]; }),
+    modes: Object.keys(MODES).map(function (mode) { return MODES[mode]; })
   },
   methods: {
     clearMessage: function() {
       socket.emit(EVENTS.MESSAGE.CLEAR);
     },
-    createGame: function() {
+    createGame: function(event) {
+      event.preventDefault();
       this.isController = true;
       this.isViewer = false;
-      socket.emit(EVENTS.GAME.CREATE, MODES.UNDERCOVER, RULESETS.DEFAULT);
+      socket.emit(EVENTS.GAME.CREATE, this.wordList, this.ruleSet);
     },
-    joinGame: function() {
-      socket.emit(EVENTS.GAME.JOIN, 'ABCDEF', ROLES.VIEWER);
+    joinGame: function(event) {
+      event.preventDefault();
+      socket.emit(EVENTS.GAME.JOIN, this.gameTag);
       this.isController = false;
       this.isViewer = true;
+
     },
-    clickCell: function (x, y) {
-      if (this.game.grid[y][x].highlighted) {
-        socket.emit(EVENTS.REVEAL, { x: x, y: y });
-      } else {
-        socket.emit(EVENTS.HIGHLIGHT, { x: x, y: y });
-      }
+    clickCell: function(x, y) {
+      const cell = this.game.grid[y][x];
+      const event = cell.highlighted ? EVENTS.REVEAL : EVENTS.HIGHLIGHT;
+      socket.emit(event, { x: x, y: y });
+    },
+    endTurn: function() {
+      socket.emit(EVENTS.TURN.END);
     }
   }
 });
 
-socket.on(EVENTS.GAME.LIST, function (games) {
+socket.on(EVENTS.GAME.LIST, function(games) {
   app.games = Object.keys(games);
 });
 
-socket.on(EVENTS.GAME.CREATED, function (tag) {
-  socket.emit(EVENTS.GAME.JOIN, tag, ROLES.CONTROLLER)
+socket.on(EVENTS.GAME.CREATED, function(tag) {
+  socket.emit(EVENTS.GAME.JOIN, tag);
 });
 
-socket.on(EVENTS.GAME.UPDATED, function (game) {
+socket.on(EVENTS.GAME.UPDATED, function(game) {
   app.game = game;
 });
 
-socket.on(EVENTS.MESSAGE.UPDATED, function (message) {
+socket.on(EVENTS.MESSAGE.UPDATED, function(message) {
   app.message = message;
 });

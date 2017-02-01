@@ -1,0 +1,6 @@
+{
+  "extends": "pebble",
+  "env": {
+    "browser" :true
+  }
+}

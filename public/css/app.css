@@ -40,7 +40,7 @@ body {
     left: 10px;
     right: 10px;
     top: 85px;
-    bottom: 10px;
+    bottom: 85px;
 }
 
 .board {
@@ -111,8 +111,7 @@ body {
 }
 
 .highlighted .board__card {
-    background-color: #666;
-    font-weight: bold;
+    background-color: #999;
     color: #fff;
 }
 
@@ -134,6 +133,24 @@ body {
     padding: 0 1rem;
 }
 
+.game-controls {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 75px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.game-controls button {
+    width: 25%;
+    font-size: 110%;
+}
+
 .game-state {
     position: absolute;
     top: 0;
@@ -141,6 +158,10 @@ body {
     left: 0;
     height: 75px;
     background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .game-state--blue {
@@ -153,31 +174,24 @@ body {
 
 .game-state--turn {
     font-size: 1.7rem;
-    position: fixed;
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
     text-transform: uppercase;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 75px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     font-weight: 900;
+    flex-grow: 1;
 }
 
 .spy-counter {
     list-style: none;
-    margin: 5px 20px;
+    margin: 5px 10px;
     padding: 0;
+    text-align: left;
 }
 
 .spy-counter li {
     display: inline-block;
-    margin: 0 0.5rem;
-    font-size: 2.8rem;
+    margin: 0 0.1rem;
+    font-size: 2rem;
 }
 
 .spy-counter--blue {
@@ -191,7 +205,8 @@ body {
 }
 
 .welcome {
-    width: 50%;
+    width: 80%;
+    height: 75%;
     margin: 0 auto;
     background-color: #ddd;
     padding: 20px;

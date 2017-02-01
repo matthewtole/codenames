@@ -5,32 +5,12 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Game = require('./lib/game');
-const Rules = require('./data/rules');
 const config = require('./config');
+const { generateGameTag, getRule, emitAll } = require('./lib/utils');
 
 app.use(express.static('public'));
 
 const games = {};
-
-function generateGameTag() {
-  return 'ABCDEF';
-}
-
-function getRule(event, team, ruleSet) {
-  let rule = Rules[ruleSet][event];
-  rule = rule.replace('{% team %}', team);
-  rule = rule.replace('{% other_team %}', team === Game.RED ? Game.BLUE : Game.RED);
-  return rule;
-}
-
-function emitAll(game, event, data) {
-  if (game.viewer) {
-    game.viewer.emit(event, data);
-  }
-  if (game.controller) {
-    game.controller.emit(event, data);
-  }
-}
 
 io.on('connection', (socket) => {
 
@@ -39,7 +19,7 @@ io.on('connection', (socket) => {
     const gameTag = generateGameTag();
     games[gameTag] = {
       game,
-      controller: socket,
+      sockets: [],
       ruleSet: ruleSet
     };
 
@@ -50,7 +30,8 @@ io.on('connection', (socket) => {
     });
 
     game.on('event', (event) => {
-      emitAll(games[gameTag], 'message', getRule(event.event, event.team, games[gameTag].ruleSet));
+      const rule = getRule(event.event, event.team, games[gameTag].ruleSet);
+      emitAll(games[gameTag], 'message', rule);
     });
   });
 
@@ -58,17 +39,17 @@ io.on('connection', (socket) => {
     socket.emit('game.list', games);
   });
 
-  socket.on('join', (tag, role) => {
-    if (! games[tag]) {
+  socket.on('join', (tag) => {
+    if (!games[tag]) {
       return;
     }
-    games[tag][role] = socket;
+    games[tag].sockets.push(socket);
     socket.gameTag = tag;
     socket.emit('game', games[tag].game.state);
   });
 
   socket.on('highlight', (cell) => {
-    if (! games[socket.gameTag]) {
+    if (!games[socket.gameTag]) {
       return;
     }
     const game = games[socket.gameTag].game;
@@ -76,7 +57,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('reveal', (cell) => {
-    if (! games[socket.gameTag]) {
+    if (!games[socket.gameTag]) {
       return;
     }
     const game = games[socket.gameTag].game;
@@ -85,9 +66,15 @@ io.on('connection', (socket) => {
 
   socket.on('message.clear', () => {
     emitAll(games[socket.gameTag], 'message', null);
-  })
+  });
+
+  socket.on('turn.end', () => {
+    const game = games[socket.gameTag];
+    game.game.switchTurn();
+    emitAll(game, 'game', game.game.state);
+  });
 });
 
-http.listen(config.port, function () {
+http.listen(config.port, () => {
   console.log(`Codenames server running on port ${config.port}!`);
 });
