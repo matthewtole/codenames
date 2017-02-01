@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://unpkg.com/basscss@7.1.1/css/basscss.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,900" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <title>Codenames</title>
+</head>
+<body>
+    <div id="app">
+        <div class="welcome" v-if="!game">
+            <h1>WELCOME!</h1>
+            <div>
+                <h5>Wordlist</h5>
+                <button class="btn btn-primary mb1 bg-navy" v-on:click="toggleMode('original')">ORIGINAL</button>
+                <button class="btn btn-outline mb1 navy" v-on:click="toggleMode('undercover')">UNDERCOVER</button>
+            </div>
+            <div>
+                <h5>Actions?</h5>
+                <button class="btn btn-primary mb1 bg-navy" v-on:click="toggleActions(true)">YES</button>
+                <button class="btn btn-outline mb1 navy" v-on:click="toggleActions(false)">NO</button>
+            </div>
+            <div>
+                <button class="btn btn-primary mb1 bg-green" v-on:click="createGame">CREATE GAME</button>
+            </div>
+            <hr>
+            <button class="btn btn-outline mb1 navy" v-on:click="joinGame">JOIN GAME</button>
+        </div>
+
+        <div class="game-state" v-if="game" v-bind:class="{ 'game-state--red': game.turn === 'red', 'game-state--blue': game.turn === 'blue' }">
+            <ul class="spy-counter spy-counter--blue">
+                <li v-for="spy in game.spyCounts.blue">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                </li>
+            </ul>
+
+            <span class="game-state--turn">{{ game.turn }}'s turn</span>
+
+            <ul class="spy-counter spy-counter--red">
+                <li v-for="spy in game .spyCounts.red">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                </li>
+            </ul>
+        </div>
+
+        <div style="clear: both;"></div>
+
+        <div class="board__wrapper" v-if="game">
+            <div class="board" v-bind:class="{ 'board--controller': isController, 'board--viewer': isViewer }">
+                <div v-for="(row, y) in game.grid" class="board__row">
+                    <div class="board__cell" v-for="(cell, x) in row" v-on:click="clickCell(x, y)" v-bind:class="{ highlighted: cell.highlighted, revealed: cell.revealed }" v-bind:data-role="cell.role">
+                        <div class="board__card">{{ cell.word }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-message" v-if="message" v-on:click="clearMessage">{{ message }}</div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
