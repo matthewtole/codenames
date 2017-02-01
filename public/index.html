@@ -79,7 +79,7 @@
 
         <div style="clear: both;"></div>
 
-        <div class="board__wrapper" v-if="game">
+        <div class="board__wrapper" v-if="game" v-bind:class="{ 'board__wrapper--controller': isController }">
             <div class="board" v-bind:class="{ 'board--controller': isController, 'board--viewer': isViewer }">
                 <div v-for="(row, y) in game.grid" class="board__row">
                     <div class="board__cell" v-for="(cell, x) in row" v-on:click="clickCell(x, y)" v-bind:class="{ highlighted: cell.highlighted, revealed: cell.revealed }" v-bind:data-role="cell.role">
