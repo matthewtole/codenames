@@ -73,6 +73,12 @@ io.on('connection', (socket) => {
     game.game.switchTurn();
     emitAll(game, 'game', game.game.state);
   });
+
+  socket.on('new_round', () => {
+    const game = games[socket.gameTag];
+    game.game.startRound();
+    emitAll(game, 'game', game.game.state);
+  });
 });
 
 http.listen(config.port, () => {

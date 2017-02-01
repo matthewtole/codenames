@@ -70,6 +70,13 @@
             </ul>
         </div>
 
+        <div class="game-end__wrapper" v-if="game && game.winner">
+            <div class="game-end" v-bind:class="{ 'game-end--blue': game.winner === 'blue', 'game-end--red': game.winner === 'red' }">
+                <h1>The {{ game.winner }} team won!</h1>
+                <button class="pure-button pure-button-primary" v-on:click="newRound">Start Next Round</button>
+            </div>
+        </div>
+
         <div style="clear: both;"></div>
 
         <div class="board__wrapper" v-if="game">

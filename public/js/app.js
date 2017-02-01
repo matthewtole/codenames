@@ -10,7 +10,8 @@ var EVENTS = {
     JOIN: 'join',
     LIST: 'game.list',
     CREATED: 'game.created',
-    UPDATED: 'game'
+    UPDATED: 'game',
+    NEW_ROUND: 'new_round'
   },
   TURN: {
     END: 'turn.end'
@@ -68,6 +69,9 @@ var app = new Vue({
     },
     endTurn: function() {
       socket.emit(EVENTS.TURN.END);
+    },
+    newRound: function() {
+      socket.emit(EVENTS.GAME.NEW_ROUND)
     }
   }
 });

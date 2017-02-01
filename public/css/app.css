@@ -215,3 +215,40 @@ body {
     justify-content: center;
     flex-direction: column;
 }
+
+.game-end {
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.game-end h1 {
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.game-end--red {
+    background-color: #ef9a9a;
+}
+
+.game-end--blue {
+    background-color: #bbdefb;
+}
+
+.game-end__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+    background: rgba(20, 20, 20, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
