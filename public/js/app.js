@@ -1,81 +1,82 @@
 var socket = io();
 
+var EVENTS = {
+  MESSAGE: {
+    CLEAR: 'message.clear',
+    UPDATED: 'message'
+  },
+  GAME: {
+    CREATE: 'create',
+    JOIN: 'join',
+    LIST: 'game.list',
+    CREATED: 'game.created',
+    UPDATED: 'game'
+  },
+  REVEAL: 'reveal',
+  HIGHLIGHT: 'highlight'
+};
+
+var ROLES = {
+  CONTROLLER: 'controller',
+  VIEWER: 'viewer'
+};
+
+var MODES = {
+  ORIGINAL: 'original',
+  UNDERCOVER: 'undercover'
+};
+
+var RULESETS = {
+  DEFAULT: 'default',
+  DRINKING: 'drinking',
+  STRIP: 'strip'
+};
+
 var app = new Vue({
   el: '#app',
   data: {
     isController: true,
     isViewer: false,
     game: null,
-    message: null
+    message: null,
+    games: []
   },
   methods: {
     clearMessage: function() {
-      socket.emit('message.clear');
+      socket.emit(EVENTS.MESSAGE.CLEAR);
     },
     createGame: function() {
       this.isController = true;
       this.isViewer = false;
-      socket.emit('create', 'undercover');
+      socket.emit(EVENTS.GAME.CREATE, MODES.UNDERCOVER, RULESETS.DEFAULT);
     },
     joinGame: function() {
-      socket.emit('join', 'ABCDEF');
+      socket.emit(EVENTS.GAME.JOIN, 'ABCDEF', ROLES.VIEWER);
       this.isController = false;
       this.isViewer = true;
     },
     clickCell: function (x, y) {
       if (this.game.grid[y][x].highlighted) {
-        socket.emit('reveal', { x: x, y: y });
+        socket.emit(EVENTS.REVEAL, { x: x, y: y });
       } else {
-        socket.emit('highlight', { x: x, y: y });
+        socket.emit(EVENTS.HIGHLIGHT, { x: x, y: y });
       }
-      /*const cell = {
-        x: event.target.attr['data-game-x'],
-        y: event.target.attr['data-game-y']
-      }
-      console.log(cell);*/
     }
   }
 });
 
-// socket.emit('create', 'original');
+socket.on(EVENTS.GAME.LIST, function (games) {
+  app.games = Object.keys(games);
+});
 
-socket.on('game', function (game) {
+socket.on(EVENTS.GAME.CREATED, function (tag) {
+  socket.emit(EVENTS.GAME.JOIN, tag, ROLES.CONTROLLER)
+});
+
+socket.on(EVENTS.GAME.UPDATED, function (game) {
   app.game = game;
 });
 
-socket.on('message', function (message) {
+socket.on(EVENTS.MESSAGE.UPDATED, function (message) {
   app.message = message;
 });
-
-/*socket.on('game', function (game) {
-  $('#game-board').text('');
-  game.grid.forEach(function (row, y) {
-    const $row = $('<div/>').addClass('board__row');
-    row.forEach(function (cell, x) {
-      const $cell = $('<div/>').addClass('board__cell').data('grid-y', y).data('grid-x', x).append($('<div/>').text(cell.word));
-      if (cell.revealed) {
-        $cell.addClass('spy--' + cell.color);
-      }
-      $cell.on('click', function () {
-        socket.emit('reveal', {
-          x: $(this).data('grid-x'),
-          y: $(this).data('grid-y')
-        });
-      });
-      $row.append($cell);
-    });
-    $('#game-board').append($row);
-  })
-});*/
-
-/*
-var socket = io();
-socket.on('game', function (game) {
-  console.log(game);
-
-});
-
-socket.on('message', function (message) {
-  $('#game-messages').text(message);
-})
-*/

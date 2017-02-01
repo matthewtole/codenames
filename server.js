@@ -34,16 +34,16 @@ function emitAll(game, event, data) {
 
 io.on('connection', (socket) => {
 
-  socket.on('create', (mode) => {
+  socket.on('create', (mode, ruleSet) => {
     const game = new Game(mode);
     const gameTag = generateGameTag();
     games[gameTag] = {
       game,
       controller: socket,
-      ruleSet: 'strip'
+      ruleSet: ruleSet
     };
-    socket.gameTag = gameTag;
-    socket.emit('game', game.state);
+
+    socket.emit('game.created', gameTag);
 
     game.on('change', () => {
       emitAll(games[gameTag], 'game', game.state);
@@ -54,11 +54,15 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('join', (tag) => {
+  socket.on('list', () => {
+    socket.emit('game.list', games);
+  });
+
+  socket.on('join', (tag, role) => {
     if (! games[tag]) {
       return;
     }
-    games[tag].viewer = socket;
+    games[tag][role] = socket;
     socket.gameTag = tag;
     socket.emit('game', games[tag].game.state);
   });
