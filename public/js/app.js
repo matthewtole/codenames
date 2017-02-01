@@ -10,12 +10,12 @@ var app = new Vue({
   },
   methods: {
     clearMessage: function() {
-      this.message = null
+      socket.emit('message.clear');
     },
     createGame: function() {
       this.isController = true;
       this.isViewer = false;
-      socket.emit('create', 'original');
+      socket.emit('create', 'undercover');
     },
     joinGame: function() {
       socket.emit('join', 'ABCDEF');

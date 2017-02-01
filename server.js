@@ -5,7 +5,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Game = require('./lib/game');
-const ActionList = require('./data/actions');
+const Rules = require('./data/rules');
+const config = require('./config');
 
 app.use(express.static('public'));
 
@@ -15,10 +16,11 @@ function generateGameTag() {
   return 'ABCDEF';
 }
 
-function getAction(event, team, actions) {
-  const action = ActionList[actions][event];
-  action.replace('{% team %}', team);
-  return action;
+function getRule(event, team, ruleSet) {
+  let rule = Rules[ruleSet][event];
+  rule = rule.replace('{% team %}', team);
+  rule = rule.replace('{% other_team %}', team === Game.RED ? Game.BLUE : Game.RED);
+  return rule;
 }
 
 function emitAll(game, event, data) {
@@ -38,7 +40,7 @@ io.on('connection', (socket) => {
     games[gameTag] = {
       game,
       controller: socket,
-      actions: 'default'
+      ruleSet: 'strip'
     };
     socket.gameTag = gameTag;
     socket.emit('game', game.state);
@@ -48,7 +50,7 @@ io.on('connection', (socket) => {
     });
 
     game.on('event', (event) => {
-      emitAll(games[gameTag], 'message', getAction(event.event, event.team, games[gameTag].actions));
+      emitAll(games[gameTag], 'message', getRule(event.event, event.team, games[gameTag].ruleSet));
     });
   });
 
@@ -76,8 +78,12 @@ io.on('connection', (socket) => {
     const game = games[socket.gameTag].game;
     game.reveal(cell.x, cell.y);
   });
+
+  socket.on('message.clear', () => {
+    emitAll(games[socket.gameTag], 'message', null);
+  })
 });
 
-http.listen(7777, function () {
-  console.log('Codenames running on port 7777!')
+http.listen(config.port, function () {
+  console.log(`Codenames server running on port ${config.port}!`);
 });

@@ -20,9 +20,9 @@
                 <button class="btn btn-outline mb1 navy" v-on:click="toggleMode('undercover')">UNDERCOVER</button>
             </div>
             <div>
-                <h5>Actions?</h5>
-                <button class="btn btn-primary mb1 bg-navy" v-on:click="toggleActions(true)">YES</button>
-                <button class="btn btn-outline mb1 navy" v-on:click="toggleActions(false)">NO</button>
+                <h5>Rule Set</h5>
+                <button class="btn btn-primary mb1 bg-navy" v-on:click="toggleRules(true)">YES</button>
+                <button class="btn btn-outline mb1 navy" v-on:click="toggleRules(false)">NO</button>
             </div>
             <div>
                 <button class="btn btn-primary mb1 bg-green" v-on:click="createGame">CREATE GAME</button>
@@ -38,7 +38,7 @@
                 </li>
             </ul>
 
-            <span class="game-state--turn">{{ game.turn }}'s turn</span>
+            <span class="game-state--turn">{{ game.turn }} team's turn</span>
 
             <ul class="spy-counter spy-counter--red">
                 <li v-for="spy in game .spyCounts.red">
