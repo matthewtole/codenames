@@ -73,6 +73,16 @@
         <div class="game-end__wrapper" v-if="game && game.winner">
             <div class="game-end" v-bind:class="{ 'game-end--blue': game.winner === 'blue', 'game-end--red': game.winner === 'red' }">
                 <h1>The {{ game.winner }} team won!</h1>
+                <form class="pure-form">
+                    <fieldset>
+                        <select v-model="wordList">
+                            <option v-for="mode in modes">{{ mode }}</option>
+                        </select>
+                        <select v-model="ruleSet">
+                            <option v-for="ruleset in rulesets">{{ ruleset }}</option>
+                        </select>
+                    </fieldset>
+                </form>
                 <button class="pure-button pure-button-primary" v-on:click="newRound">Start Next Round</button>
             </div>
         </div>
@@ -93,7 +103,7 @@
             <button class="pure-button pure-button-primary" v-on:click="endTurn">End Turn</button>
         </div>
 
-        <div class="game-message" v-if="message" v-on:click="clearMessage">{{ message }}</div>
+        <div class="game-message" v-if="message" v-on:click="clearMessage" v-html="message"></div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>

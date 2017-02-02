@@ -71,7 +71,7 @@ var app = new Vue({
       socket.emit(EVENTS.TURN.END);
     },
     newRound: function() {
-      socket.emit(EVENTS.GAME.NEW_ROUND)
+      socket.emit(EVENTS.GAME.NEW_ROUND, this.wordList, this.ruleSet);
     }
   }
 });

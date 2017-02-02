@@ -7,6 +7,7 @@ const io = require('socket.io')(http);
 const Game = require('./lib/game');
 const config = require('./config');
 const { generateGameTag, getRule, emitAll } = require('./lib/utils');
+const messages = require('./data/messages');
 
 app.use(express.static('public'));
 
@@ -31,7 +32,7 @@ io.on('connection', (socket) => {
 
     game.on('event', (event) => {
       const rule = getRule(event.event, event.team, games[gameTag].ruleSet);
-      emitAll(games[gameTag], 'message', rule);
+      emitAll(games[gameTag], 'message', `${messages[event.event]}<br>${rule}`);
     });
   });
 
@@ -74,8 +75,10 @@ io.on('connection', (socket) => {
     emitAll(game, 'game', game.game.state);
   });
 
-  socket.on('new_round', () => {
+  socket.on('new_round', (mode, ruleSet) => {
     const game = games[socket.gameTag];
+    game.ruleSet = ruleSet;
+    game.game.setMode(mode);
     game.game.startRound();
     emitAll(game, 'game', game.game.state);
   });
