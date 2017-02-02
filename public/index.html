@@ -100,7 +100,9 @@
         </div>
 
         <div class="game-controls" v-if="game && isController">
-            <button class="pure-button pure-button-primary" v-on:click="endTurn">End Turn</button>
+            <button class="pure-button pure-button-primary" v-on:click="endTurn" style="width: 50%;">End Turn</button>
+
+            <button class="pure-button" v-on:click="newRound">Reset Game</button>
         </div>
 
         <div class="game-message" v-if="message" v-on:click="clearMessage" v-html="message"></div>

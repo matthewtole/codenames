@@ -175,7 +175,6 @@ body {
 }
 
 .game-controls button {
-    width: 25%;
     font-size: 110%;
 }
 
@@ -211,15 +210,26 @@ body {
 
 .spy-counter {
     list-style: none;
-    margin: 5px 10px;
+    margin: 0 10px;
     padding: 0;
     text-align: left;
 }
 
 .spy-counter li {
     display: inline-block;
-    margin: 0 0.1rem;
-    font-size: 2rem;
+    margin: 0 0.25rem;
+    font-size: 2.5rem;
+}
+
+@media only screen and (max-width : 1024px) {
+    .spy-counter {
+        margin: 0 10px;
+    }
+
+    .spy-counter li {
+        margin: 0 0.1rem;
+        font-size: 2rem;
+    }
 }
 
 .spy-counter--blue {
