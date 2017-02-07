@@ -10,6 +10,7 @@ const { generateGameTag, getRule, emitAll } = require('./lib/utils');
 const messages = require('./data/messages');
 
 app.use(express.static('public'));
+app.use(express.static('dist'));
 
 const games = {};
 

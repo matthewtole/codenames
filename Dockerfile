@@ -11,6 +11,9 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
+# Build the code
+RUN npm run build
+
 ENV PORT=6000
 EXPOSE 6000
 CMD [ "npm", "start" ]

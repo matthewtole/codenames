@@ -242,9 +242,9 @@ body {
     float: right;
 }
 
-.welcome {
-    width: 80%;
-    height: 75%;
+.setup-box {
+    width: 50%;
+    height: 50%;
     margin: 0 auto;
     background-color: #ddd;
     padding: 20px;
@@ -252,6 +252,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .game-end {

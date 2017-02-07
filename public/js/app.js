@@ -1,39 +1,15 @@
-var socket = io();
+'use strict';
 
-var EVENTS = {
-  MESSAGE: {
-    CLEAR: 'message.clear',
-    UPDATED: 'message'
-  },
-  GAME: {
-    CREATE: 'create',
-    JOIN: 'join',
-    LIST: 'game.list',
-    CREATED: 'game.created',
-    UPDATED: 'game',
-    NEW_ROUND: 'new_round'
-  },
-  TURN: {
-    END: 'turn.end'
-  },
-  REVEAL: 'reveal',
-  HIGHLIGHT: 'highlight'
-};
+require('../css/app.scss');
+const Vue = require('vue');
+const { EVENTS, MODES, RULESETS } = require('./enums');
 
-var MODES = {
-  ORIGINAL: 'original',
-  UNDERCOVER: 'undercover'
-};
+const socket = io();
 
-var RULESETS = {
-  DEFAULT: 'default',
-  DRINKING: 'drinking',
-  STRIP: 'strip'
-};
-
-var app = new Vue({
+const app = new Vue({
   el: '#app',
   data: {
+    state: 'choose-mode',
     isController: true,
     isViewer: false,
     game: null,
@@ -42,52 +18,63 @@ var app = new Vue({
     ruleSet: RULESETS.DEFAULT,
     message: null,
     games: [],
-    rulesets: Object.keys(RULESETS).map(function (set) { return RULESETS[set]; }),
-    modes: Object.keys(MODES).map(function (mode) { return MODES[mode]; })
+    rulesets: Object.keys(RULESETS).map((set) => RULESETS[set]),
+    modes: Object.keys(MODES).map((mode) => MODES[mode])
   },
   methods: {
-    clearMessage: function() {
+    setMode(mode) {
+      this.isController = mode === 'controller';
+      this.isViewer = mode === 'viewer';
+      this.state = 'create-join';
+    },
+    gotoCreateGame() {
+      this.state = 'create';
+    },
+    gotoJoinGame() {
+      this.state = 'join';
+    },
+    clearMessage() {
       socket.emit(EVENTS.MESSAGE.CLEAR);
     },
-    createGame: function(event) {
+    createGame(event) {
       event.preventDefault();
-      this.isController = true;
-      this.isViewer = false;
+      this.state = 'game';
       socket.emit(EVENTS.GAME.CREATE, this.wordList, this.ruleSet);
     },
-    joinGame: function(event) {
+    joinGame(event) {
       event.preventDefault();
       socket.emit(EVENTS.GAME.JOIN, this.gameTag);
-      this.isController = false;
-      this.isViewer = true;
+      this.state = 'game';
 
     },
-    clickCell: function(x, y) {
+    clickCell(x, y) {
       const cell = this.game.grid[y][x];
       const event = cell.highlighted ? EVENTS.REVEAL : EVENTS.HIGHLIGHT;
+      this.clearMessage();
       socket.emit(event, { x: x, y: y });
     },
-    endTurn: function() {
+    endTurn() {
+      this.clearMessage();
       socket.emit(EVENTS.TURN.END);
     },
-    newRound: function() {
+    newRound() {
       socket.emit(EVENTS.GAME.NEW_ROUND, this.wordList, this.ruleSet);
     }
   }
 });
 
-socket.on(EVENTS.GAME.LIST, function(games) {
+socket.on(EVENTS.GAME.LIST, (games) => {
   app.games = Object.keys(games);
 });
 
-socket.on(EVENTS.GAME.CREATED, function(tag) {
+socket.on(EVENTS.GAME.CREATED, (tag) => {
   socket.emit(EVENTS.GAME.JOIN, tag);
 });
 
-socket.on(EVENTS.GAME.UPDATED, function(game) {
+socket.on(EVENTS.GAME.UPDATED, (game) => {
   app.game = game;
 });
 
-socket.on(EVENTS.MESSAGE.UPDATED, function(message) {
+socket.on(EVENTS.MESSAGE.UPDATED, (message) => {
   app.message = message;
 });

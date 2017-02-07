@@ -2,5 +2,8 @@
   "extends": "pebble",
   "env": {
     "browser" :true
+  },
+  "globals": {
+    "io": true
   }
 }
