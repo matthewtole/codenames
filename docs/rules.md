@@ -20,7 +20,7 @@ The spymaster nominates a member of the opposing team to take a drink.
 
 ### Choooing an Enemy Spy
 
-Everyone on the team has to take a dr￿ink.
+Everyone on the team has to take a drink.
 
 ### Victory
 
