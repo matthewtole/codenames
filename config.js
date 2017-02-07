@@ -1,3 +1,5 @@
+'use strict';
+
 require('dotenv').load({ silent: true });
 
-module.exports.port = process.env.PORT
+module.exports.port = process.env.PORT;
