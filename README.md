@@ -10,7 +10,7 @@ It includes additional rules for the game including *drinking* and *strip* rules
 
 ### Controller Screen
 
-![](./docs/images/controller-01.png)
+![](./docs/images/controller-01.png | width=200)
 
 ### Viewer Screen
 
