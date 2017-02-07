@@ -8,8 +8,12 @@ It includes additional rules for the game including *drinking* and *strip* rules
 
 ## Screenshots
 
-### Controller View
+### Controller Screen
 
-![](./docs/images/controller-view-01.png)
+![](./docs/images/controller-01.png)
+
+### Viewer Screen
+
+![](./docs/images/viewer-01.png)
 
 ## Developing
