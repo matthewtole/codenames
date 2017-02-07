@@ -12,6 +12,7 @@ RUN npm install
 COPY . /usr/src/app
 
 # Build the code
+ENV NODE_ENV=production
 RUN npm run build
 
 ENV PORT=6000

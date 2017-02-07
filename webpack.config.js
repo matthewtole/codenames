@@ -1,4 +1,7 @@
-var path = require('path');
+'use strict';
+
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './public/js/app.js',
@@ -6,6 +9,14 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/js')
   },
+  plugins: [
+    // ...
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    })
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
