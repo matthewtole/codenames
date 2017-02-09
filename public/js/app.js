@@ -39,11 +39,11 @@ const app = new Vue({
     createGame(event) {
       event.preventDefault();
       this.state = 'game';
-      socket.emit(EVENTS.GAME.CREATE, this.wordList, this.ruleSet);
+      socket.emit('room.create', this.wordList, this.ruleSet);
     },
     joinGame(event) {
       event.preventDefault();
-      socket.emit(EVENTS.GAME.JOIN, this.gameTag);
+      socket.emit('room.join', this.gameTag);
       this.state = 'game';
 
     },
@@ -68,7 +68,7 @@ socket.on(EVENTS.GAME.LIST, (games) => {
 });
 
 socket.on(EVENTS.GAME.CREATED, (tag) => {
-  socket.emit(EVENTS.GAME.JOIN, tag);
+  socket.emit('room.join', tag);
 });
 
 socket.on(EVENTS.GAME.UPDATED, (game) => {
