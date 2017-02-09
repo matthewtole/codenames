@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest"
   },
   "main": "server.js",
   "devDependencies": {
@@ -19,9 +20,11 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "css-loader": "^0.26.1",
-    "eslint": "^3.14.1",
+    "eslint": "^3.15.0",
     "eslint-config-pebble": "^4.0.0",
     "eslint-plugin-standard": "^2.0.1",
+    "istanbul": "^0.4.5",
+    "jest": "^18.1.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^5.0.0",
     "style-loader": "^0.13.1",
@@ -36,5 +39,10 @@
   "bugs": {
     "url": "https://github.com/matthewtole/codenames/issues"
   },
-  "homepage": "https://github.com/matthewtole/codenames#readme"
+  "homepage": "https://github.com/matthewtole/codenames#readme",
+  "jest": {
+    "verbose": true,
+    "bail": true,
+    "collectCoverage": true
+  }
 }
