@@ -6,7 +6,7 @@ Picked from: https://www.materialpalette.com/colors
 
 red = #ef9a9a
 blue = #bbdefb
-civilian = #ff9100
+bystander = #ff9100
 assassin = #222
 
 light-red = #ef9a9a
@@ -98,7 +98,7 @@ body {
     border: 10px solid #d32f2f;
 }
 
-.board--controller [data-role="civilian"] .board__card {
+.board--controller [data-role="bystander"] .board__card {
     border: 10px solid #ff9100;
 }
 
@@ -119,7 +119,7 @@ body {
     background-color: #d32f2f;
 }
 
-.revealed[data-role="civilian"] .board__card {
+.revealed[data-role="bystander"] .board__card {
     background-color: #ff9100;
 }
 
