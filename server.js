@@ -14,14 +14,6 @@ app.use(express.static('dist'));
 
 const games = {};
 
-function loadGames() {
-
-}
-
-function saveGame() {
-
-}
-
 io.on('connection', (socket) => {
 
   socket.on('create', (mode, ruleSet) => {
