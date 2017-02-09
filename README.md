@@ -1,4 +1,6 @@
-# Codenames
+# Codenames 
+
+[![Travis](https://img.shields.io/travis/matthewtole/codenames.svg?style=flat-square)]() [![Coveralls](https://img.shields.io/coveralls/matthewtole/codenames.svg?style=flat-square)]() [![license](https://img.shields.io/github/license/matthewtole/codenames.svg?style=flat-square)]()
 
 A web based implementation of the board game Codenames. 
 
