@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
   socket.on('room.join', (roomTag) => {
     const room = roomManager.getRoom(roomTag);
     if (!room) {
+      socket.emit('room.error');
       return;
     }
     room.attachSocket(socket);

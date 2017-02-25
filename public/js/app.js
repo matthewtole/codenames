@@ -2,6 +2,7 @@
 
 require('../css/app.scss');
 const Vue = require('vue');
+const store = require('store');
 const { EVENTS, MODES, RULESETS } = require('./enums');
 
 const socket = io();
@@ -10,10 +11,10 @@ const app = new Vue({
   el: '#app',
   data: {
     state: 'choose-mode',
-    isController: true,
-    isViewer: false,
+    isController: store.get('mode') === 'controller',
+    isViewer: store.get('mode') === 'viewer',
     game: null,
-    gameTag: 'ABCDEF',
+    gameTag: store.get('game-tag'),
     wordList: MODES.ORIGINAL,
     ruleSet: RULESETS.DEFAULT,
     message: null,
@@ -26,6 +27,7 @@ const app = new Vue({
       this.isController = mode === 'controller';
       this.isViewer = mode === 'viewer';
       this.state = 'create-join';
+      store.set('mode', mode);
     },
     gotoCreateGame() {
       this.state = 'create';
@@ -42,10 +44,10 @@ const app = new Vue({
       socket.emit('room.create', this.wordList, this.ruleSet);
     },
     joinGame(event) {
-      event.preventDefault();
+      if (event) { event.preventDefault(); }
       socket.emit('room.join', this.gameTag);
       this.state = 'game';
-
+      store.set('game-tag', this.gameTag);
     },
     clickCell(x, y) {
       const cell = this.game.grid[y][x];
@@ -59,15 +61,24 @@ const app = new Vue({
     },
     newRound() {
       socket.emit(EVENTS.GAME.NEW_ROUND, this.wordList, this.ruleSet);
+    },
+    reset() {
+      store.clear();
+      window.location.reload();
     }
   }
 });
+
+if (app.gameTag) {
+  app.joinGame();
+}
 
 socket.on(EVENTS.GAME.LIST, (games) => {
   app.games = Object.keys(games);
 });
 
 socket.on(EVENTS.GAME.CREATED, (tag) => {
+  store.set('game-tag', tag);
   socket.emit('room.join', tag);
 });
 
@@ -77,4 +88,11 @@ socket.on(EVENTS.GAME.UPDATED, (game) => {
 
 socket.on(EVENTS.MESSAGE.UPDATED, (message) => {
   app.message = message;
+});
+
+socket.on('room.error', () => {
+  app.game = null;
+  app.gameTag = null;
+  store.clear();
+  window.location.reload();
 });

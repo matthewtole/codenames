@@ -175,7 +175,8 @@ body {
 }
 
 .game-controls button {
-    font-size: 110%;
+    //font-size: 110%;
+    margin: 0 5px;
 }
 
 .game-state {
@@ -290,4 +291,38 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+    color: white;
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+    color: white;
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.button-xsmall {
+    font-size: 70%;
+}
+
+.button-small {
+    font-size: 85%;
+}
+
+.button-large {
+    font-size: 110%;
+}
+
+.button-xlarge {
+    font-size: 125%;
 }

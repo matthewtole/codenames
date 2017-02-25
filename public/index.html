@@ -157,9 +157,10 @@
         </div>
 
         <div class="game-controls" v-if="game && isController">
-            <button class="pure-button pure-button-primary" v-on:click="endTurn" style="width: 50%;">End Turn</button>
+            <button class="pure-button pure-button-primary button-large" v-on:click="endTurn" style="width: 50%;">End Turn</button>
 
-            <button class="pure-button" v-on:click="newRound">Reset Game</button>
+            <button class="pure-button button-error button-small" v-on:click="newRound">Reset Game</button>
+            <button class="pure-button button-warning button-small" v-on:click="reset">Reset Screen</button>
         </div>
 
         <div class="game-message" v-if="message" v-on:click="clearMessage" v-html="message"></div>
