@@ -14,11 +14,14 @@
     {{#each rooms}}
         <tr>
             <td><a href=/admin/room/{{tag}}>{{tag}}</a></td>
-            <td>{{_options.wordList}}</td>
-            <td>{{_options.ruleSet}}</td>
+            <td>{{capitalize _options.wordList}}</td>
+            <td>{{capitalize _options.ruleSet}}</td>
             <td>{{_sockets.length}}</td>
-            <td>{{_game.state.turn}}</td>
-            <td>{{_game.state.spyCounts.red}} | {{_game.state.spyCounts.blue}}</td>
+            <td>{{capitalize _game.state.turn}}</td>
+            <td>
+                <strong class="is-red">{{_game.state.spyCounts.red}}</strong> |
+                <strong class="is-blue">{{_game.state.spyCounts.blue}}</strong>
+            </td>
         </tr>
     {{/each}}
     </tbody>
