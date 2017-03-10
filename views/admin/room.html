@@ -1,0 +1,13 @@
+{{>header}}
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h2 class="is-2 title">{{ room.tag }}</h2>
+            </div>
+            <div class="colum">
+                <a href="/{{ room.tag }}/controller/" class="button is-info is-outlined is-medium">Join as Controller</a>
+                <a href="/{{ room.tag }}/viewer/" class="button is-info is-outlined is-medium">Join as Viewer</a>
+            </div>
+        </div>
+    </div>
+{{>footer}}

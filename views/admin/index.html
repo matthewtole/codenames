@@ -1,0 +1,26 @@
+{{>header}}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Tag</th>
+        <th>Word List</th>
+        <th>Rule Set</th>
+        <th>Clients</th>
+        <th>Turn</th>
+        <th>Counts</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each rooms}}
+        <tr>
+            <td><a href=/admin/room/{{tag}}>{{tag}}</a></td>
+            <td>{{_options.wordList}}</td>
+            <td>{{_options.ruleSet}}</td>
+            <td>{{_sockets.length}}</td>
+            <td>{{_game.state.turn}}</td>
+            <td>{{_game.state.spyCounts.red}} | {{_game.state.spyCounts.blue}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+{{>footer}}
