@@ -4,13 +4,26 @@ require('../css/app.scss');
 const Vue = require('vue');
 const store = require('store');
 const { EVENTS, MODES, RULESETS } = require('./enums');
+const queryString = require('query-string');
+const capitalize = require('capitalize');
+require('./components');
 
 const socket = io();
+
+const STATES = {
+  modeChoice: 0,
+  createJoin: 1,
+  create: 2,
+  creating: 3,
+  join: 4,
+  joining: 5,
+  game: 6,
+};
 
 const app = new Vue({
   el: '#app',
   data: {
-    state: 'choose-mode',
+    state: STATES.modeChoice,
     isController: store.get('mode') === 'controller',
     isViewer: store.get('mode') === 'viewer',
     game: null,
@@ -18,35 +31,65 @@ const app = new Vue({
     wordList: MODES.ORIGINAL,
     ruleSet: RULESETS.DEFAULT,
     message: null,
-    games: [],
     rulesets: Object.keys(RULESETS).map((set) => RULESETS[set]),
-    modes: Object.keys(MODES).map((mode) => MODES[mode])
+    modes: Object.keys(MODES).map((mode) => MODES[mode]),
+    menuVisible: false,
+    states: STATES
+  },
+  filters: {
+    capitalize
   },
   methods: {
+    resetData() {
+      this.state = STATES.modeChoice;
+      this.isController = false;
+      this.isViewer = false;
+      this.game = null;
+      this.gameTag = null;
+      this.message = null;
+      this.wordList = MODES.ORIGINAL;
+      this.ruleSet = RULESETS.DEFAULT;
+      this.menuVisible = false;
+    },
+    init() {
+      const query = queryString.parse(location.search);
+      if (query.room) {
+        this.gameTag = query.room;
+      }
+      if (query.mode) {
+        this.isController = query.mode === 'controller';
+        this.isViewer = query.mode === 'viewer';
+      }
+      if (this.gameTag && (this.isController || this.isViewer)) {
+        socket.emit('room.join', this.gameTag);
+        this.state = STATES.game;
+        store.set('game-tag', this.gameTag);
+      }
+    },
     setMode(mode) {
       this.isController = mode === 'controller';
       this.isViewer = mode === 'viewer';
-      this.state = 'create-join';
+      this.state = STATES.createJoin;
       store.set('mode', mode);
     },
     gotoCreateGame() {
-      this.state = 'create';
+      this.state = STATES.create;
     },
     gotoJoinGame() {
-      this.state = 'join';
+      this.state = STATES.join;
     },
     clearMessage() {
       socket.emit(EVENTS.MESSAGE.CLEAR);
     },
     createGame(event) {
       event.preventDefault();
-      this.state = 'game';
+      this.state = STATES.game;
       socket.emit('room.create', this.wordList, this.ruleSet);
     },
     joinGame(event) {
       if (event) { event.preventDefault(); }
       socket.emit('room.join', this.gameTag);
-      this.state = 'game';
+      this.state = STATES.game;
       store.set('game-tag', this.gameTag);
     },
     clickCell(x, y) {
@@ -61,25 +104,39 @@ const app = new Vue({
     },
     newRound() {
       socket.emit(EVENTS.GAME.NEW_ROUND, this.wordList, this.ruleSet);
+      this.hideMenu();
     },
     reset() {
       store.clear();
-      window.location.reload();
+      this.resetData();
+    },
+    showMenu() {
+      this.menuVisible = true;
+    },
+    hideMenu() {
+      this.menuVisible = false;
+    },
+    goBack() {
+      switch (this.state) {
+        case STATES.createJoin:
+          this.state = STATES.modeChoice;
+          break;
+        case STATES.create:
+        case STATES.join:
+          this.state = STATES.createJoin;
+          break;
+      }
     }
   }
 });
 
-if (app.gameTag) {
-  app.joinGame();
-}
-
-socket.on(EVENTS.GAME.LIST, (games) => {
-  app.games = Object.keys(games);
-});
+app.init();
 
 socket.on(EVENTS.GAME.CREATED, (tag) => {
   store.set('game-tag', tag);
   socket.emit('room.join', tag);
+  app.gameTag = tag;
+  app.showMenu();
 });
 
 socket.on(EVENTS.GAME.UPDATED, (game) => {

@@ -34,7 +34,6 @@ io.on('connection', (socket) => {
     const room = roomManager.createRoom({ wordList, ruleSet });
     room.startGame();
     socket.emit('game.created', room.tag);
-    socket.emit('message', `Room Tag: ${room.tag}`);
   });
 
   socket.on('room.join', (roomTag) => {

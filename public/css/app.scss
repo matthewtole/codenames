@@ -1,4 +1,19 @@
-/**
+.card {
+    margin: 1rem;
+}
+
+.card.is-disabled {
+    opacity: 0.3;
+}
+
+.card-footer-item {
+    .icon.is-small {
+        margin-right: 0.5rem;
+    }
+}
+
+/*
+!**
 
 COLOR SPECIFICATIONS
 
@@ -12,7 +27,7 @@ assassin = #222
 light-red = #ef9a9a
 light-blue = #bbdefb
 
- */
+ *!
 
 
 html, body {
@@ -25,15 +40,7 @@ html, body {
 body {
 
 }
-
-#app {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+*/
 
 .board__wrapper {
     position: absolute;
@@ -132,6 +139,14 @@ body {
     color: #fff;
 }
 
+.message {
+    position: fixed;
+    z-index: 1000;
+    right: 0;
+    left: 0;
+    top: 50%;
+}
+
 .game-message {
     position: fixed;
     z-index: 1000;
@@ -166,30 +181,26 @@ body {
     bottom: 0;
     right: 0;
     left: 0;
-    height: 75px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
+    padding: 10px;
+    box-shadow: 0 -2px 3px rgba(10, 10, 10, 0.1);
 
-.game-controls button {
-    //font-size: 110%;
-    margin: 0 5px;
+    .level,
+    .level-left,
+    .level-item {
+        flex-grow: 1;
+    }
+
+    .level-item {
+        padding: 5px 10px;
+    }
+
+    .button {
+        width: 100%;
+    }
 }
 
 .game-state {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 75px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+    padding: 10px 0 12px;
 }
 
 .game-state--blue {
@@ -243,19 +254,6 @@ body {
     float: right;
 }
 
-.setup-box {
-    width: 50%;
-    height: 50%;
-    margin: 0 auto;
-    background-color: #ddd;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-}
-
 .game-end {
     width: 100%;
     padding: 3rem;
@@ -293,36 +291,3 @@ body {
     flex-direction: column;
 }
 
-.button-success {
-    background: rgb(28, 184, 65); /* this is a green */
-}
-
-.button-error {
-    background: rgb(202, 60, 60); /* this is a maroon */
-    color: white;
-}
-
-.button-warning {
-    background: rgb(223, 117, 20); /* this is an orange */
-    color: white;
-}
-
-.button-secondary {
-    background: rgb(66, 184, 221); /* this is a light blue */
-}
-
-.button-xsmall {
-    font-size: 70%;
-}
-
-.button-small {
-    font-size: 85%;
-}
-
-.button-large {
-    font-size: 110%;
-}
-
-.button-xlarge {
-    font-size: 125%;
-}
