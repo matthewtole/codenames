@@ -3,14 +3,52 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "nanoid": "^0.2.0",
+    "shuffle-array": "^1.0.1",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.3",
+    "sanity": "^0.2.2",
+    "socket.io": "^2.0.3",
+    "winston": "^2.3.1"
   },
   "scripts": {
-    "start": "node server.js",
-    "build": "webpack",
-    "test": "jest"
+    "start": "npm run build && npm run watch",
+    "build": "npm run build-ts && npm run tslint",
+    "serve": "nodemon --verbose --watch dist/ dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
+    "test": "jest --forceExit --coverage",
+    "test-watch": "jest --forceExit --watch --coverage",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json --type-check -t stylish",
+    "tslint-fix": "tslint -c tslint.json -p tsconfig.json --fix --type-check -t stylish",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
   },
   "main": "server.js",
   "devDependencies": {
+    "@types/body-parser": "^1.16.4",
+    "@types/cors": "^2.8.1",
+    "@types/dotenv": "^4.0.0",
+    "@types/errorhandler": "0.0.31",
+    "@types/express": "^4.0.36",
+    "@types/jest": "^21.1.2",
+    "@types/node": "^8.0.19",
+    "@types/shuffle-array": "0.0.28",
+    "@types/socket.io": "^1.4.29",
+    "@types/uuid": "^3.4.0",
+    "@types/winston": "^2.3.4",
+    "concurrently": "^3.5.0",
+    "jest": "^21.2.1",
+    "nodemon": "^1.11.0",
+    "ts-jest": "^21.0.1",
+    "tslint": "^5.5.0",
+    "tslint-config-airbnb": "^5.2.1",
+    "typescript": "^2.4.2"
   },
   "repository": {
     "type": "git",
@@ -23,8 +61,23 @@
   },
   "homepage": "https://github.com/matthewtole/codenames#readme",
   "jest": {
-    "verbose": true,
-    "bail": true,
-    "collectCoverage": true
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "mapCoverage": true,
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/src/**/*.test.(ts|js)"
+    ],
+    "testEnvironment": "node",
+    "verbose": true
   }
 }
