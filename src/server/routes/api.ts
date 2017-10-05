@@ -1,8 +1,8 @@
 import * as cors from 'cors';
 import { Router, Request, Response, ErrorRequestHandler } from 'express';
-import { Game, GameOptions } from '../shared/game';
-import { Games } from '../shared/games';
-import { Rooms, RoomOptions } from '../shared/rooms';
+import { Game, GameOptions } from '../../shared/game';
+import { Games } from '../../shared/games';
+import { Rooms, RoomOptions } from '../../shared/rooms';
 
 export default (rooms: Rooms, games: Games): Router => {
   const router: Router = Router();

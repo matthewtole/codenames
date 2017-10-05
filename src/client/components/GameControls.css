@@ -1,0 +1,40 @@
+.GameControls {
+  background-color: #ddd;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.GameControls_end-turn {
+  height: 100%;
+  width: 50%;
+  background-color: #333;
+  color: #fff;
+  border: 0;
+  font-size: 22px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.GameControls_end-turn:hover {
+  background-color: #888;
+  cursor: pointer;
+}
+
+.GameControls_new-game {
+  height: 100%;
+  width: 50%;
+  background-color: #fff;
+  color: #333;
+  border: 0;
+  font-size: 22px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.GameControls_new-game:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}

@@ -16,10 +16,10 @@ import {
   EventRoomJoined,
   EventTurnEnd,
   EventType,
-} from './shared/events';
-import { Game, GameID, GameOptions } from './shared/game';
-import { Games } from './shared/games';
-import { Room, Rooms } from './shared/rooms';
+} from '../shared/events';
+import { Game, GameID, GameOptions } from '../shared/game';
+import { Games } from '../shared/games';
+import { Room, Rooms } from '../shared/rooms';
 
 export class EventHandler {
   private games: Games;
