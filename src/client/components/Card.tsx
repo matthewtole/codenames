@@ -17,7 +17,11 @@ export class Card extends React.Component<CardProps, object> {
     if (this.props.highlighted) { classes.push('Card--highlighted'); }
     if (this.props.revealed) { classes.push('Card--revealed'); }
     return (
-      <div className={classes.join(' ')} data-role={Role[this.props.role]} onClick={this.handleClick}>
+      <div
+        className={classes.join(' ')}
+        data-role={Role[this.props.role]}
+        onClick={this.handleClick}
+      >
         {this.props.word}
       </div>
     );

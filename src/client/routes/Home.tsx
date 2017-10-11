@@ -31,17 +31,17 @@ export class Home extends React.Component<Props, State> {
   }
 
   handleCreateRoomSubmit = (options: RoomOptions) => {
-    var request = new Request(`${config.apiRoot}/api/v1/room`, {
+    const request = new Request(`${config.apiRoot}/api/v1/room`, {
       method: 'POST',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
         options,
-        createGame: true
+        createGame: true,
       }),
     });
-    fetch(request).then((res) => res.json()).then((data: Room) => {
+    fetch(request).then(res => res.json()).then((data: Room) => {
       this.props.history.push(`/room/${data.tag}`);
     });
   }
@@ -76,7 +76,13 @@ export class Home extends React.Component<Props, State> {
               <Menu inverted={true} pointing={true} secondary={true} size="large">
                 <Menu.Item as="a" active={true}>Home</Menu.Item>
                 <Menu.Item as="a">About</Menu.Item>
-                <Menu.Item as="a" href="https://github.com/codenames-web" target="_blank">Source Code</Menu.Item>
+                <Menu.Item
+                  as="a"
+                  href="https://github.com/codenames-web"
+                  target="_blank"
+                >
+                  Source Code
+                </Menu.Item>
                 <Menu.Item position="right">
                   <Button
                     as="a"
@@ -117,37 +123,6 @@ export class Home extends React.Component<Props, State> {
             </Container>
           </Segment>
         </Visibility>
-
-      {/* <Segment style={{ padding: '8em 0em' }} vertical={true}>
-      <Grid container={true} stackable={true} verticalAlign="middle">
-        <Grid.Row>
-          <Grid.Column width={8}>
-            <Header as="h3" style={{ fontSize: '2em' }}>We Help Companies and Companions</Header>
-            <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never thought possible. Let us delight
-              your customers and empower your needs... through pure data analytics.
-            </p>
-            <Header as="h3" style={{ fontSize: '2em' }}>We Make Bananas That Can Dance</Header>
-            <p style={{ fontSize: '1.33em' }}>
-              Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
-            </p>
-          </Grid.Column>
-          <Grid.Column floated="right" width={6}>
-            <Image
-              bordered={true}
-              rounded={true}
-              size="large"
-              src="/assets/images/wireframe/white-image.png"
-            />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column textAlign="center">
-            <Button size="huge">Check Them Out</Button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-        </Segment> */}
     </div>
     );
   }

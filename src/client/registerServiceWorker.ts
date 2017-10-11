@@ -14,16 +14,16 @@ export default function register() {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       navigator.serviceWorker
         .register(swUrl)
-        .then(registration => {
+        .then((registration) => {
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
-            if (!installingWorker) {
-                return;
+            if (installingWorker === undefined) {
+              return;
             }
 
             installingWorker.onstatechange = () => {
               if (installingWorker.state === 'installed') {
-                if (navigator.serviceWorker.controller) {
+                if (navigator.serviceWorker.controller !== undefined) {
                   // At this point, the old content will have been purged and
                   // the fresh content will have been added to the cache.
                   // It's the perfect time to display a "New content is
@@ -39,7 +39,7 @@ export default function register() {
             };
           };
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error during service worker registration:', error); // tslint:disable-line
         });
     });
@@ -48,7 +48,7 @@ export default function register() {
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }

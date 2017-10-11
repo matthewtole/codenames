@@ -17,7 +17,13 @@ export class GameOver extends React.Component<GameOverProps, {}> {
   render() {
     return (
       <Dimmer active={true} page={true}>
-        <Header as="h1" size="huge" textAlign="center" inverted={true} color={GameOver.teamToColor(this.props.winner)}>
+        <Header
+          as="h1"
+          size="huge"
+          textAlign="center"
+          inverted={true}
+          color={GameOver.teamToColor(this.props.winner)}
+        >
           The {Team[this.props.winner]} Team Wins!
         </Header>
       </Dimmer>

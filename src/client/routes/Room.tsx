@@ -43,7 +43,7 @@ export class Room extends React.Component<Props, State> {
 
   componentWillMount() {
     this.roomTag = this.props.match.params.tag;
-    if (!this.roomTag || !this.roomTag.length) {
+    if (this.roomTag === undefined || this.roomTag.length === 0) {
       this.props.history.push('/');
     }
   }
@@ -72,7 +72,7 @@ export class Room extends React.Component<Props, State> {
   render() {
     const mode: BoardMode = this.getModeFromProps();
     const state = this.state.gameState;
-    if (this.state.gameState) {
+    if (this.state.gameState !== undefined) {
       return (
         <div className="Room">
           <ModalMessage message={state.message} onClose={() => this.clearMessage()} />
@@ -95,7 +95,11 @@ export class Room extends React.Component<Props, State> {
               />
             )
           }
-          {state.winner && mode.valueOf() === BoardMode.Viewer ? <GameOver winner={state.winner} /> : null}
+          {
+            state.winner !== undefined && mode.valueOf() === BoardMode.Viewer ?
+              <GameOver winner={state.winner} /> :
+              null
+          }
         </div>
       );
     }
@@ -146,7 +150,7 @@ export class Room extends React.Component<Props, State> {
     socket.send({
       type: EventType.TurnEnd,
       roomTag: this.props.match.params.tag,
-      gameId: this.state.gameId
+      gameId: this.state.gameId,
     });
   }
 

@@ -5,7 +5,7 @@ import { CardData, Coordinate, Role } from '../../shared/game';
 
 export enum BoardMode {
   Viewer,
-  Controller
+  Controller,
 }
 
 export interface BoardProps {
@@ -74,7 +74,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
   }
 
   isHighlighted = (card: Coordinate): boolean => {
-    if (!this.props.highlighted) { return false; }
+    if (this.props.highlighted === undefined) { return false; }
     return this.props.highlighted.row === card.row && this.props.highlighted.col === card.col;
   }
 

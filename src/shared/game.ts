@@ -51,7 +51,7 @@ export interface GameState {
   cards: CardData[];
   turn: Team;
   winner?: Team;
-  roleCounts: {};
+  roleCounts: { [id: number]: number };
   highlighted?: Coordinate;
   message: Message;
 }

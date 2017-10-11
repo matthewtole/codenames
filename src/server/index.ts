@@ -25,7 +25,7 @@ app.set('port', config.port);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(api(rooms, games));
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'client')));
 app.use(errorHandler());
 
 server.listen(app.get('port'), () => {

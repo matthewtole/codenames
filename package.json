@@ -37,7 +37,8 @@
     "tslint-fix": "tslint -c tslint.json -p tsconfig.json --fix --type-check -t stylish",
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/server/index.js",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "watch-client": "webpack --watch"
   },
   "main": "server/index.ts",
   "devDependencies": {

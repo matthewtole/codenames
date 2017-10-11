@@ -11,7 +11,7 @@ interface GameControlProps {
 export class GameControls extends React.Component<GameControlProps, {}> {
   render() {
     const controls = [];
-    if (this.props.state.winner) {
+    if (this.props.state.winner !== undefined) {
       controls.push((
         <button
           className="GameControls_new-game"

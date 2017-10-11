@@ -21,7 +21,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
   }
 
   onSubmit = () => {
-    if (this.state.tag.length) {
+    if (this.state.tag.length > 0) {
       this.props.onSubmit(this.state.tag);
     }
   }
@@ -41,7 +41,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
               Enter the tag of the room you want to join!
             </Header.Subheader>
           </Header>
-          <Input placeholder="e.g. chicken-house" size="big" style={{width: '100%'}} />
+          <Input placeholder="e.g. chicken-house" size="big" style={{ width: '100%' }} />
         </Modal.Content>
         <Modal.Actions>
           <Button color="grey" onClick={this.onCancel}>

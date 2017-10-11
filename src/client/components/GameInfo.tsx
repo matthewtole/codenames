@@ -30,7 +30,7 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
 export class GameInfo extends React.Component<GameInfoProps, {}> {
   render() {
     let contents = null;
-    if (this.props.state.winner) {
+    if (this.props.state.winner !== undefined) {
       contents = (
         <div className="GameInfo__turn GameInfo__turn--winner">
           THE {Team[this.props.state.winner]} TEAM WINS!
@@ -46,7 +46,7 @@ export class GameInfo extends React.Component<GameInfoProps, {}> {
             {this.props.state.turn === Team.Blue ? null : <span> &rarr;</span>}
           </div>
         ),
-        <SpyCounter team={Team.Red} count={this.props.state.roleCounts[Team.Red]} />
+        <SpyCounter team={Team.Red} count={this.props.state.roleCounts[Team.Red]} />,
       ];
     }
     return (
