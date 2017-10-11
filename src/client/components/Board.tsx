@@ -51,7 +51,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
     const classes = ['Board'];
     switch (this.props.mode) {
       case BoardMode.Controller: classes.push('Board--controller'); break;
-      case BoardMode.Controller: classes.push('Board--viewer'); break;
+      case BoardMode.Viewer: classes.push('Board--viewer'); break;
       default: // do nothing!
     }
     return (

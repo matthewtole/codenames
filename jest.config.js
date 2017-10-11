@@ -26,7 +26,7 @@ module.exports = {
     "<rootDir>/src/**/__tests__/**/*.ts?(x)",
     "<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
   ],
-  "testEnvironment": "node",
+  "testEnvironment": "jsdom",
   "testURL": "http://localhost",
   "transform": {
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
@@ -39,5 +39,9 @@ module.exports = {
   "moduleNameMapper": {
     "^react-native$": "react-native-web"
   },
-  "verbose": true
+  "verbose": true,
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/src/types/",
+  ]
 }

@@ -11,7 +11,7 @@ export interface CardProps {
   onHighlight: () => void;
 }
 
-export class Card extends React.Component<CardProps, object> {
+export class Card extends React.PureComponent<CardProps, object> {
   render() {
     const classes = ['Card'];
     if (this.props.highlighted) { classes.push('Card--highlighted'); }
@@ -29,9 +29,10 @@ export class Card extends React.Component<CardProps, object> {
 
   handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    if (this.props.revealed) { return; }
     if (this.props.highlighted) {
       this.props.onReveal();
-    } else if (!this.props.revealed) {
+    } else {
       this.props.onHighlight();
     }
   }

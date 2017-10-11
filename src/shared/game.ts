@@ -329,7 +329,7 @@ export class Game {
    * and the rest are bystandards.
    * @param firstPlayer
    */
-  private static randomRoles(firstPlayer: Team): Role[] {
+  static randomRoles(firstPlayer: Team): Role[] {
     const roles: Role[] = [];
     for (let red = 0; red < (firstPlayer === Team.Red ? 9 : 8); red += 1) {
       roles.push(Role.RedSpy);

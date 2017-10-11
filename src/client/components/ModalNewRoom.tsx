@@ -58,6 +58,7 @@ export class ModalNewRoom extends React.Component<Props, State> {
           <Button.Group widths="3">
             {Object.keys(WordLists).map(list => (
               <Button
+                key={list}
                 active={this.state.words === list}
                 onClick={() => this.setWordList(list)}
               >
@@ -75,6 +76,7 @@ export class ModalNewRoom extends React.Component<Props, State> {
           <Button.Group widths="3">
             {Object.keys(RULE_SETS).map(list => (
               <Button
+                key={list}
                 active={this.state.rules === list}
                 onClick={() => this.setRuleSet(list)}
               >
@@ -84,10 +86,10 @@ export class ModalNewRoom extends React.Component<Props, State> {
           </Button.Group>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="grey" onClick={this.onCancel}>
+          <Button key="cancel" color="grey" onClick={this.onCancel}>
             Cancel
           </Button>
-          <Button color="green" onClick={this.onSubmit}>
+          <Button key="create" color="green" onClick={this.onSubmit}>
             <Icon name="thumbs up" />
             Create Room
           </Button>

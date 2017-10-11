@@ -14,6 +14,7 @@ export class GameControls extends React.Component<GameControlProps, {}> {
     if (this.props.state.winner !== undefined) {
       controls.push((
         <button
+          key="new-game"
           className="GameControls_new-game"
           onClick={() => this.props.onNewGame()}
         >
@@ -23,6 +24,7 @@ export class GameControls extends React.Component<GameControlProps, {}> {
     } else {
       controls.push((
         <button
+          key="end-turn"
           className="GameControls_end-turn"
           onClick={() => this.props.onEndTurn()}
         >
