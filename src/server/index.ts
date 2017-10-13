@@ -26,6 +26,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(api(rooms, games));
 app.use(express.static(path.join(__dirname, '..', 'client')));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
+});
 app.use(errorHandler());
 
 server.listen(app.get('port'), () => {

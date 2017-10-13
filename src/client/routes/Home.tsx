@@ -78,7 +78,7 @@ export class Home extends React.Component<Props, State> {
                 <Menu.Item as="a">About</Menu.Item>
                 <Menu.Item
                   as="a"
-                  href="https://github.com/codenames-web"
+                  href="https://github.com/matthewtole/codenames/"
                   target="_blank"
                 >
                   Source Code

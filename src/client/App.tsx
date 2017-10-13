@@ -15,7 +15,7 @@ class App extends React.Component<AppProps, { }> {
   render() {
     return (
       <Router>
-        <div>
+        <div className="Router">
           <Route exact={true} path="/" component={Home}/>
           <Route path="/room/:tag/:mode?" component={Room} />
           <Route path="/404" component={Error404} />

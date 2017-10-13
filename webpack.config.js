@@ -5,7 +5,8 @@ module.exports = {
   entry: "./src/client/index.tsx",
   output: {
       filename: "bundle.js",
-      path: __dirname + "/dist/client/"
+      path: __dirname + "/dist/client/",
+      publicPath: '/',
   },
 
   // Enable sourcemaps for debugging webpack's output.
