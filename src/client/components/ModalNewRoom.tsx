@@ -4,16 +4,18 @@ import { RULE_SETS } from '../../shared/data/rules';
 import { Button, Grid, Modal, Header, Segment, Divider, Icon } from 'semantic-ui-react';
 import { titlecase } from '../lib/utils';
 import { RoomOptions } from '../../shared/rooms';
+import { BoardMode } from '../components/board';
 
 interface Props {
   isOpen: boolean;
-  onSubmit: (options: RoomOptions) => void;
+  onSubmit: (options: RoomOptions, mode: BoardMode) => void;
   onCancel: () => void;
 }
 
 interface State {
   words: string;
   rules: string;
+  mode: BoardMode;
 }
 
 export class ModalNewRoom extends React.Component<Props, State> {
@@ -22,6 +24,7 @@ export class ModalNewRoom extends React.Component<Props, State> {
     this.state = {
       words: 'original',
       rules: 'standard',
+      mode: BoardMode.Controller,
     };
   }
 
@@ -33,11 +36,16 @@ export class ModalNewRoom extends React.Component<Props, State> {
     this.setState({ rules });
   }
 
+  setMode = (mode: BoardMode) => {
+    this.setState({ mode });
+  }
+
   onSubmit = () => {
     this.props.onSubmit({
       words: this.state.words,
       rules: this.state.rules,
-    });
+    }, 
+    this.state.mode);
   }
 
   onCancel = () => {
@@ -47,8 +55,9 @@ export class ModalNewRoom extends React.Component<Props, State> {
   render() {
     return (
       <Modal open={this.props.isOpen}>
-        <Modal.Header>Create New Room</Modal.Header>
+        <Modal.Header>Create A New Room</Modal.Header>
         <Modal.Content>
+          
           <Header as="h3">
             Word List
             <Header.Subheader>
@@ -66,7 +75,9 @@ export class ModalNewRoom extends React.Component<Props, State> {
               </Button>
             ))}
           </Button.Group>
+          
           <Divider />
+          
           <Header as="h3">
             Rule Set
             <Header.Subheader>
@@ -84,7 +95,32 @@ export class ModalNewRoom extends React.Component<Props, State> {
               </Button>
             ))}
           </Button.Group>
+
+          <Divider />
+          
+          <Header as="h3">
+            Device Type
+            <Header.Subheader>
+              Choose if this is the controller (laptop, tablet, or phone used by the spy masters to play the game) or the viewer (TV or other large screen seen by the other players).
+            </Header.Subheader>
+          </Header>
+          <Button.Group widths="3">
+            <Button
+              active={this.state.mode === BoardMode.Controller}
+              onClick={() => this.setMode(BoardMode.Controller)}
+            >
+              Controller
+            </Button>
+            <Button
+              active={this.state.mode === BoardMode.Viewer}
+              onClick={() => this.setMode(BoardMode.Viewer)}
+            >
+              Viewer
+            </Button>
+          </Button.Group>
+        
         </Modal.Content>
+
         <Modal.Actions>
           <Button key="cancel" color="grey" onClick={this.onCancel}>
             Cancel

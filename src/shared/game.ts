@@ -165,7 +165,7 @@ export class Game {
         this.setWinner(Game.otherPlayer(this.turn));
         break;
       case Role.Bystander:
-        this.setMessage('BYSTANDED');
+        this.setMessage('BYSTANDER');
         this.switchTurn();
         break;
       case Game.teamToRole(this.turn):

@@ -3,7 +3,7 @@ interface Config {
 }
 
 const config: Config = {
-  apiRoot: 'http://localhost:8800',
+  apiRoot: 'http://localhost:7777',
 };
 
 export default config;

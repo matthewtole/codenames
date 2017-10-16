@@ -18,7 +18,7 @@ const socket = io(config.apiRoot, {
 interface Match {
   params: {
     tag: string;
-    mode?: string;
+    mode?: BoardMode;
   };
 }
 
@@ -140,8 +140,8 @@ export class Room extends React.Component<Props, State> {
 
   private getModeFromProps() {
     switch (this.props.match.params.mode) {
-      case 'viewer': return BoardMode.Viewer;
-      case 'controller': return BoardMode.Controller;
+      case BoardMode.Viewer: return BoardMode.Viewer;
+      case BoardMode.Controller: return BoardMode.Controller;
       default: return BoardMode.Viewer;
     }
   }

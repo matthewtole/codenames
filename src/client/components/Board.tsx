@@ -4,8 +4,8 @@ import { Card } from './Card';
 import { CardData, Coordinate, Role } from '../../shared/game';
 
 export enum BoardMode {
-  Viewer,
-  Controller,
+  Viewer = 'viewer',
+  Controller = 'controller',
 }
 
 export interface BoardProps {

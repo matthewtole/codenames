@@ -30,7 +30,7 @@ export class Home extends React.Component<Props, State> {
     this.state = {};
   }
 
-  handleCreateRoomSubmit = (options: RoomOptions) => {
+  handleCreateRoomSubmit = (options: RoomOptions, mode: string) => {
     const request = new Request(`${config.apiRoot}/api/v1/room`, {
       method: 'POST',
       headers: new Headers({
@@ -42,12 +42,12 @@ export class Home extends React.Component<Props, State> {
       }),
     });
     fetch(request).then(res => res.json()).then((data: Room) => {
-      this.props.history.push(`/room/${data.tag}`);
+      this.props.history.push(`/room/${data.tag}/${mode}/`);
     });
   }
 
-  handleJoinRoomSubmit = (tag: RoomTag) => {
-    this.props.history.push(`/room/${tag}/`);
+  handleJoinRoomSubmit = (tag: RoomTag, mode: string) => {
+    this.props.history.push(`/room/${tag}/${mode}/`);
   }
 
   render() {
