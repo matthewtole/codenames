@@ -10,11 +10,14 @@ import {
   Image,
   Grid,
 } from 'semantic-ui-react';
+import { History } from 'history';
+
+import { RoomOptions, Room, RoomTag } from '../../shared/rooms';
+
 import { ModalNewRoom } from '../components/ModalNewRoom';
 import { ModalJoinRoom } from '../components/ModalJoinRoom';
-import { RoomOptions, Room, RoomTag } from '../../shared/rooms';
-import { History } from 'history';
-import config from '../config';
+
+import { createRoom } from '../lib/api';
 
 interface Props {
   history: History;
@@ -31,17 +34,7 @@ export class Home extends React.Component<Props, State> {
   }
 
   handleCreateRoomSubmit = (options: RoomOptions, mode: string) => {
-    const request = new Request(`${config.apiRoot}/api/v1/room`, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({
-        options,
-        createGame: true,
-      }),
-    });
-    fetch(request).then(res => res.json()).then((data: Room) => {
+    createRoom(options).then((data: Room) => {
       this.props.history.push(`/room/${data.tag}/${mode}/`);
     });
   }
@@ -116,10 +109,6 @@ export class Home extends React.Component<Props, State> {
                 inverted={true}
                 style={{ fontSize: '1.7em', fontWeight: 'normal' }}
               />
-              {/* <Button primary={true} size="huge">
-                Get Started
-                <Icon name="right arrow" />
-              </Button> */}
             </Container>
           </Segment>
         </Visibility>

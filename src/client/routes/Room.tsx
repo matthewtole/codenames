@@ -1,19 +1,19 @@
 import * as io from 'socket.io-client';
 import * as React from 'react';
+import { History } from 'history';
+
 import { EventType, BaseEvent, EventGameState, EventError, ErrorType } from '../../shared/events';
 import { GameState, Coordinate, GameID } from '../../shared/game';
+
 import { Board, BoardMode } from '../components/Board';
 import { GameInfo } from '../components/GameInfo';
 import { GameControls } from '../components/GameControls';
 import { GameOver } from '../components/GameOver';
 import { ModalMessage } from '../components/Message';
-import { History } from 'history';
-import './Room.css';
-import config from '../config';
 
-const socket = io(config.apiRoot, {
-  autoConnect: false,
-});
+import { socket } from '../lib/socket';
+
+import './Room.css';
 
 interface Match {
   params: {
@@ -29,7 +29,6 @@ interface Props {
 
 interface State {
   gameState?: GameState;
-  gameId?: GameID;
   error?: string;
 }
 
@@ -49,24 +48,9 @@ export class Room extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    socket.connect();
-    socket.on('event', (event: BaseEvent) => {
-      switch (event.type) {
-        case EventType.GameState:
-          this.handleGameState(event as EventGameState);
-          break;
-        case EventType.Error:
-          this.handleError(event as EventError);
-          break;
-        default:
-          // console.log(MessageType[message.type], message);
-      }
-    });
-
-    socket.send({
-      type: EventType.RoomJoin,
-      roomTag: this.props.match.params.tag,
-    });
+    socket.on('state', this.handleGameState);
+    socket.on('error', this.handleError);
+    socket.joinRoom(this.props.match.params.tag);
   }
 
   render() {
@@ -108,34 +92,24 @@ export class Room extends React.Component<Props, State> {
     );
   }
 
-  private handleError(error: EventError) {
-    switch (error.error) {
+  private handleError(error: ErrorType) {
+    switch (error) {
       case ErrorType.ROOM_NOT_FOUND:
         this.props.history.push('/');
         break;
       default:
         this.setState({
-          error: ErrorType[error.error],
+          error: ErrorType[error],
         });
     }
   }
 
   private clearMessage() {
-    socket.send({
-      type: EventType.MessageClear,
-      roomTag: this.props.match.params.tag,
-      gameId: this.state.gameId,
-    });
+    socket.clearMessage();
   }
 
-  private handleGameState(message: EventGameState) {
-    if (message.roomTag !== this.roomTag) {
-      return;
-    }
-    this.setState({
-      gameState: message.state,
-      gameId: message.gameId,
-    });
+  private handleGameState(gameState: GameState) {
+    this.setState({ gameState });
   }
 
   private getModeFromProps() {
@@ -147,36 +121,18 @@ export class Room extends React.Component<Props, State> {
   }
 
   private handleEndTurn = () => {
-    socket.send({
-      type: EventType.TurnEnd,
-      roomTag: this.props.match.params.tag,
-      gameId: this.state.gameId,
-    });
+    socket.endTurn();
   }
 
   private handleNewGame = () => {
-    socket.send({
-      type: EventType.GameCreate,
-      roomTag: this.props.match.params.tag,
-    });
+    socket.newGame();
   }
 
   private revealCard = (card: Coordinate) => {
-    socket.send({
-      type: EventType.CardReveal,
-      roomTag: this.props.match.params.tag,
-      gameId: this.state.gameId,
-      coordinate: card,
-    });
+    socket.revealCard(card);
   }
 
   private highlightCard = (card?: Coordinate) => {
-    socket.send({
-      type: EventType.CardHighlight,
-      roomTag: this.props.match.params.tag,
-      gameId: this.state.gameId,
-      coordinate: card,
-    });
+    socket.highlightCard(card);
   }
-
 }

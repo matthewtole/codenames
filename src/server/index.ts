@@ -6,13 +6,15 @@ import * as http from 'http';
 import * as path from 'path';
 import * as socketIo from 'socket.io';
 import * as winston from 'winston';
-import config from './config';
-import { EventHandler } from './event-handler';
-import api from './routes/api';
+
 import { BaseEvent } from '../shared/events';
 import { Game, GameOptions } from '../shared/game';
 import { Games } from '../shared/games';
 import { Rooms, RoomOptions } from '../shared/rooms';
+
+import config from './config';
+import { EventHandler } from './event-handler';
+import api from './routes/api';
 
 const app = express();
 const server = http.createServer(app);

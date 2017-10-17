@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Input, Grid, Modal, Header, Segment, Divider, Icon } from 'semantic-ui-react';
 import { RoomTag } from '../../shared/rooms';
-import { BoardMode } from '../components/board';
+import { BoardMode } from '../components/Board';
 
 interface Props {
   isOpen: boolean;
@@ -50,11 +50,13 @@ export class ModalJoinRoom extends React.Component<Props, State> {
           </Header>
           <Input placeholder="e.g. chicken-house" size="big" style={{ width: '100%' }} />
           <Divider />
-          
+
           <Header as="h3">
             Device Type
             <Header.Subheader>
-              Choose if this is the controller (laptop, tablet, or phone used by the spy masters to play the game) or the viewer (TV or other large screen seen by the other players).
+              Choose if this is the controller
+              (laptop, tablet, or phone used by the spy masters to play the game)
+              or the viewer (TV or other large screen seen by the other players).
             </Header.Subheader>
           </Header>
           <Button.Group widths="3">

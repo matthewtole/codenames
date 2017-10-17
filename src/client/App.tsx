@@ -1,9 +1,11 @@
 import * as React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+
 import { Home } from './routes/Home';
 import { Room } from './routes/Room';
 import { Error404 } from './routes/Error404';
+
+import './App.css';
 
 interface AppProps {}
 
