@@ -3,9 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { GameControls } from './GameControls';
 import { shallow, mount } from 'enzyme';
 import { Team } from '../../shared/game';
-
-const NOOP = () => { };
-const fakeClickEvent = { stopPropagation: () => { } };
+import { NOOP, fakeClickEvent } from '../../shared/test-utils';
 
 describe('GameControls', () => {
   describe('-> New Game', () => {

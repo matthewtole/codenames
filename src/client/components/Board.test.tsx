@@ -5,9 +5,7 @@ import { Card } from './Card';
 import { shallow, mount } from 'enzyme';
 import { randomWords, words as WordLists } from '../../shared/data/words';
 import { Game, Role, Team, CardData } from '../../shared/game';
-
-const NOOP = () => { };
-const fakeClickEvent = { stopPropagation: () => { } };
+import { NOOP, fakeClickEvent } from '../../shared/test-utils';
 
 function makeRandomCards(): CardData[] {
   const words: string[] = randomWords(WordLists['original'], 25);

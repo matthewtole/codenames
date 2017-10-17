@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.17.2",
+    "classnames": "^2.2.5",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "errorhandler": "^1.5.0",
@@ -43,6 +44,7 @@
   "main": "server/index.ts",
   "devDependencies": {
     "@types/body-parser": "^1.16.4",
+    "@types/classnames": "^2.2.3",
     "@types/cors": "^2.8.1",
     "@types/dotenv": "^4.0.0",
     "@types/enzyme": "^3.1.0",

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { GameState, Team } from '../../shared/game';
 import './GameInfo.css';
+import * as cx from 'classNames';
 
 interface GameInfoProps {
   state: GameState;
@@ -50,15 +51,9 @@ export class GameInfo extends React.Component<GameInfoProps, {}> {
       ];
     }
     return (
-      <div className={this.generateClassNames()}>
+      <div className={cx(['GameInfo', `GameInfo--${Team[this.props.state.turn].toLowerCase()}`])}>
         {contents}
       </div>
     );
-  }
-
-  private generateClassNames() {
-    const classNames = ['GameInfo'];
-    classNames.push(`GameInfo--${Team[this.props.state.turn].toLowerCase()}`);
-    return classNames.join(' ');
   }
 }

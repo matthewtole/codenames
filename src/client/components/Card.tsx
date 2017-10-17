@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Card.css';
 import { Role } from '../../shared/game';
+import * as cx from 'classnames';
 
 export interface CardProps {
   word: string;
@@ -13,12 +14,15 @@ export interface CardProps {
 
 export class Card extends React.PureComponent<CardProps, object> {
   render() {
-    const classes = ['Card'];
-    if (this.props.highlighted) { classes.push('Card--highlighted'); }
-    if (this.props.revealed) { classes.push('Card--revealed'); }
     return (
       <div
-        className={classes.join(' ')}
+        className={
+          cx({
+            Card: true,
+            'Card--highlighted': this.props.highlighted,
+            'Card--revealed': this.props.revealed,
+          })
+        }
         data-role={Role[this.props.role]}
         onClick={this.handleClick}
       >

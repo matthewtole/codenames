@@ -3,9 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Card } from './Card';
 import { Role } from '../../shared/game';
 import { shallow } from 'enzyme';
-
-const NOOP = () => { };
-const fakeClickEvent = { stopPropagation: () => { } };
+import { NOOP, fakeClickEvent } from '../../shared/test-utils';
 
 describe('Card', () => {
   it('calls onHighlight when clicked if not already highlighted', () => {
