@@ -34,7 +34,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
         <div className="Board">
           {
             Array(this.props.height).fill(0).map((_: number, r: number) => (
-              <div className="BoardRow">
+              <div className="BoardRow" key={`row_${r}`}>
                 {
                   Array(this.props.width).fill(0).map((_: number, c: number) => (
                     <Card
