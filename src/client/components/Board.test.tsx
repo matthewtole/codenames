@@ -2,10 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Board, BoardMode } from './Board';
 import { Card } from './Card';
-import { shallow, mount } from 'enzyme';
 import { randomWords, words as WordLists } from '../../shared/data/words';
 import { Game, Role, Team, CardData } from '../../shared/game';
 import { NOOP, fakeClickEvent } from '../../shared/test-utils';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
+Enzyme.configure({ adapter: new Adapter() });
 
 function makeRandomCards(): CardData[] {
   const words: string[] = randomWords(WordLists['original'], 25);
@@ -20,7 +22,7 @@ function makeRandomCards(): CardData[] {
 
 describe('Board', () => {
   it('renders without crashing', () => {
-    shallow(<Board
+    Enzyme.shallow(<Board
       width={5}
       height={5}
       cards={makeRandomCards()}
@@ -31,7 +33,7 @@ describe('Board', () => {
   });
 
   it('should mark the appropriate card as highlighted', () => {
-    const board = mount(<Board
+    const board = Enzyme.mount(<Board
       width={5}
       height={5}
       cards={makeRandomCards()}
@@ -45,7 +47,7 @@ describe('Board', () => {
 
   it('should call onHighlightCard with the correct coordinate', () => {
     const onHighlightCard = jest.fn();
-    const board = mount(<Board
+    const board = Enzyme.mount(<Board
       width={5}
       height={5}
       cards={makeRandomCards()}
@@ -59,7 +61,7 @@ describe('Board', () => {
 
   it('should call onRevealCard with the correct coordinate', () => {
     const onRevealCard = jest.fn();
-    const board = mount(<Board
+    const board = Enzyme.mount(<Board
       width={5}
       height={5}
       cards={makeRandomCards()}

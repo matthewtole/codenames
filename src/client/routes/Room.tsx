@@ -54,42 +54,49 @@ export class Room extends React.Component<Props, State> {
   }
 
   render() {
-    const mode: BoardMode = this.getModeFromProps();
-    const state = this.state.gameState;
-    if (this.state.gameState !== undefined) {
+    const { gameState } = this.state;
+
+    if (gameState === undefined) {
       return (
-        <div className="Room">
-          <ModalMessage message={state.message} onClose={() => this.clearMessage()} />
-          <GameInfo state={state} />
-          <Board
-            width={5}
-            height={5}
-            cards={state.cards}
-            mode={mode}
-            highlighted={state.highlighted}
-            onRevealCard={this.revealCard}
-            onHighlightCard={this.highlightCard}
-          />
-          {
-            mode.valueOf() === BoardMode.Viewer ? null : (
-              <GameControls
-                state={state}
-                onEndTurn={this.handleEndTurn}
-                onNewGame={this.handleNewGame}
-              />
-            )
-          }
-          {
-            state.winner !== undefined && mode.valueOf() === BoardMode.Viewer ?
-              <GameOver winner={state.winner} /> :
-              null
-          }
-        </div>
+        <div>{JSON.stringify(this.state)}</div>
       );
     }
     return (
-      <div>{JSON.stringify(this.state)}</div>
+      <div className="Room">
+        <ModalMessage message={gameState.message} onClose={() => this.clearMessage()} />
+        <GameInfo state={gameState} />
+        <Board
+          width={5}
+          height={5}
+          cards={gameState.cards}
+          mode={this.boardMode}
+          highlighted={gameState.highlighted}
+          onRevealCard={this.revealCard}
+          onHighlightCard={this.highlightCard}
+        />
+        {
+          this.boardMode === BoardMode.Viewer ? null : (
+            <GameControls
+              state={gameState}
+              onEndTurn={this.handleEndTurn}
+              onNewGame={this.handleNewGame}
+            />
+          )
+        }
+        {
+          gameState.winner !== undefined && this.boardMode === BoardMode.Viewer ?
+            <GameOver winner={gameState.winner} /> :
+            null
+        }
+      </div>
     );
+  }
+
+  private get boardMode() {
+    if (this.props.match.params.mode !== undefined) {
+      return this.props.match.params.mode;
+    }
+    return BoardMode.Viewer;
   }
 
   private handleError(error: ErrorType) {
@@ -110,14 +117,6 @@ export class Room extends React.Component<Props, State> {
 
   private handleGameState(gameState: GameState) {
     this.setState({ gameState });
-  }
-
-  private getModeFromProps() {
-    switch (this.props.match.params.mode) {
-      case BoardMode.Viewer: return BoardMode.Viewer;
-      case BoardMode.Controller: return BoardMode.Controller;
-      default: return BoardMode.Viewer;
-    }
   }
 
   private handleEndTurn = () => {

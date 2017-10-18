@@ -1,14 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { GameControls } from './GameControls';
-import { shallow, mount } from 'enzyme';
 import { Team } from '../../shared/game';
 import { NOOP, fakeClickEvent } from '../../shared/test-utils';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('GameControls', () => {
   describe('-> New Game', () => {
     it('shows the new game button when the game is over', () => {
-      const controls = shallow(<GameControls
+      const controls = Enzyme.shallow(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,
@@ -23,7 +25,7 @@ describe('GameControls', () => {
     });
 
     it('does not show the new game button when the game is still going', () => {
-      const controls = shallow(<GameControls
+      const controls = Enzyme.shallow(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,
@@ -39,7 +41,7 @@ describe('GameControls', () => {
 
     it('calls the onNewGame prop when clicked', () => {
       const onNewGame = jest.fn();
-      const controls = mount(<GameControls
+      const controls = Enzyme.mount(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,
@@ -57,7 +59,7 @@ describe('GameControls', () => {
 
   describe('-> End Turn', () => {
     it('shows the end turn button when the game is still going', () => {
-      const controls = shallow(<GameControls
+      const controls = Enzyme.shallow(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,
@@ -72,7 +74,7 @@ describe('GameControls', () => {
     });
 
     it('does not show the end turn button when the game is over', () => {
-      const controls = shallow(<GameControls
+      const controls = Enzyme.shallow(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,
@@ -88,7 +90,7 @@ describe('GameControls', () => {
 
     it('calls the onEndTurn prop when clicked', () => {
       const onEndTurn = jest.fn();
-      const controls = mount(<GameControls
+      const controls = Enzyme.mount(<GameControls
         state={{
           cards: [],
           turn: Team.Blue,

@@ -7,13 +7,18 @@ export interface GameOverProps {
 }
 
 export class GameOver extends React.Component<GameOverProps, {}> {
-  static teamToColor(team: Team) {
+  /**
+   * Convert a Team object into a SemanticUI color string.
+   * @param team - The Team to get the color for
+   */
+  static teamToSemanticColor(team: Team) {
     switch (team) {
       case Team.Blue: return 'blue';
       case Team.Red: return 'red';
       default: return undefined;
     }
   }
+
   render() {
     return (
       <Dimmer active={true} page={true}>
@@ -22,7 +27,7 @@ export class GameOver extends React.Component<GameOverProps, {}> {
           size="huge"
           textAlign="center"
           inverted={true}
-          color={GameOver.teamToColor(this.props.winner)}
+          color={GameOver.teamToSemanticColor(this.props.winner)}
         >
           The {Team[this.props.winner]} Team Wins!
         </Header>

@@ -35,7 +35,7 @@ app.use(errorHandler());
 
 server.listen(app.get('port'), () => {
   const url = `http://localhost:${app.get('port')}`;
-  winston.info(`Codenames API server is running at ${url} in ${app.get('env')} mode`);
+  winston.info(`Codenames server is running at ${url} in ${app.get('env')} mode`);
 
   io.on('connect', (socket: SocketIO.Socket) => {
     winston.info('Client connected');
