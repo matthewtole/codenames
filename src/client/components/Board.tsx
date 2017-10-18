@@ -29,29 +29,30 @@ export class Board extends React.Component<BoardProps, BoardState> {
   }
 
   render() {
-    const rows = [];
-    for (let r = 0; r < this.props.height; r += 1) {
-      const row = [];
-      for (let c = 0; c < this.props.width; c += 1) {
-        const card = { row: r, col: c };
-        row.push((
-          <Card
-            key={`card_${r}_${c}`}
-            word={this.getWord(card)}
-            role={this.getRole(card)}
-            revealed={this.isRevealed(card)}
-            highlighted={this.isHighlighted(card)}
-            onHighlight={() => { this.highlightCard(card); }}
-            onReveal={() => { this.revealCard(card); }}
-            boardMode={this.props.mode}
-          />
-        ));
-      }
-      rows.push(<div className="BoardRow" key={`row_${r}`}>{row}</div>);
-    }
     return (
       <div className="BoardWrapper" onClick={() => this.highlightCard()}>
-        <div className="Board">{rows}</div>
+        <div className="Board">
+          {
+            Array(this.props.height).fill(0).map((_: number, r: number) => (
+              <div className="BoardRow">
+                {
+                  Array(this.props.width).fill(0).map((_: number, c: number) => (
+                    <Card
+                      key={`card_${r}_${c}`}
+                      word={this.getWord({ row: r, col: c })}
+                      role={this.getRole({ row: r, col: c })}
+                      revealed={this.isRevealed({ row: r, col: c })}
+                      highlighted={this.isHighlighted({ row: r, col: c })}
+                      onHighlight={() => { this.highlightCard({ row: r, col: c }); }}
+                      onReveal={() => { this.revealCard({ row: r, col: c }); }}
+                      boardMode={this.props.mode}
+                    />
+                  ))
+                }
+              </div>
+            ))
+          }
+        </div>
       </div>
     );
   }
