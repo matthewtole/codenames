@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GameState, Team } from '../../shared/game';
 import './GameInfo.css';
-import * as cx from 'classNames';
+import * as cx from 'classnames';
 
 interface GameInfoProps {
   state: GameState;
