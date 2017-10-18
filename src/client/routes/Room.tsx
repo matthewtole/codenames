@@ -48,8 +48,8 @@ export class Room extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    socket.on('state', this.handleGameState);
-    socket.on('error', this.handleError);
+    socket.on('state', (state: GameState) => this.handleGameState(state));
+    socket.on('error', (error: ErrorType) => this.handleError(error));
     socket.joinRoom(this.props.match.params.tag);
   }
 

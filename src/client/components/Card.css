@@ -15,19 +15,19 @@
   opacity: 0.2;
 }
 
-.Board--controller [data-role="BlueSpy"] {
+.Card--controller[data-role="BlueSpy"] {
   background-color: #bbdefb;
 }
 
-.Board--controller [data-role="RedSpy"] {
+.Card--controller[data-role="RedSpy"] {
   background-color: #ef9a9a;
 }
 
-.Board--controller [data-role="Bystander"] {
+.Card--controller[data-role="Bystander"] {
   background-color: #ff9100;
 }
 
-.Board--controller [data-role="Assassin"] {
+.Card--controller[data-role="Assassin"] {
   background-color: #999;
 }
 

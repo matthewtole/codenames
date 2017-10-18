@@ -43,20 +43,15 @@ export class Board extends React.Component<BoardProps, BoardState> {
             highlighted={this.isHighlighted(card)}
             onHighlight={() => { this.highlightCard(card); }}
             onReveal={() => { this.revealCard(card); }}
+            boardMode={this.props.mode}
           />
         ));
       }
       rows.push(<div className="BoardRow" key={`row_${r}`}>{row}</div>);
     }
-    const classes = ['Board'];
-    switch (this.props.mode) {
-      case BoardMode.Controller: classes.push('Board--controller'); break;
-      case BoardMode.Viewer: classes.push('Board--viewer'); break;
-      default: // do nothing!
-    }
     return (
       <div className="BoardWrapper" onClick={() => this.highlightCard()}>
-        <div className={classes.join(' ')}>{rows}</div>
+        <div className="Board">{rows}</div>
       </div>
     );
   }

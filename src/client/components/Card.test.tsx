@@ -4,6 +4,7 @@ import { Card } from './Card';
 import { Role } from '../../shared/game';
 import { shallow } from 'enzyme';
 import { NOOP, fakeClickEvent } from '../../shared/test-utils';
+import { BoardMode } from './Board';
 
 describe('Card', () => {
   it('calls onHighlight when clicked if not already highlighted', () => {
@@ -16,6 +17,7 @@ describe('Card', () => {
       highlighted={false}
       onReveal={onReveal}
       onHighlight={onHighlight}
+      boardMode={BoardMode.Controller}
     />);
     card.simulate('click', fakeClickEvent);
     expect(onHighlight).toBeCalled();
@@ -32,6 +34,7 @@ describe('Card', () => {
       highlighted={true}
       onReveal={onReveal}
       onHighlight={onHighlight}
+      boardMode={BoardMode.Controller}
     />);
     card.simulate('click', fakeClickEvent);
     expect(onHighlight).not.toBeCalled();
@@ -48,6 +51,7 @@ describe('Card', () => {
       highlighted={true}
       onReveal={onReveal}
       onHighlight={onHighlight}
+      boardMode={BoardMode.Controller}
     />);
     card.simulate('click', fakeClickEvent);
     expect(onHighlight).not.toBeCalled();

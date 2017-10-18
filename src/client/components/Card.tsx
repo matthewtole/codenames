@@ -2,12 +2,14 @@ import * as React from 'react';
 import './Card.css';
 import { Role } from '../../shared/game';
 import * as cx from 'classnames';
+import { BoardMode } from './Board';
 
 export interface CardProps {
   word: string;
   role: Role;
   revealed: boolean;
   highlighted: boolean;
+  boardMode: BoardMode;
   onReveal: () => void;
   onHighlight: () => void;
 }
@@ -21,6 +23,7 @@ export class Card extends React.PureComponent<CardProps, object> {
             Card: true,
             'Card--highlighted': this.props.highlighted,
             'Card--revealed': this.props.revealed,
+            [`Card--${this.props.boardMode}`]: true,
           })
         }
         data-role={Role[this.props.role]}
