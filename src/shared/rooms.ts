@@ -89,9 +89,9 @@ export class Rooms {
   /**
    * Generates a new random room tag by combining ROOM_TAG words from the original word list.
    * @returns A randomly generated room tag
-   * TODO: Only use words that don't have a space or punctuation
    */
   private static generateRoomTag(): RoomTag {
+    const possibleWords = original.filter(word => word.match(/^[a-z]+$/));
     const indexes: number[] = [];
     for (let i = 0; i < TAG_SIZE; i += 1) {
       let index = -1;
