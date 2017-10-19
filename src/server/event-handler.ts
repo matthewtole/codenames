@@ -164,7 +164,7 @@ export class EventHandler {
       error,
       type: EventType.Error,
     };
-    socket.send(event);
+    socket.emit('event', event);
   }
 
   private broadcastGameState(id: GameID, roomTag: string) {
