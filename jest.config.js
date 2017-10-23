@@ -2,6 +2,9 @@ module.exports = {
   "globals": {
     "ts-jest": {
       "tsConfigFile": "tsconfig.json"
+    },
+    "CONFIG": {
+      "PUBLIC_URL": ""
     }
   },
   "mapCoverage": true,
