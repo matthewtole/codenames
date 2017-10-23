@@ -6,7 +6,7 @@ interface Config {
 }
 
 const config: Config = {
-  apiRoot: CONFIG.API_ROOT, //`http://localhost:8800`,
+  apiRoot: CONFIG.API_ROOT,
   enableServiceWorker: false,
 };
 

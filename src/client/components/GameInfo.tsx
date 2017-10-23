@@ -21,7 +21,7 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
       ));
     }
     return (
-      <div className={`GameInfo__count GameInfo__count--${Team[this.props.team].toLowerCase()}`}>
+      <div className={`GameInfo__count GameInfo__count--${this.props.team}`}>
         {icons}
       </div>
     );
@@ -34,7 +34,7 @@ export class GameInfo extends React.Component<GameInfoProps, {}> {
     if (this.props.state.winner !== undefined) {
       contents = (
         <div className="GameInfo__turn GameInfo__turn--winner">
-          THE {Team[this.props.state.winner]} TEAM WINS!
+          THE {this.props.state.winner} TEAM WINS!
         </div>
       );
     } else {
@@ -43,7 +43,7 @@ export class GameInfo extends React.Component<GameInfoProps, {}> {
         (
           <div className="GameInfo__turn">
             {this.props.state.turn === Team.Red ? null : <span>&larr; </span>}
-            {Team[this.props.state.turn]}
+            {this.props.state.turn}
             {this.props.state.turn === Team.Blue ? null : <span> &rarr;</span>}
           </div>
         ),
@@ -51,7 +51,7 @@ export class GameInfo extends React.Component<GameInfoProps, {}> {
       ];
     }
     return (
-      <div className={cx(['GameInfo', `GameInfo--${Team[this.props.state.turn].toLowerCase()}`])}>
+      <div className={cx(['GameInfo', `GameInfo--${this.props.state.turn.toLowerCase()}`])}>
         {contents}
       </div>
     );

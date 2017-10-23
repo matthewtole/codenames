@@ -26,7 +26,7 @@ export class Card extends React.PureComponent<CardProps, object> {
             [`Card--${this.props.boardMode}`]: true,
           })
         }
-        data-role={Role[this.props.role]}
+        data-role={this.props.role}
         onClick={this.handleClick}
       >
         {this.props.word}

@@ -18,10 +18,10 @@ export interface GameOptions {
 }
 
 export enum Role {
-  RedSpy = 1,
-  BlueSpy = 2,
-  Bystander = 3,
-  Assassin = 4,
+  RedSpy = 'red',
+  BlueSpy = 'blue',
+  Bystander = 'bystander',
+  Assassin = 'assassin',
 }
 
 export interface CardData {
@@ -38,8 +38,8 @@ export interface Card {
 }
 
 export enum Team {
-  Red = 1,
-  Blue = 2,
+  Red = 'red',
+  Blue = 'blue',
 }
 
 export interface Message {
@@ -51,7 +51,7 @@ export interface GameState {
   cards: CardData[];
   turn: Team;
   winner?: Team;
-  roleCounts: { [id: number]: number };
+  roleCounts: { [id: string]: number };
   highlighted?: Coordinate;
   message: Message;
 }
@@ -292,8 +292,8 @@ export class Game {
    */
   private setMessage(key: string) {
     this.message = {
-      header: MESSAGES[key],
-      content: RULE_SETS[this.ruleset][key],
+      header: this.formatMessage(MESSAGES[key]),
+      content: this.formatMessage(RULE_SETS[this.ruleset][key]),     
     };
   }
 
@@ -321,6 +321,12 @@ export class Game {
       }
     }
     return count;
+  }
+
+  private formatMessage(message: string) {
+    return message
+      .replace('{% other_team %}', Game.otherPlayer(this.turn).toString())
+      .replace('{% team %}', this.turn.toString());
   }
 
   /**

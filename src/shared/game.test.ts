@@ -127,7 +127,7 @@ describe('Game', () => {
       expect(game.cards[index].revealed).toBeFalsy();
       game.revealCard(Game.indexToCoordinate(index));
       expect(game.cards[index].revealed).toBeTruthy();
-      expect(Team[game.turn]).toBe(Team[Game.otherPlayer(turn)]);
+      expect(game.turn).toBe(Game.otherPlayer(turn));
     });
 
     it('should end the game if the card is an assassin', () => {

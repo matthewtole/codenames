@@ -29,7 +29,7 @@ export class GameOver extends React.Component<GameOverProps, {}> {
           inverted={true}
           color={GameOver.teamToSemanticColor(this.props.winner)}
         >
-          The {Team[this.props.winner]} Team Wins!
+          The {this.props.winner} Team Wins!
         </Header>
       </Dimmer>
     );

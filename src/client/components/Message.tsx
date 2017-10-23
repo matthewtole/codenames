@@ -16,7 +16,7 @@ export class ModalMessage extends React.Component<Props, State> {
     return (
       <Modal
         open={this.props.message !== undefined}
-        basic={true} size="small"
+        size="large"
         onClose={this.props.onClose}
       >
         <Modal.Header
