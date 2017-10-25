@@ -14,3 +14,13 @@ export function createRoom(options: RoomOptions): Promise<Room> {
   });
   return fetch(request).then(res => res.json());
 }
+
+export function getRooms(): Promise<{ [key: string]: Room }> {
+  const request = new Request(`${config.apiRoot}/api/v1/room`, {
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+  });
+  return fetch(request).then(res => res.json()).then(data => data.rooms);
+}
