@@ -8,6 +8,12 @@ A web based implementation of the board game [Codenames](https://boardgamegeek.c
 
 It includes [additional rules](./docs/rules.md) for the game including [*drinking*](./docs/rules.md/#drinking-rules) and [*strip*](./docs/rules.md#strip-rules) rules.
 
+## Screenshots
+
+![](./docs/images/homepage-01.png)
+![](./docs/images/controller-01.png)
+![](./docs/images/viewer-01.png)
+
 ## Installing
 
 You will need Node v6 or newer and npm installed on your machine.
