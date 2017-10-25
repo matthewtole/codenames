@@ -1,7 +1,7 @@
 import * as io from 'socket.io-client';
 import * as React from 'react';
 import { History } from 'history';
-import { Table, Container, Menu, Button, Segment } from 'semantic-ui-react';
+import { Table, Container, Menu, Button, Segment, Progress } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 
@@ -10,6 +10,7 @@ import { Room } from '../../shared/rooms';
 import { getRooms } from '../lib/api';
 
 interface State {
+  loading: boolean;
   rooms?: Room[]
 };
 
@@ -18,13 +19,18 @@ export class AdminRoom extends React.Component<{}, State> {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      loading: false,
+    };
   }
 
   componentDidMount() {
+    this.setState({
+      loading: true,
+    })
     getRooms().then((rooms) => {
-      console.log(rooms);
       this.setState({
+        loading: false,
         rooms: Object.keys(rooms).map(tag => rooms[tag]),
       });
     })
@@ -54,8 +60,10 @@ export class AdminRoom extends React.Component<{}, State> {
           </Menu>
         </Container>
         </Segment>
+        <Segment loading={this.state.loading} vertical={true} basic={true}>
+
       <Container>
-      <Table celled>
+      <Table celled={true} columns={5}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Room Tag</Table.HeaderCell>
@@ -68,7 +76,7 @@ export class AdminRoom extends React.Component<{}, State> {
     
         <Table.Body>
           {rooms.map(room => (
-            <Table.Row>
+            <Table.Row key={`room:${room.tag}`}>
               <Table.Cell><Link to={`/room/${room.tag}/viewer/`}>{room.tag}</Link></Table.Cell>
               <Table.Cell>{room.words}</Table.Cell>
               <Table.Cell>{room.rules}</Table.Cell>
@@ -80,6 +88,7 @@ export class AdminRoom extends React.Component<{}, State> {
         </Table.Body>
       </Table>
       </Container>
+      </Segment>
       </div>
     )
   }
