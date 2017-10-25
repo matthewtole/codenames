@@ -11,8 +11,8 @@ import { getRooms } from '../lib/api';
 
 interface State {
   loading: boolean;
-  rooms?: Room[]
-};
+  rooms?: Room[];
+}
 
 export class AdminRoom extends React.Component<{}, State> {
   private roomTag: string;
@@ -27,69 +27,71 @@ export class AdminRoom extends React.Component<{}, State> {
   componentDidMount() {
     this.setState({
       loading: true,
-    })
+    });
     getRooms().then((rooms) => {
       this.setState({
         loading: false,
         rooms: Object.keys(rooms).map(tag => rooms[tag]),
       });
-    })
+    });
   }
 
   render() {
     const { rooms } = this.state;
-    if (!rooms) { return null; }
+    if (rooms === undefined) { return null; }
     return (
       <div>
         <Segment
-            inverted={true}
-            textAlign="center"
-            vertical={true}
-          >
-        <Container>
-          <Menu inverted={true} pointing={true} secondary={true} size="large">
-            <Menu.Item as="a" active={true}>Home</Menu.Item>
-            <Menu.Item as="a">About</Menu.Item>
-            <Menu.Item
-              as="a"
-              href="https://github.com/matthewtole/codenames/"
-              target="_blank"
-            >
-              Source Code
+          inverted={true}
+          textAlign="center"
+          vertical={true}
+        >
+          <Container>
+            <Menu inverted={true} pointing={true} secondary={true} size="large">
+              <Menu.Item as="a" active={true}>Home</Menu.Item>
+              <Menu.Item as="a">About</Menu.Item>
+              <Menu.Item
+                as="a"
+                href="https://github.com/matthewtole/codenames/"
+                target="_blank"
+              >
+                Source Code
             </Menu.Item>
-          </Menu>
-        </Container>
+            </Menu>
+          </Container>
         </Segment>
         <Segment loading={this.state.loading} vertical={true} basic={true}>
 
-      <Container>
-      <Table celled={true} columns={5}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Room Tag</Table.HeaderCell>
-            <Table.HeaderCell>Words</Table.HeaderCell>
-            <Table.HeaderCell>Rules</Table.HeaderCell>
-            <Table.HeaderCell>Created</Table.HeaderCell>
-            <Table.HeaderCell>Last Accessed</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-    
-        <Table.Body>
-          {rooms.map(room => (
-            <Table.Row key={`room:${room.tag}`}>
-              <Table.Cell><Link to={`/room/${room.tag}/viewer/`}>{room.tag}</Link></Table.Cell>
-              <Table.Cell>{room.words}</Table.Cell>
-              <Table.Cell>{room.rules}</Table.Cell>
-              <Table.Cell>{moment(room.createdAt).calendar()}</Table.Cell>
-              <Table.Cell>{moment(room.lastAccessed).calendar()}</Table.Cell>
-              {/* <Label ribbon>First</Label> */}
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-      </Container>
-      </Segment>
+          <Container>
+            <Table celled={true} columns={5}>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Room Tag</Table.HeaderCell>
+                  <Table.HeaderCell>Words</Table.HeaderCell>
+                  <Table.HeaderCell>Rules</Table.HeaderCell>
+                  <Table.HeaderCell>Created</Table.HeaderCell>
+                  <Table.HeaderCell>Last Accessed</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                {rooms.map(room => (
+                  <Table.Row key={`room:${room.tag}`}>
+                    <Table.Cell>
+                      <Link to={`/room/${room.tag}/viewer/`}>{room.tag}</Link>
+                    </Table.Cell>
+                    <Table.Cell>{room.words}</Table.Cell>
+                    <Table.Cell>{room.rules}</Table.Cell>
+                    <Table.Cell>{moment(room.createdAt).calendar()}</Table.Cell>
+                    <Table.Cell>{moment(room.lastAccessed).calendar()}</Table.Cell>
+                    {/* <Label ribbon>First</Label> */}
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          </Container>
+        </Segment>
       </div>
-    )
+    );
   }
 }
