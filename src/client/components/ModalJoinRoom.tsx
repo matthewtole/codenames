@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Input, Grid, Modal, Header, Segment, Divider, Icon } from 'semantic-ui-react';
+import { Button, Input, InputOnChangeData, Grid, Modal, Header, Segment, Divider, Icon } from 'semantic-ui-react';
 import { RoomTag } from '../../shared/rooms';
 import { BoardMode } from '../components/Board';
 
@@ -11,6 +11,7 @@ interface Props {
 
 interface State {
   tag: RoomTag;
+  valid: boolean;
   mode: BoardMode;
 }
 
@@ -19,8 +20,16 @@ export class ModalJoinRoom extends React.Component<Props, State> {
     super();
     this.state = {
       tag: '',
+      valid: false,
       mode: BoardMode.Viewer,
     };
+  }
+
+  onRoomTagChange = (event: React.SyntheticEvent<any>, data: InputOnChangeData) => {
+    this.setState({
+      tag: data.value,
+      valid: ModalJoinRoom.isValidTag(data.value)
+    });
   }
 
   setMode = (mode: BoardMode) => {
@@ -36,6 +45,10 @@ export class ModalJoinRoom extends React.Component<Props, State> {
   onCancel = () => {
     this.props.onCancel();
   }
+  
+  private static isValidTag(tag: string): boolean {
+    return !!(/^[a-z]{2,20}-[a-z]{2,20}$/.exec(tag));
+  }
 
   render() {
     return (
@@ -48,7 +61,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
               Enter the tag of the room you want to join!
             </Header.Subheader>
           </Header>
-          <Input placeholder="e.g. chicken-house" size="big" style={{ width: '100%' }} />
+          <Input placeholder="e.g. chicken-house" size="big" style={{ width: '100%' }} onChange={this.onRoomTagChange}/>
           <Divider />
 
           <Header as="h3">
@@ -78,7 +91,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
           <Button color="grey" onClick={this.onCancel}>
             Cancel
           </Button>
-          <Button color="green" onClick={this.onSubmit}>
+          <Button color="green" onClick={this.onSubmit} disabled={!this.state.valid}>
             <Icon name="checkmark" /> Join Room
           </Button>
         </Modal.Actions>

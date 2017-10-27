@@ -5,5 +5,3 @@ body, html, #root, .Router {
 #root > div[data-reactroot] {
   height: 100%;
 }
-
-
