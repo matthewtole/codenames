@@ -29,7 +29,7 @@
   "scripts": {
     "start": "npm run build && npm run watch",
     "build": "npm run build-ts && npm run tslint",
-    "serve": "nodemon --verbose --watch dist/ dist/server/index.js",
+    "serve": "nodemon --verbose --watch dist/server/ --watch dist/shared/ dist/server/index.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
     "test": "jest --forceExit --coverage",
     "test-watch": "jest --forceExit --watch --coverage",
