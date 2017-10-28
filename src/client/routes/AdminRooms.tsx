@@ -16,7 +16,7 @@ interface State {
 
 export class AdminRooms extends React.Component<{}, State> {
   private roomTag: string;
-  private updateTimer?: number;
+  private updateTimer?: NodeJS.Timer;
 
   constructor() {
     super();
@@ -31,7 +31,7 @@ export class AdminRooms extends React.Component<{}, State> {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.updateTimer);
+    global.clearTimeout(this.updateTimer);
   }
 
   private reloadRooms() {
@@ -48,7 +48,7 @@ export class AdminRooms extends React.Component<{}, State> {
   }
 
   private scheduleUpdate() {
-    this.updateTimer = setTimeout(() => this.reloadRooms(), 1000);
+    this.updateTimer = global.setTimeout(() => this.reloadRooms(), 1000);
   }
 
   render() {

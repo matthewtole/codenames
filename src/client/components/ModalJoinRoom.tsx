@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { Button, Input, InputOnChangeData, Grid, Modal, Header, Segment, Divider, Icon } from 'semantic-ui-react';
+import { 
+  Button, 
+  Input, 
+  InputOnChangeData, 
+  Grid, 
+  Modal, 
+  Header, 
+  Segment, 
+  Divider, 
+  Icon,
+} from 'semantic-ui-react';
 import { RoomTag } from '../../shared/rooms';
 import { BoardMode } from '../components/Board';
 
@@ -28,7 +38,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
   onRoomTagChange = (event: React.SyntheticEvent<any>, data: InputOnChangeData) => {
     this.setState({
       tag: data.value,
-      valid: ModalJoinRoom.isValidTag(data.value)
+      valid: ModalJoinRoom.isValidTag(data.value),
     });
   }
 
@@ -47,7 +57,7 @@ export class ModalJoinRoom extends React.Component<Props, State> {
   }
   
   private static isValidTag(tag: string): boolean {
-    return !!(/^[a-z]{2,20}-[a-z]{2,20}$/.exec(tag));
+    return /^[a-z]{2,20}-[a-z]{2,20}$/.exec(tag) !== null;
   }
 
   render() {
@@ -61,7 +71,12 @@ export class ModalJoinRoom extends React.Component<Props, State> {
               Enter the tag of the room you want to join!
             </Header.Subheader>
           </Header>
-          <Input placeholder="e.g. chicken-house" size="big" style={{ width: '100%' }} onChange={this.onRoomTagChange}/>
+          <Input
+            placeholder="e.g. chicken-house"
+            size="big"
+            style={{ width: '100%' }}
+            onChange={this.onRoomTagChange}
+          />
           <Divider />
 
           <Header as="h3">

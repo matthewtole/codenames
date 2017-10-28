@@ -54,10 +54,10 @@ export class AdminRoom extends React.Component<Props, State> {
   render() {
     const { gameState } = this.state;
 
-    if (!gameState) { return <div/> }
+    if (gameState === undefined) { return <div/>; }
 
     return (
-      <div style={{ width: '50%', height: '50%', }}>
+      <div style={{ width: '50%', height: '50%' }}>
         <div className="Room">
           <Board
             width={5}
@@ -80,7 +80,7 @@ export class AdminRoom extends React.Component<Props, State> {
         break;
       default:
         this.setState({
-          errors: [ ErrorType[error], ...this.state.errors ],
+          errors: [ErrorType[error], ...this.state.errors],
         });
     }
   }
