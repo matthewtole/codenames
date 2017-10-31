@@ -1,12 +1,10 @@
-declare var CONFIG: any;
-
 interface Config {
   apiRoot: string;
   enableServiceWorker: boolean;
 }
 
 const config: Config = {
-  apiRoot: CONFIG.API_ROOT,
+  apiRoot: `${window.location.protocol}//${window.location.host}`,
   enableServiceWorker: false,
 };
 
