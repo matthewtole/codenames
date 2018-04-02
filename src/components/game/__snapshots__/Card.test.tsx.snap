@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card renders correctly 1`] = `
+<div
+  className="Card Card--viewer"
+  data-role="BLUE_SPY"
+  onClick={[Function]}
+>
+  <div>
+    test
+  </div>
+</div>
+`;

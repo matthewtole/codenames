@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Controls renders correctly 1`] = `
+<div
+  className="GameControls"
+>
+  <button
+    className="GameControls_end-turn"
+    onClick={[Function]}
+  >
+    End Turn
+  </button>
+  <button
+    className="GameControls_new-game"
+    onClick={[Function]}
+  >
+    Start New Game
+  </button>
+  <button
+    className="GameControls_menu"
+    onClick={[Function]}
+  >
+    <i
+      className="fas fa-bars fa-fw fa-lg"
+    />
+  </button>
+</div>
+`;

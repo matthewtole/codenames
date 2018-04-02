@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Info renders correctly 1`] = `
+<div
+  className="Info Info--red"
+>
+  <div
+    className="Info__count Info__count--blue"
+  >
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+  </div>
+  <div
+    className="Info__turn"
+  >
+    RED
+    <i
+      className="fa fa-angle-double-right fa-fw"
+    />
+  </div>
+  <div
+    className="Info__count Info__count--red"
+  >
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+    <div
+      className="Info__counter"
+    />
+  </div>
+</div>
+`;

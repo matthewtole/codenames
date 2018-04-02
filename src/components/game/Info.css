@@ -1,0 +1,80 @@
+.Info {
+  display: flex;
+  flex-direction: row;
+  height: 48px;
+  justify-content: space-between;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.Info--winner {
+  height: 144px;
+}
+
+.Info--red {
+  background-color: #ef9a9a;
+}
+
+.Info--blue {
+  background-color: #bbdefb;
+}
+
+.Info__turn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.Info--winner .Info__turn {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 100;
+}
+
+.Info__turn .fa {
+  margin: 0 4px;
+}
+
+.Info--red .Info__turn {
+  justify-content: flex-end;
+}
+
+.Info--blue .Info__turn {
+  justify-content: flex-start;
+}
+
+.Info__turn.Info__turn--winner {
+  justify-content: center;
+}
+
+.Info__count {
+  flex: 0 1;
+  display: flex;
+  flex-direction: row;
+  margin: 0 4px;
+}
+
+.Info__counter {
+  height: 32px;
+  width: 32px;
+  margin: 8px 4px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+}
+
+.Info__count--blue .Info__counter {
+  background-color: #2196f3;
+}
+
+.Info__count--red .Info__counter {
+  background-color: #d32f2f;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Info__counter {
+    width: 24px;
+  }
+}

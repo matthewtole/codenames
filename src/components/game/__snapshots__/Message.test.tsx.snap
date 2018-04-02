@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message renders correctly 1`] = `
+<div
+  className="game__message modal is-active game__message--BLUE"
+  onClick={[Function]}
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="modal-content"
+  >
+    <section
+      className="hero"
+    >
+      <div
+        className="hero-body"
+      >
+        <div
+          className="container has-text-centered"
+        >
+          <h1
+            className="title has-text-white"
+          >
+            Message Header
+          </h1>
+          <h2
+            className="subtitle has-text-white"
+          >
+            This is the message content!
+          </h2>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;
