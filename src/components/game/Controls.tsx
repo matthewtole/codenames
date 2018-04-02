@@ -34,7 +34,11 @@ export class Controls extends React.Component<Props, {}> {
       </button>
     );
     controls.push(
-      <button className="GameControls_menu" onClick={() => onMenuOpen()}>
+      <button
+        className="GameControls_menu"
+        onClick={() => onMenuOpen()}
+        key="menu"
+      >
         <i className="fas fa-bars fa-fw fa-lg" />
       </button>
     );
