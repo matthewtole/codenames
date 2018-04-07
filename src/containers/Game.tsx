@@ -6,13 +6,11 @@ import {
   createGame,
   highlightCard,
   revealCard,
-  joinGame,
+  loadGame,
   clearMessage,
   endTurn,
-  showMenu,
-  hideMenu,
 } from '../actions/game';
-import { Coordinate, Team, Card, Message } from '../reducers/game';
+import { Coordinate, Team, Card, Message, RulesetName } from '../lib/types';
 import { Board, BoardMode } from '../components/game/Board';
 import { ModalMessage } from '../components/game/Message';
 import { Info } from '../components/game/Info';
@@ -61,13 +59,13 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
   if (!state.game.data) {
     return {
       loading: state.game.loading,
-      isMenuShown: state.game.isMenuShown,
+      isMenuShown: false,
       roomId: '',
     };
   }
   return {
     loading: state.game.loading,
-    mode: state.game.mode!,
+    mode: BoardMode.Controller, // state.game.mode!,
     cards: state.game.data!.cards,
     highlighted: state.game.data!.highlighted,
     revealedCards: state.game.data!.revealedCards,
@@ -76,15 +74,15 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
     turn: state.game.data!.turn,
     spyCounts: {
       [Team.RED]: GameSelectors.spyCount(
-        GameSelectors.getGameState(state),
+        GameSelectors.getGameState(state).data!,
         Team.RED
       ),
       [Team.BLUE]: GameSelectors.spyCount(
-        GameSelectors.getGameState(state),
+        GameSelectors.getGameState(state).data!,
         Team.BLUE
       ),
     },
-    isMenuShown: state.game.isMenuShown,
+    isMenuShown: false,
     roomId: state.room.id!,
   };
 };
@@ -98,9 +96,9 @@ const mapDispatchToProps = (
       // TODO: These values should not be hardcoded!
       dispatch(
         createGame({
-          rules: 'strip',
+          id: 'id',
+          ruleset: RulesetName.STANDARD,
           words: 'original',
-          mode: BoardMode.Controller,
         })
       );
     },
@@ -124,10 +122,10 @@ const mapDispatchToProps = (
       dispatch(createGame({ rules: 'strip', words: 'original', mode }));
     },
     onMenuOpen: () => {
-      dispatch(showMenu());
+      // dispatch(showMenu());
     },
     closeMenu: () => {
-      dispatch(hideMenu());
+      // dispatch(hideMenu());
     },
   };
 };

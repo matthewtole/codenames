@@ -14,6 +14,7 @@ import {
   ActionJoinGame,
   loadGame,
   createGame,
+  joinGame,
 } from './actions/game';
 import { FirebaseSync } from './lib/firebase';
 import * as config from './config';
@@ -55,6 +56,7 @@ function* roomCreate(action: ActionCreateRoom) {
 function* roomLoad(action: ActionLoadRoom) {
   const data = yield firebase.loadRoom({ id: action.payload.id });
   yield put(loadRoomSucess(data));
+  yield fork(subscribeToRoom(action.payload.id));
 }
 
 function* roomLoaded(action: ActionLoadRoomSuccess) {
@@ -73,7 +75,7 @@ function* roomLoaded(action: ActionLoadRoomSuccess) {
 function* gameJoin(action: ActionJoinGame) {
   const data = yield firebase.joinGame({ id: action.payload.id });
   yield put(loadGame({ data }));
-  yield fork(subscribe(action.payload.id));
+  yield fork(subscribeToGame(action.payload.id));
 }
 
 function* syncGame() {
@@ -82,16 +84,30 @@ function* syncGame() {
   yield firebase.sync({ id: state.game.id!, data: state.game.data! });
 }
 
-function subscribe(id: string) {
+function subscribeToGame(id: string) {
   return function*() {
     const channel = eventChannel(emit => {
-      firebase.subscribe(id, emit);
-      return () => firebase.unsubscribe(id);
+      firebase.subscribeToGame(id, emit);
+      return () => firebase.unsubscribeFromGame(id);
     });
 
     while (true) {
       const data = yield take(channel);
       yield put(loadGame({ data }));
+    }
+  };
+}
+
+function subscribeToRoom(id: string) {
+  return function*() {
+    const channel = eventChannel(emit => {
+      firebase.subscribeToRoom(id, emit);
+      return () => firebase.unsubscribeFromRoom(id);
+    });
+
+    while (true) {
+      const data = yield take(channel);
+      yield put(joinGame({ id: data.gameId }));
     }
   };
 }

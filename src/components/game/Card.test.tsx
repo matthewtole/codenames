@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Card, CardProps } from './Card';
 import * as renderer from 'react-test-renderer';
-import { Role } from '../../reducers/game';
 import { BoardMode } from './Board';
 import { shallow } from 'enzyme';
+import { Role } from '../../lib/types';
 
 describe('Card', () => {
   const onReveal = jest.fn();

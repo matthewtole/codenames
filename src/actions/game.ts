@@ -1,36 +1,47 @@
 import { ActionTypes, BaseAction } from './index';
-import { Coordinate } from '../reducers/game';
-import { FirebaseGame } from '../lib/firebase';
-import { BoardMode } from '../components/game/Board';
+import {
+  Coordinate,
+  RulesetName,
+  DictionaryName,
+  Card,
+  Team,
+  Message,
+} from '../lib/types';
 
 export interface ActionCreateGame extends BaseAction {
   type: ActionTypes.GAME_CREATE;
   payload: {
-    rules: string;
-    words: string;
-    mode: BoardMode;
+    id: string;
+    ruleset: RulesetName;
+    dictionary: DictionaryName;
   };
 }
 
-export interface ActionJoinGame extends BaseAction {
-  type: ActionTypes.GAME_JOIN;
+export interface ActionLoadGame extends BaseAction {
+  type: ActionTypes.GAME_LOAD;
   payload: {
     id: string;
-    mode: BoardMode;
+  };
+}
+
+export interface ActionLoadGameSuccess extends BaseAction {
+  type: ActionTypes.GAME_LOAD_SUCCESS;
+  payload: {
+    cards: Card[];
+    revealedCards: number[];
+    ruleset: RulesetName;
+    turn: Team;
+    dictionary: DictionaryName;
+    message?: Message;
+    highlighted?: Coordinate;
+    winner?: Team;
   };
 }
 
 export interface ActionHighlightCard extends BaseAction {
   type: ActionTypes.GAME_HIGHLIGHT_CARD;
   payload: {
-    card?: Coordinate;
-  };
-}
-
-export interface ActionSetGameId extends BaseAction {
-  type: ActionTypes.GAME_SET_ID;
-  payload: {
-    id: string;
+    card: Coordinate | null;
   };
 }
 
@@ -38,13 +49,6 @@ export interface ActionRevealCard extends BaseAction {
   type: ActionTypes.GAME_REVEAL_CARD;
   payload: {
     card: Coordinate;
-  };
-}
-
-export interface ActionLoadGame extends BaseAction {
-  type: ActionTypes.GAME_LOAD;
-  payload: {
-    data: FirebaseGame;
   };
 }
 
@@ -58,15 +62,7 @@ export interface ActionEndTurn extends BaseAction {
   payload: {};
 }
 
-export interface ActionShowMenu extends BaseAction {
-  type: ActionTypes.GAME_SHOW_MENU;
-  payload: {};
-}
-
-export interface ActionHideMenu extends BaseAction {
-  type: ActionTypes.GAME_HIDE_MENU;
-  payload: {};
-}
+// -----
 
 export const highlightCard = ({
   card,
@@ -87,44 +83,47 @@ export const revealCard = ({
 });
 
 export const createGame = ({
-  rules,
-  words,
-  mode,
+  id,
+  ruleset,
+  dictionary,
 }: ActionCreateGame['payload']): ActionCreateGame => ({
   type: ActionTypes.GAME_CREATE,
   payload: {
-    rules,
-    words,
-    mode,
-  },
-});
-
-export const joinGame = ({
-  id,
-  mode,
-}: ActionJoinGame['payload']): ActionJoinGame => ({
-  type: ActionTypes.GAME_JOIN,
-  payload: {
     id,
-    mode,
-  },
-});
-
-export const setGameId = ({
-  id,
-}: ActionSetGameId['payload']): ActionSetGameId => ({
-  type: ActionTypes.GAME_SET_ID,
-  payload: {
-    id,
+    ruleset,
+    dictionary,
   },
 });
 
 export const loadGame = ({
-  data,
+  id,
 }: ActionLoadGame['payload']): ActionLoadGame => ({
   type: ActionTypes.GAME_LOAD,
   payload: {
-    data,
+    id,
+  },
+});
+
+export const loadGameSuccess = ({
+  cards,
+  revealedCards,
+  ruleset,
+  turn,
+  dictionary,
+  message,
+  highlighted,
+  winner,
+}: ActionLoadGameSuccess['payload']): ActionLoadGameSuccess => ({
+  type: ActionTypes.GAME_LOAD_SUCCESS,
+  payload: {
+    cards,
+    revealedCards,
+    ruleset,
+    turn,
+    dictionary,
+    message,
+    highlighted,
+    winner,
   },
 });
 
@@ -138,24 +137,11 @@ export const endTurn = (): ActionEndTurn => ({
   payload: {},
 });
 
-export const showMenu = (): ActionShowMenu => ({
-  type: ActionTypes.GAME_SHOW_MENU,
-  payload: {},
-});
-
-export const hideMenu = (): ActionHideMenu => ({
-  type: ActionTypes.GAME_HIDE_MENU,
-  payload: {},
-});
-
 export type ActionGame =
   | ActionHighlightCard
   | ActionRevealCard
   | ActionCreateGame
-  | ActionJoinGame
   | ActionLoadGame
-  | ActionSetGameId
+  | ActionLoadGameSuccess
   | ActionClearMessage
-  | ActionEndTurn
-  | ActionShowMenu
-  | ActionHideMenu;
+  | ActionEndTurn;

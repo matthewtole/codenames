@@ -4,66 +4,25 @@ import {
   ActionCreateGame,
   ActionRevealCard,
   ActionLoadGame,
+  ActionSetGameId,
+  ActionJoinGame,
+  ActionClearMessage,
+  ActionEndTurn,
 } from '../actions/game';
 import { randomWords, WORD_LISTS } from '../data/words';
 import * as assert from 'assert';
 import * as shuffle from 'shuffle-array';
 import { Set } from 'immutable';
 import { MESSAGES } from '../data/messages';
-import { RULE_SETS } from '../data/rules';
+import { Rulesets } from '../data/rules';
 import * as GameSelectors from '../selectors/game';
-import { BoardMode } from '../components/game/Board';
-
-export interface Coordinate {
-  row: number;
-  col: number;
-}
-
-export interface GameOptions {
-  rules: string;
-  words: string;
-}
-
-export enum Role {
-  RED_SPY = 'RED_SPY',
-  BLUE_SPY = 'BLUE_SPY',
-  BYSTANDER = 'BYSTANDER',
-  ASSASSIN = 'ASSASSIN',
-}
-
-export interface Card {
-  word: string;
-  role: Role;
-}
-
-export enum Team {
-  RED = 'RED',
-  BLUE = 'BLUE',
-}
-
-export interface Message {
-  header: string;
-  content: string;
-  team: Team;
-}
-
-export interface GameData {
-  cards: Card[];
-  turn: Team;
-  highlighted?: Coordinate;
-  revealedCards: Set<number>;
-  message?: Message;
-  ruleset: string;
-  wordlist: string;
-  winner?: Team;
-}
+// import { BoardMode } from '../components/game/Board';
+import { GameData, Team, Role, Coordinate, Message, Card } from '../lib/types';
 
 export interface GameState {
   data?: GameData;
   loading: boolean;
   id?: string;
-  mode: BoardMode;
-  isMenuShown: boolean;
 }
 
 export const otherPlayer = (color: Team): Team => {
@@ -93,12 +52,6 @@ export const roleToTeam = (role: Role): Team => {
     default:
       throw new Error();
   }
-};
-
-export const initialState = {
-  loading: false,
-  mode: BoardMode.Controller,
-  isMenuShown: false,
 };
 
 function handleHighlightCard(
@@ -170,17 +123,7 @@ function handleRevealFriendlySpy(data: GameData, action: ActionRevealCard) {
   return {
     ...data,
     winner:
-      GameSelectors.spyCount(
-        {
-          loading: false,
-          mode: BoardMode.Controller,
-          data,
-          isMenuShown: false,
-        },
-        data.turn
-      ) === 0
-        ? data.turn
-        : undefined,
+      GameSelectors.spyCount(data, data.turn) === 0 ? data.turn : undefined,
   };
 }
 
@@ -197,17 +140,7 @@ function handleRevealEnemySpy(data: GameData, action: ActionRevealCard) {
   return {
     ...data,
     winner:
-      GameSelectors.spyCount(
-        {
-          loading: false,
-          mode: BoardMode.Controller,
-          data,
-          isMenuShown: false,
-        },
-        data.turn
-      ) === 0
-        ? data.turn
-        : undefined,
+      GameSelectors.spyCount(data, data.turn) === 0 ? data.turn : undefined,
   };
 }
 
@@ -261,7 +194,7 @@ function handleRevealCard(
 function setMessage(data: GameData, key: string): Message {
   return {
     header: formatMessage(data, MESSAGES[key]),
-    content: formatMessage(data, RULE_SETS[data.ruleset][key]),
+    content: formatMessage(data, Rulesets[data.ruleset][key]),
     team: data.turn,
   };
 }
@@ -291,7 +224,6 @@ function handleGameCreate(
 
   return {
     ...state,
-    mode: action.payload.mode,
     loading: false,
     data: {
       cards,
@@ -332,6 +264,42 @@ function handleLoadGame(state: GameState, action: ActionLoadGame): GameState {
   };
 }
 
+function handleSetId(state: GameState, action: ActionSetGameId): GameState {
+  return { ...state, id: action.payload.id };
+}
+
+function handleJoin(state: GameState, action: ActionJoinGame): GameState {
+  return {
+    ...state,
+    id: action.payload.id,
+    loading: true,
+  };
+}
+
+function handleClearMessage(
+  state: GameState,
+  action: ActionClearMessage
+): GameState {
+  return {
+    ...state,
+    data: {
+      ...state.data!,
+      message: undefined,
+    },
+  };
+}
+
+function handleEndTurn(state: GameState, action: ActionEndTurn): GameState {
+  return {
+    ...state,
+    data: {
+      ...state.data!,
+      highlighted: undefined,
+      turn: otherPlayer(state.data!.turn),
+    },
+  };
+}
+
 function randomRoles(firstPlayer: Team): Role[] {
   const roles: Role[] = [];
   for (let red = 0; red < (firstPlayer === Team.RED ? 9 : 8); red += 1) {
@@ -348,6 +316,10 @@ function randomRoles(firstPlayer: Team): Role[] {
   return shuffle(roles);
 }
 
+export const initialState: GameState = {
+  loading: false,
+};
+
 export const game = (
   state: GameState = initialState,
   action: Action
@@ -360,43 +332,15 @@ export const game = (
     case ActionTypes.GAME_REVEAL_CARD:
       return handleRevealCard(state, action as ActionRevealCard);
     case ActionTypes.GAME_SET_ID:
-      return { ...state, id: action.payload.id };
+      return handleSetId(state, action as ActionSetGameId);
     case ActionTypes.GAME_JOIN:
-      return {
-        ...state,
-        id: action.payload.id,
-        mode: action.payload.mode,
-        loading: true,
-      };
+      return handleJoin(state, action as ActionJoinGame);
     case ActionTypes.GAME_LOAD:
       return handleLoadGame(state, action as ActionLoadGame);
     case ActionTypes.GAME_CLEAR_MESSAGE:
-      return {
-        ...state,
-        data: {
-          ...state.data!,
-          message: undefined,
-        },
-      };
+      return handleClearMessage(state, action as ActionClearMessage);
     case ActionTypes.GAME_END_TURN:
-      return {
-        ...state,
-        data: {
-          ...state.data!,
-          highlighted: undefined,
-          turn: otherPlayer(state.data!.turn),
-        },
-      };
-    case ActionTypes.GAME_SHOW_MENU:
-      return {
-        ...state,
-        isMenuShown: true,
-      };
-    case ActionTypes.GAME_HIDE_MENU:
-      return {
-        ...state,
-        isMenuShown: false,
-      };
+      return handleEndTurn(state, action as ActionEndTurn);
     default:
       return state;
   }

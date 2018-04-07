@@ -2,11 +2,8 @@ import {
   GameState,
   game,
   coordinateToIndex,
-  Team,
-  Role,
   indexToCoordinate,
   otherPlayer,
-  Coordinate,
   teamToRole,
 } from './game';
 import {
@@ -20,6 +17,7 @@ import {
 } from '../actions/game';
 import { BoardMode } from '../components/game/Board';
 import * as GameSelectors from '../selectors/game';
+import { Team, Role, Coordinate } from '../lib/types';
 
 describe('Game Reducers', () => {
   describe('GAME_CREATE', () => {
@@ -32,7 +30,7 @@ describe('Game Reducers', () => {
           mode: BoardMode.Controller,
         })
       );
-      expect(nextState.mode).toBe(BoardMode.Controller);
+
       expect(nextState.data).not.toBeUndefined();
       expect(nextState.data!.cards).toHaveLength(25);
       expect(nextState.data!.highlighted).toBeUndefined();
@@ -40,8 +38,8 @@ describe('Game Reducers', () => {
       expect(nextState.data!.revealedCards.count()).toEqual(0);
       expect(nextState.data!.winner).toBeUndefined();
       const expectedTurn =
-        GameSelectors.spyCount(nextState, Team.RED) >
-        GameSelectors.spyCount(nextState, Team.BLUE)
+        GameSelectors.spyCount(nextState.data, Team.RED) >
+        GameSelectors.spyCount(nextState.data, Team.BLUE)
           ? Team.RED
           : Team.BLUE;
       expect(nextState.data!.turn).toEqual(expectedTurn);
@@ -195,7 +193,7 @@ describe('Game Reducers', () => {
       expect(card).not.toBeUndefined();
       while (card) {
         nextState = game(nextState, revealCard({ card }));
-        if (GameSelectors.spyCount(nextState, turn) === 0) {
+        if (GameSelectors.spyCount(nextState.data!, turn) === 0) {
           expect(GameSelectors.winner(nextState)).toEqual(turn);
         }
         card = getCardByRole(nextState, teamToRole(turn), true)!;
@@ -210,7 +208,7 @@ describe('Game Reducers', () => {
       while (card) {
         nextState = game(nextState, revealCard({ card }));
         nextState = game(nextState, endTurn());
-        if (GameSelectors.spyCount(nextState, turn) === 0) {
+        if (GameSelectors.spyCount(nextState.data!, turn) === 0) {
           expect(GameSelectors.winner(nextState)).toEqual(turn);
         }
         card = getCardByRole(nextState, teamToRole(turn), true)!;
@@ -234,7 +232,6 @@ describe('Game Reducers', () => {
       expect(nextState).toEqual(
         jasmine.objectContaining({
           id: '12345',
-          mode: BoardMode.Controller,
           loading: true,
         })
       );

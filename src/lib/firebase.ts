@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import { Card, Team, Coordinate, Message, GameData } from '../reducers/game';
+import { Card, Team, Coordinate, Message, GameData } from '../lib/types';
 
 export interface FirebaseConfig {
   apiKey: string;
@@ -10,7 +10,7 @@ export interface FirebaseConfig {
   messagingSenderId: string;
 }
 
-export interface FirebaseGame {
+interface GameDoc {
   cards: Card[];
   revealedCards: number[];
   ruleset: string;
@@ -24,7 +24,7 @@ export interface FirebaseGame {
 export class FirebaseSync {
   private config: FirebaseConfig;
 
-  private static gameToDoc(game: GameData): FirebaseGame {
+  private static gameToDoc(game: GameData): GameDoc {
     return {
       cards: game.cards,
       ruleset: game.ruleset,
@@ -45,15 +45,26 @@ export class FirebaseSync {
     firebase.initializeApp(this.config);
   }
 
-  subscribe(id: string, callback: (data: FirebaseGame) => void) {
-    this.unsubscribe(id);
+  subscribeToGame(id: string, callback: (data: GameDoc) => void) {
+    this.unsubscribeFromGame(id);
     this.game(id).on('value', (snapshot: firebase.database.DataSnapshot) => {
       callback(snapshot.val());
     });
   }
 
-  unsubscribe(id: string) {
+  unsubscribeFromGame(id: string) {
     this.game(id).off('value');
+  }
+
+  subscribeToRoom(id: string, callback: (data: { gameId: string }) => void) {
+    this.unsubscribeFromRoom(id);
+    this.room(id).on('value', (snapshot: firebase.database.DataSnapshot) => {
+      callback(snapshot.val());
+    });
+  }
+
+  unsubscribeFromRoom(id: string) {
+    this.room(id).off('value');
   }
 
   async createGame(data: GameData) {
@@ -129,5 +140,9 @@ export class FirebaseSync {
 
   private game(id: string) {
     return firebase.database().ref(`/games/${id}`);
+  }
+
+  private room(id: string) {
+    return firebase.database().ref(`/rooms/${id}`);
   }
 }

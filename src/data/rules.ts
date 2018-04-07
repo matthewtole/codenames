@@ -1,8 +1,10 @@
+import { RulesetName } from '../lib/types';
+
 // tslint:disable:max-line-length
 
-export type RuleSet = { [key: string]: string };
+export type Ruleset = { [key: string]: string };
 
-export const standard: RuleSet = {
+const standard: Ruleset = {
   ASSASSIN: 'The {% team %} team just lost the game.',
   BYSTANDER: 'It is now the {% other_team %} team\'s turn.',
   FRIENDLY_SPY: 'Good job! Keep guessing.',
@@ -10,7 +12,7 @@ export const standard: RuleSet = {
   VICTORY: 'Congratulations to the {% team %} team.',
 };
 
-export const drinking: RuleSet = {
+const drinking: Ruleset = {
   ASSASSIN: 'The {% team %} spymaster has to down their drink.',
   BYSTANDER:
     'The {% other_team %} spymaster gets to nominate a member of the {% team %} team to take a drink.',
@@ -20,7 +22,7 @@ export const drinking: RuleSet = {
   VICTORY: 'Everyone on the {% other_team %} team has to take a drink.',
 };
 
-export const strip: RuleSet = {
+const strip: Ruleset = {
   ASSASSIN:
     'The {% team %} spymaster has to remove all their remaining clothes.',
   BYSTANDER:
@@ -33,8 +35,8 @@ export const strip: RuleSet = {
     'Everyone on the {% other_team %} team has to remove one item of clothing.',
 };
 
-export const RULE_SETS: { [key: string]: RuleSet } = {
-  standard,
-  drinking,
-  strip,
+export const Rulesets: { [key: string]: Ruleset } = {
+  [RulesetName.STANDARD]: standard,
+  [RulesetName.DRINKING]: drinking,
+  [RulesetName.STRIP]: strip,
 };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Card.css';
-import { Role } from '../../reducers/game';
+import { Role } from '../../lib/types';
 import * as cx from 'classnames';
 import { BoardMode } from './Board';
 

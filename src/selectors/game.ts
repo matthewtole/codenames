@@ -1,17 +1,12 @@
-import { Team, teamToRole } from '../reducers/game';
+import { teamToRole } from '../reducers/game';
 import { GameState } from '../reducers/game';
 import { State } from '../reducers/index';
+import { GameData, Team } from '../lib/types';
 
 export const getGameState = (state: State) => state.game;
 
-export const spyCount = (state: GameState, team: Team): number => {
-  if (!state) {
-    return 0;
-  }
-  if (!state.data) {
-    return 0;
-  }
-  const { cards, revealedCards } = state.data;
+export const spyCount = (data: GameData, team: Team): number => {
+  const { cards, revealedCards } = data;
 
   let count = 0;
   cards.forEach(

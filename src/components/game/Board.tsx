@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Board.css';
 import { Card as CardComponent } from './Card';
-import { Card, Coordinate, Role } from '../../reducers/game';
+import { Card, Coordinate, Role } from '../../lib/types';
 
 export enum BoardMode {
   Viewer = 'viewer',
