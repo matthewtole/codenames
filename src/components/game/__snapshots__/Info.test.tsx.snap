@@ -44,5 +44,13 @@ exports[`Info renders correctly 1`] = `
       className="Info__counter"
     />
   </div>
+  <button
+    className="GameControls_menu"
+    onClick={[Function]}
+  >
+    <i
+      className="fas fa-bars fa-fw"
+    />
+  </button>
 </div>
 `;

@@ -16,13 +16,5 @@ exports[`Controls renders correctly 1`] = `
   >
     Start New Game
   </button>
-  <button
-    className="GameControls_menu"
-    onClick={[Function]}
-  >
-    <i
-      className="fas fa-bars fa-fw fa-lg"
-    />
-  </button>
 </div>
 `;

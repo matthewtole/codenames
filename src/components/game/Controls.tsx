@@ -7,11 +7,12 @@ interface Props {
   onEndTurn: () => void;
   onNewGame: () => void;
   onMenuOpen: () => void;
+  showMenu?: boolean;
 }
 
 export class Controls extends React.Component<Props, {}> {
   render() {
-    const { winner, onEndTurn, onNewGame, onMenuOpen } = this.props;
+    const { winner, onEndTurn, onNewGame, onMenuOpen, showMenu } = this.props;
     const controls = [];
     if (!winner) {
       controls.push(
@@ -33,15 +34,17 @@ export class Controls extends React.Component<Props, {}> {
         Start New Game
       </button>
     );
-    controls.push(
-      <button
-        className="GameControls_menu"
-        onClick={() => onMenuOpen()}
-        key="menu"
-      >
-        <i className="fas fa-bars fa-fw fa-lg" />
-      </button>
-    );
+    if (showMenu) {
+      controls.push(
+        <button
+          className="GameControls_menu"
+          onClick={() => onMenuOpen()}
+          key="menu"
+        >
+          <i className="fas fa-bars fa-fw fa-lg" />
+        </button>
+      );
+    }
     return <div className="GameControls">{controls}</div>;
   }
 }

@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Info } from './Info';
+import { Info, InfoProps } from './Info';
 import * as renderer from 'react-test-renderer';
 import { Team } from '../../redux/game/types';
 
 describe('Info', () => {
-  const defaultProps = {
+  const defaultProps: InfoProps = {
     turn: Team.RED,
     spyCounts: {
       [Team.RED]: 5,
       [Team.BLUE]: 3,
     },
+    onMenuOpen: jest.fn(),
+    showMenu: true,
   };
 
   it('renders correctly', () => {

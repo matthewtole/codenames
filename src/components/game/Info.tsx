@@ -3,10 +3,12 @@ import { Team } from '../../redux/game/types';
 import './Info.css';
 import * as cx from 'classnames';
 
-interface InfoProps {
+export interface InfoProps {
   turn: Team;
   winner?: Team;
   spyCounts: { [key: string]: number };
+  showMenu: boolean;
+  onMenuOpen: () => void;
 }
 
 interface SpyCounterProps {
@@ -37,7 +39,7 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
 
 export class Info extends React.Component<InfoProps, {}> {
   render() {
-    const { turn, winner, spyCounts } = this.props;
+    const { turn, winner, spyCounts, showMenu } = this.props;
     let contents = null;
     if (winner !== undefined) {
       contents = (
@@ -78,7 +80,20 @@ export class Info extends React.Component<InfoProps, {}> {
         })}
       >
         {contents}
+        {showMenu && this.renderMenu()}
       </div>
+    );
+  }
+
+  private renderMenu = () => {
+    return (
+      <button
+        className="GameControls_menu"
+        onClick={() => this.props.onMenuOpen()}
+        key="menu"
+      >
+        <i className="fas fa-bars fa-fw" />
+      </button>
     );
   }
 }

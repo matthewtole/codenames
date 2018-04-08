@@ -154,7 +154,13 @@ class Game extends React.PureComponent<Props, {}> {
         <div
           style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
         >
-          <Info turn={turn!} winner={winner!} spyCounts={spyCounts!} />
+          <Info
+            turn={turn!}
+            winner={winner!}
+            spyCounts={spyCounts!}
+            onMenuOpen={onMenuOpen}
+            showMenu={mode === BoardMode.Viewer}
+          />
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
           ) : null}
@@ -185,6 +191,7 @@ class Game extends React.PureComponent<Props, {}> {
               onEndTurn={onEndTurn}
               onNewGame={() => onNewGame(mode!)}
               onMenuOpen={onMenuOpen}
+              showMenu={mode === BoardMode.Controller}
             />
           ) : null}
         </div>
