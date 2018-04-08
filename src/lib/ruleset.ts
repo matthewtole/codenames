@@ -3,6 +3,7 @@ import { RulesetName } from '../redux/game/types';
 type Ruleset = { [key: string]: string };
 interface RulesetFile {
   name: string;
+  description?: string;
   rules: Ruleset;
 }
 
@@ -24,5 +25,13 @@ export class RulesetManager {
 
   static getName(ruleset: RulesetName): string {
     return data[ruleset].name;
+  }
+
+  static hasDescription(ruleset: RulesetName): boolean {
+    return !!data[ruleset].description;
+  }
+
+  static getDescription(ruleset: RulesetName): string {
+    return data[ruleset].description!;
   }
 }

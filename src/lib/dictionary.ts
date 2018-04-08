@@ -3,6 +3,7 @@ import { DictionaryName } from '../redux/game/types';
 type Dictionary = string[];
 interface DictionaryFile {
   name: string;
+  description?: string;
   words: Dictionary;
 }
 
@@ -23,5 +24,13 @@ export class DictionaryManager {
 
   static getName(dictionary: DictionaryName): string {
     return data[dictionary].name;
+  }
+
+  static hasDescription(dictionary: DictionaryName): boolean {
+    return !!data[dictionary].description;
+  }
+
+  static getDescription(dictionary: DictionaryName): string {
+    return data[dictionary].description!;
   }
 }

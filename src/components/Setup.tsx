@@ -1,6 +1,7 @@
 import * as React from 'react';
-import * as cx from 'classnames';
 import { DictionaryName, RulesetName } from '../redux/game/types';
+import { RulesetNames, RulesetManager } from '../lib/ruleset';
+import { DictionaryNames, DictionaryManager } from '../lib/dictionary';
 
 interface Props {
   dictionary: DictionaryName;
@@ -13,17 +14,6 @@ interface Props {
 
 export class Setup extends React.Component<Props, {}> {
   render() {
-    const rulesets = {
-      [RulesetName.STANDARD]: 'None',
-      [RulesetName.DRINKING]: 'Drinking',
-      [RulesetName.STRIP]: 'Strip',
-    };
-
-    const dictionarys = {
-      [DictionaryName.ORIGINAL]: 'Original',
-      [DictionaryName.UNDERCOVER]: 'Undercover',
-    };
-
     const { ruleset, dictionary, creatingRoom } = this.props;
 
     if (creatingRoom) {
@@ -39,61 +29,79 @@ export class Setup extends React.Component<Props, {}> {
 
     return (
       <div>
-        <section className="hero is-primary is">
+        <section className="hero is-primary">
           <div className="hero-body">
             <div className="container has-text-centered">
-              <h1 className="title">Codenames</h1>
+              <h1 className="title">Start New Game</h1>
             </div>
           </div>
         </section>
         <section className="section">
           <div className="container is-fluid">
             <div className="columns is-mobile is-centered">
-              <div className="column is-half is-narrow">
+              <div className="column is-half-desktop is-two-thirds-tablet is-full-mobile is-one-third-widescreen ">
                 <div className="box">
-                  <h3 className="title is-4">Additional Rules</h3>
-                  <div className="buttons has-addons">
-                    {Object.keys(rulesets).map(key => (
-                      <span
-                        key={key}
-                        onClick={() =>
-                          this.props.onChangeRuleset(key as RulesetName)
-                        }
-                        className={cx({
-                          button: true,
-                          'is-selected': ruleset === key,
-                          'is-primary': ruleset === key,
-                        })}
-                      >
-                        {rulesets[key]}
-                      </span>
+                  <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
+                    Additional Rules
+                  </h3>
+                  <div className="field">
+                    {RulesetNames.map(name => (
+                      <div className="field">
+                        <input
+                          className="is-checkradio"
+                          id={name}
+                          type="radio"
+                          name={name}
+                          checked={ruleset === name}
+                          onChange={() => this.props.onChangeRuleset(name)}
+                        />
+                        <label htmlFor={name}>
+                          {RulesetManager.getName(name)}
+                        </label>
+                        {RulesetManager.hasDescription(name) ? (
+                          <p className="help">
+                            {RulesetManager.getDescription(name)}
+                          </p>
+                        ) : null}
+                      </div>
                     ))}
                   </div>
-
-                  <h3 className="title is-4">Word List</h3>
-                  <div className="buttons has-addons">
-                    {Object.keys(dictionarys).map(key => (
-                      <span
-                        key={key}
-                        onClick={() =>
-                          this.props.onChangeDictionary(key as DictionaryName)
-                        }
-                        className={cx({
-                          button: true,
-                          'is-selected': dictionary === key,
-                          'is-primary': dictionary === key,
-                        })}
-                      >
-                        {dictionarys[key]}
-                      </span>
+                  <br />
+                  <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
+                    Dictionary
+                  </h3>
+                  <div className="field">
+                    {DictionaryNames.map(name => (
+                      <div className="field">
+                        <input
+                          className="is-checkradio"
+                          id={name}
+                          type="radio"
+                          name={name}
+                          checked={dictionary === name}
+                          onChange={() => this.props.onChangeDictionary(name)}
+                        />
+                        <label htmlFor={name}>
+                          {DictionaryManager.getName(name)}
+                        </label>
+                        {DictionaryManager.hasDescription(name) ? (
+                          <p className="help">
+                            {DictionaryManager.getDescription(name)}
+                          </p>
+                        ) : null}
+                      </div>
                     ))}
                   </div>
-                  <button
-                    className="button"
-                    onClick={() => this.props.onSubmit()}
-                  >
-                    Create Room
-                  </button>
+                  <br />
+                  <div className="has-text-centered">
+                    <button
+                      className="button is-primary is-medium"
+                      onClick={() => this.props.onSubmit()}
+                      style={{ width: '100%' }}
+                    >
+                      Start Game
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
