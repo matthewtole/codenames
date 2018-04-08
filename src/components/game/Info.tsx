@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Team } from '../../reducers/game';
+import { Team } from '../../redux/game/types';
 import './Info.css';
 import * as cx from 'classnames';
 

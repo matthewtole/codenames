@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { State } from '../reducers/index';
-import { Action } from '../actions/index';
-import { loadRoom } from '../actions/room';
-import { createGame } from '../actions/game';
+import * as uuid from 'uuid';
 import { BoardMode } from '../components/game/Board';
-import { ConnectedTest } from './Game';
+import { ConnectedGame } from './Game';
+import { State } from '../redux/store';
+import { DictionaryName, RulesetName } from '../redux/game/types';
+import { Action } from '../redux/actions';
+import { createGame } from '../redux/game/action_creators';
+import { loadRoom } from '../redux/room/action_creators';
 
 interface RoomProps {
   id: string;
@@ -14,8 +16,8 @@ interface RoomProps {
 
 interface StateProps {
   loading: boolean;
-  wordlist?: string;
-  ruleset?: string;
+  dictionary?: DictionaryName;
+  ruleset?: RulesetName;
   gameId?: string;
 }
 
@@ -30,7 +32,7 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
   return {
     loading: !!state.room.loading,
     ruleset: state.room.ruleset,
-    wordlist: state.room.wordlist,
+    dictionary: state.room.dictionary,
     gameId: state.room.gameId,
   };
 };
@@ -41,12 +43,12 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     loadRoom: (id: string) => dispatch(loadRoom({ id })),
-    createGame: (rules: string, words: string) =>
+    createGame: (ruleset: RulesetName, dictionary: DictionaryName) =>
       dispatch(
         createGame({
-          rules,
-          words,
-          mode: ownProps.boardMode,
+          id: uuid.v4(),
+          ruleset,
+          dictionary,
         })
       ),
   };
@@ -60,7 +62,12 @@ export class Room extends React.PureComponent<Props, {}> {
   render() {
     if (this.props.gameId) {
       return (
-        <ConnectedTest id={this.props.gameId} mode={this.props.boardMode} />
+        <ConnectedGame
+          id={this.props.gameId}
+          mode={this.props.boardMode}
+          ruleset={this.props.ruleset!}
+          dictionary={this.props.dictionary!}
+        />
       );
     }
     return (

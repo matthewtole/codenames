@@ -1,5 +1,14 @@
 import * as firebase from 'firebase';
-import { Card, Team, Coordinate, Message, GameData } from '../lib/types';
+import {
+  DictionaryName,
+  RulesetName,
+  Team,
+  Message,
+  Coordinate,
+  Card,
+} from '../redux/game/types';
+import { GameState, GameStateLoaded } from '../redux/game/reducers';
+// import { Card, Team, Coordinate, Message, GameData } from '../lib/types';
 
 export interface FirebaseConfig {
   apiKey: string;
@@ -13,9 +22,9 @@ export interface FirebaseConfig {
 interface GameDoc {
   cards: Card[];
   revealedCards: number[];
-  ruleset: string;
+  ruleset: RulesetName;
   turn: Team;
-  wordlist: string;
+  dictionary: DictionaryName;
   message: Message | null;
   highlighted: Coordinate | null;
   winner: Team | null;
@@ -24,11 +33,11 @@ interface GameDoc {
 export class FirebaseSync {
   private config: FirebaseConfig;
 
-  private static gameToDoc(game: GameData): GameDoc {
+  private static gameToDoc(game: GameStateLoaded): GameDoc {
     return {
       cards: game.cards,
       ruleset: game.ruleset,
-      wordlist: game.wordlist,
+      dictionary: game.dictionary,
       turn: game.turn,
       message: game.message || null,
       revealedCards: game.revealedCards.toArray(),
@@ -67,32 +76,31 @@ export class FirebaseSync {
     this.room(id).off('value');
   }
 
-  async createGame(data: GameData) {
+  async createGame(data: GameState): Promise<void> {
     return firebase
       .database()
-      .ref('/games/')
-      .push(FirebaseSync.gameToDoc(data))
-      .then((value: firebase.database.Reference) => {
-        return value.key!;
-      });
+      .ref(`/games/${data.id}`)
+      .set(FirebaseSync.gameToDoc(data as GameStateLoaded));
   }
 
   async createRoom({
-    wordlist,
+    id,
+    dictionary,
     ruleset,
   }: {
-    wordlist: string;
-    ruleset: string;
-  }) {
+    id: string;
+    dictionary: DictionaryName;
+    ruleset: RulesetName;
+  }): Promise<void> {
     return firebase
       .database()
-      .ref('/rooms')
-      .push({
-        wordlist,
+      .ref(`/rooms/${id}/`)
+      .set({
+        dictionary,
         ruleset,
       })
       .then((value: firebase.database.Reference) => {
-        return value.key!;
+        return;
       });
   }
 
@@ -106,7 +114,7 @@ export class FirebaseSync {
         return {
           id: snapshot.key!,
           gameId: data.gameId,
-          wordlist: data.wordlist,
+          dictionary: data.dictionary,
           ruleset: data.ruleset,
         };
       });
@@ -119,7 +127,7 @@ export class FirebaseSync {
       .set(gameId);
   }
 
-  async joinGame({ id }: { id: string }) {
+  async loadGame({ id }: { id: string }): Promise<GameDoc> {
     return this.game(id)
       .once('value')
       .then((snapshot: firebase.database.DataSnapshot) => {
@@ -133,8 +141,7 @@ export class FirebaseSync {
       });
   }
 
-  async sync({ id, data }: { id: string; data: GameData }) {
-    console.log(data); // tslint:disable-line
+  async sync({ id, data }: { id: string; data: GameStateLoaded }) {
     return this.game(id).set(FirebaseSync.gameToDoc(data));
   }
 

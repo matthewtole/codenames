@@ -1,9 +1,0 @@
-'use strict';
-
-export const MESSAGES: { [key: string]: string } = {
-  ASSASSIN: 'You picked the assassin!',
-  BYSTANDER: 'You picked an innocent bystander!',
-  FRIENDLY_SPY: 'You found a {% team %} spy!',
-  ENEMY_SPY: 'You picked a {% other_team %} spy!',
-  VICTORY: 'You found all of your spies!',
-};

@@ -1,0 +1,12 @@
+{
+  "name": "Drinking",
+  "rules": {
+    "ASSASSIN": "The {% team %} spymaster has to down their drink.",
+    "BYSTANDER":
+      "The {% other_team %} spymaster gets to nominate a member of the {% team %} team to take a drink.",
+    "FRIENDLY_SPY":
+      "The {% team %} spymaster gets to nominate a member of the {% other_team %} team to take a drink.",
+    "ENEMY_SPY": "Everyone on the {% team %} team has to take a drink.",
+    "VICTORY": "Everyone on the {% other_team %} team has to take a drink."
+  }
+}

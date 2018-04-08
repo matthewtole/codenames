@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Controls } from './Controls';
 import * as renderer from 'react-test-renderer';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { Team } from '../../reducers/game';
+import { Team } from '../../redux/game/types';
 
 describe('Controls', () => {
   const onEndTurn = jest.fn();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ModalMessage } from './Message';
 import * as renderer from 'react-test-renderer';
-import { Team } from '../../reducers/game';
+import { Team } from '../../redux/game/types';
 import { shallow } from 'enzyme';
 
 describe('Message', () => {

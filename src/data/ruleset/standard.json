@@ -1,0 +1,10 @@
+{
+  "name": "Standard",
+  "rules": {
+    "ASSASSIN": "The {% team %} team just lost the game.",
+    "BYSTANDER": "It is now the {% other_team %} team's turn.",
+    "FRIENDLY_SPY": "Good job! Keep guessing.",
+    "ENEMY_SPY": "Idiots! Your turn is now over.",
+    "VICTORY": "Congratulations to the {% team %} team."
+  }
+}

@@ -3,7 +3,7 @@ import { Card, CardProps } from './Card';
 import * as renderer from 'react-test-renderer';
 import { BoardMode } from './Board';
 import { shallow } from 'enzyme';
-import { Role } from '../../lib/types';
+import { Role } from '../../redux/game/types';
 
 describe('Card', () => {
   const onReveal = jest.fn();

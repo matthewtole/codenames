@@ -1,32 +1,42 @@
-import { connect, Dispatch } from 'react-redux';
-import { State } from '../reducers/index';
-import { Action } from '../actions/index';
 import * as React from 'react';
+import * as Immutable from 'immutable';
+import { BoardMode, Board } from '../components/game/Board';
+import {
+  Coordinate,
+  Card,
+  Message,
+  Team,
+  RulesetName,
+  DictionaryName,
+} from '../redux/game/types';
+import { State } from '../redux/store';
 import {
   createGame,
-  highlightCard,
-  revealCard,
-  loadGame,
   clearMessage,
   endTurn,
-} from '../actions/game';
-import { Coordinate, Team, Card, Message, RulesetName } from '../lib/types';
-import { Board, BoardMode } from '../components/game/Board';
-import { ModalMessage } from '../components/game/Message';
+  revealCard,
+  highlightCard,
+} from '../redux/game/action_creators';
+import * as uuid from 'uuid';
+import { Dispatch } from 'redux';
+import { Action } from '../redux/actions';
 import { Info } from '../components/game/Info';
-import * as GameSelectors from '../selectors/game';
-import { Controls } from '../components/game/Controls';
-import * as Immutable from 'immutable';
+import { ModalMessage } from '../components/game/Message';
 import { GameMenu } from '../components/game/Menu';
+import { Controls } from '../components/game/Controls';
+import { connect } from 'react-redux';
+import { GameStateLoaded } from '../redux/game/reducers';
+import * as GameSelectors from '../redux/game/selectors';
+import { hideMenu, showMenu } from '../redux/ui/action_creators';
 
 interface GameProps {
   id: string;
   mode: BoardMode;
+  ruleset: RulesetName;
+  dictionary: DictionaryName;
 }
 
 interface DispatchProps {
-  onClickCreate: () => void;
-  onClickJoin: (id: string, mode: BoardMode) => void;
   onHighlightCard: (card: Coordinate) => void;
   onRevealCard: (card: Coordinate) => void;
   onMessageClosed: () => void;
@@ -53,37 +63,20 @@ interface StateProps {
 type Props = GameProps & DispatchProps & StateProps;
 
 const mapStateToProps = (state: State, ownProps: Props): StateProps => {
-  if (!state.game) {
-    return { loading: false, isMenuShown: false, roomId: '' };
-  }
-  if (!state.game.data) {
-    return {
-      loading: state.game.loading,
-      isMenuShown: false,
-      roomId: '',
-    };
-  }
   return {
     loading: state.game.loading,
-    mode: BoardMode.Controller, // state.game.mode!,
-    cards: state.game.data!.cards,
-    highlighted: state.game.data!.highlighted,
-    revealedCards: state.game.data!.revealedCards,
-    message: state.game.data!.message,
-    winner: GameSelectors.winner(GameSelectors.getGameState(state)),
-    turn: state.game.data!.turn,
-    spyCounts: {
-      [Team.RED]: GameSelectors.spyCount(
-        GameSelectors.getGameState(state).data!,
-        Team.RED
-      ),
-      [Team.BLUE]: GameSelectors.spyCount(
-        GameSelectors.getGameState(state).data!,
-        Team.BLUE
-      ),
-    },
-    isMenuShown: false,
+    cards: (state.game as GameStateLoaded).cards,
+    highlighted: (state.game as GameStateLoaded).highlighted,
+    revealedCards: (state.game as GameStateLoaded).revealedCards,
+    message: (state.game as GameStateLoaded).message,
+    winner: (state.game as GameStateLoaded).winner,
+    isMenuShown: state.ui.isMenuShown,
     roomId: state.room.id!,
+    turn: (state.game as GameStateLoaded).turn,
+    spyCounts: {
+      [Team.RED]: GameSelectors.spyCount(state, Team.RED),
+      [Team.BLUE]: GameSelectors.spyCount(state, Team.BLUE),
+    },
   };
 };
 
@@ -92,19 +85,6 @@ const mapDispatchToProps = (
   ownProps: Props
 ): DispatchProps => {
   return {
-    onClickCreate: () => {
-      // TODO: These values should not be hardcoded!
-      dispatch(
-        createGame({
-          id: 'id',
-          ruleset: RulesetName.STANDARD,
-          words: 'original',
-        })
-      );
-    },
-    onClickJoin: (id: string, mode: BoardMode) => {
-      dispatch(joinGame({ id, mode }));
-    },
     onHighlightCard: (card: Coordinate) => {
       dispatch(highlightCard({ card }));
     },
@@ -117,25 +97,25 @@ const mapDispatchToProps = (
     onMessageClosed: () => {
       dispatch(clearMessage());
     },
-    onNewGame: (mode: BoardMode) => {
-      // TODO: These values should not be hardcoded!
-      dispatch(createGame({ rules: 'strip', words: 'original', mode }));
+    onNewGame: () => {
+      dispatch(
+        createGame({
+          id: uuid.v4(),
+          ruleset: ownProps.ruleset,
+          dictionary: ownProps.dictionary,
+        })
+      );
     },
     onMenuOpen: () => {
-      // dispatch(showMenu());
+      dispatch(showMenu());
     },
     closeMenu: () => {
-      // dispatch(hideMenu());
+      dispatch(hideMenu());
     },
   };
 };
 
-class Test extends React.PureComponent<Props, {}> {
-  componentDidMount() {
-    if (this.props.id) {
-      this.props.onClickJoin(this.props.id, this.props.mode);
-    }
-  }
+class Game extends React.PureComponent<Props, {}> {
   render() {
     const {
       onHighlightCard,
@@ -156,6 +136,8 @@ class Test extends React.PureComponent<Props, {}> {
       isMenuShown,
       closeMenu,
       roomId,
+      ruleset,
+      dictionary,
     } = this.props;
     if (loading) {
       return (
@@ -181,6 +163,10 @@ class Test extends React.PureComponent<Props, {}> {
             onClose={closeMenu}
             boardMode={mode!}
             roomId={roomId}
+            ruleset={ruleset}
+            dictionary={dictionary}
+            setRuleset={this.handleSetRuleset}
+            setDictionary={this.handleSetDictionary}
           />
 
           <Board
@@ -206,9 +192,17 @@ class Test extends React.PureComponent<Props, {}> {
     }
     return null;
   }
+
+  private handleSetRuleset = (ruleset: RulesetName) => {
+    this.props.closeMenu();
+  }
+
+  private handleSetDictionary = (dictionary: DictionaryName) => {
+    this.props.closeMenu();
+  }
 }
 
-export const ConnectedTest = connect<StateProps, DispatchProps, GameProps>(
+export const ConnectedGame = connect<StateProps, DispatchProps, GameProps>(
   mapStateToProps,
   mapDispatchToProps
-)(Test);
+)(Game);

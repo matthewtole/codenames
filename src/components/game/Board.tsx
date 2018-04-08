@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Board.css';
 import { Card as CardComponent } from './Card';
-import { Card, Coordinate, Role } from '../../lib/types';
+import { Card, Coordinate, Role } from '../../redux/game/types';
 
 export enum BoardMode {
   Viewer = 'viewer',

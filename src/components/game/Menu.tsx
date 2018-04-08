@@ -2,28 +2,33 @@ import * as React from 'react';
 import * as cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { BoardMode } from './Board';
+import { DictionaryNames, DictionaryManager } from '../../lib/dictionary';
+import { RulesetNames, RulesetManager } from '../../lib/ruleset';
+import { DictionaryName, RulesetName } from '../../redux/game/types';
 
 interface Props {
   isShown: boolean;
   onClose: () => void;
   roomId: string;
   boardMode: BoardMode;
+  ruleset: RulesetName;
+  dictionary: DictionaryName;
+  setDictionary: (dictionary: DictionaryName) => void;
+  setRuleset: (ruleset: RulesetName) => void;
 }
 
 export class GameMenu extends React.PureComponent<Props, {}> {
   render() {
-    const { isShown, onClose, roomId, boardMode } = this.props;
-
-    const rulesets = {
-      standard: 'None',
-      drinking: 'Drinking',
-      strip: 'Strip',
-    };
-
-    const wordlists = {
-      original: 'Original',
-      undercover: 'Undercover',
-    };
+    const {
+      isShown,
+      onClose,
+      roomId,
+      boardMode,
+      ruleset,
+      dictionary,
+      setDictionary,
+      setRuleset,
+    } = this.props;
 
     return (
       <div className={cx({ modal: true, 'is-active': isShown })}>
@@ -54,17 +59,27 @@ export class GameMenu extends React.PureComponent<Props, {}> {
               </ul>
               <p className="menu-label">Change Ruleset</p>
               <ul className="menu-list">
-                {Object.keys(rulesets).map(key => (
-                  <li key={key}>
-                    <a>{rulesets[key]}</a>
+                {RulesetNames.map(name => (
+                  <li key={name}>
+                    <a
+                      className={cx({ 'is-active': ruleset === name })}
+                      onClick={() => setRuleset(name)}
+                    >
+                      {RulesetManager.getName(name)}
+                    </a>
                   </li>
                 ))}
               </ul>
               <p className="menu-label">Change Word List</p>
               <ul className="menu-list">
-                {Object.keys(wordlists).map(key => (
-                  <li key={key}>
-                    <a>{wordlists[key]}</a>
+                {DictionaryNames.map(name => (
+                  <li key={name}>
+                    <a
+                      className={cx({ 'is-active': dictionary === name })}
+                      onClick={() => setDictionary(name)}
+                    >
+                      {DictionaryManager.getName(name)}
+                    </a>
                   </li>
                 ))}
               </ul>

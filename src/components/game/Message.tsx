@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Message } from '../../reducers/game';
+import { Message } from '../../redux/game/types';
 import './Message.css';
 
 interface Props {
