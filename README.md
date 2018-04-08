@@ -4,9 +4,11 @@
 
 A web based implementation of the board game [Codenames](https://boardgamegeek.com/boardgame/178900/codenames).
 
+You can play with an alpha build of the app at [https://matthewtole-codenames-alpha.netlify.com/](https://matthewtole-codenames-alpha.netlify.com/)
+
 **NOTE: This project is a passion project by fans of the game and is in no way associated with the original game or its creators.**
 
-It includes additional rules for the game including *drinking* and *strip* rules.
+It includes additional rules for the game including _drinking_ and _strip_ rules.
 
 ## Screenshots
 
