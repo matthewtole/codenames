@@ -5,6 +5,5 @@ install:
   - npm install -g codecov
   - npm install
 script:
-  - npm run tslint
   - npm run test-coverage
   - codecov
