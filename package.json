@@ -55,7 +55,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "test-coverage": "node scripts/test.js --env=jsdom --coverage"
+    "test-coverage": "node scripts/test.js --env=jsdom --coverage",
+    "tslint": "tslint --project . --format verbose"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
@@ -80,9 +81,7 @@
     "react-test-renderer": "^16.3.0"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
       "<rootDir>/scripts/test-setup.js"
@@ -97,7 +96,8 @@
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
+        "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
@@ -126,9 +126,7 @@
     }
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "extends": "react-app"
