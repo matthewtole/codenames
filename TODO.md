@@ -18,6 +18,7 @@
 * [ ] Seperately worded messages for viewer and controller
 * [ ] Human readable room names
 * [ ] Mobile UI
+* [ ] Navbar UI
 
 ## Tests
 

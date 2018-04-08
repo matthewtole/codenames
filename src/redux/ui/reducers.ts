@@ -9,6 +9,33 @@ const initialState: UIState = {
   isMenuShown: false,
 };
 
+function toggleFullScreen() {
+  var doc = window.document as any; // tslint:disable-line:no-any
+  var docEl = doc.documentElement as any; // tslint:disable-line:no-any
+
+  var requestFullScreen =
+    docEl.requestFullscreen ||
+    docEl.mozRequestFullScreen ||
+    docEl.webkitRequestFullScreen ||
+    docEl.msRequestFullscreen;
+  var cancelFullScreen =
+    doc.exitFullscreen ||
+    doc.mozCancelFullScreen ||
+    doc.webkitExitFullscreen ||
+    doc.msExitFullscreen;
+
+  if (
+    !doc.fullscreenElement &&
+    !doc.mozFullScreenElement &&
+    !doc.webkitFullscreenElement &&
+    !doc.msFullscreenElement
+  ) {
+    requestFullScreen.call(docEl);
+  } else {
+    cancelFullScreen.call(doc);
+  }
+}
+
 function handleShowMenu(state: UIState, action: ActionShowMenu): UIState {
   return {
     ...state,
@@ -32,6 +59,12 @@ export const ui = (
       return handleShowMenu(state, action as ActionShowMenu);
     case ActionTypes.UI_HIDE_MENU:
       return handleHideMenu(state, action as ActionHideMenu);
+    case ActionTypes.UI_FULLSCREEN_ENABLE:
+      toggleFullScreen();
+      return state;
+    case ActionTypes.UI_FULLSCREEN_DISABLE:
+      toggleFullScreen();
+      return state;
     default:
       return state;
   }

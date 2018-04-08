@@ -27,6 +27,8 @@ export enum ActionTypes {
 
   UI_SHOW_MENU = 'UI/SHOW_MENU',
   UI_HIDE_MENU = 'UI/HIDE_MENU',
+  UI_FULLSCREEN_ENABLE = 'UI/FULLSCREEN_ENABLE',
+  UI_FULLSCREEN_DISABLE = 'UI/FULLSCREEN_DISABLE',
 }
 
 export type Action = ActionGame | ActionSetup | ActionRoom | ActionUI;

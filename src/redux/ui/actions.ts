@@ -12,4 +12,18 @@ export interface ActionHideMenu extends BaseAction {
   payload: {};
 }
 
-export type ActionUI = ActionShowMenu | ActionHideMenu;
+export interface ActionEnableFullscreen extends BaseAction {
+  type: ActionTypes.UI_FULLSCREEN_ENABLE;
+  payload: {};
+}
+
+export interface ActionDisableFullscreen extends BaseAction {
+  type: ActionTypes.UI_FULLSCREEN_DISABLE;
+  payload: {};
+}
+
+export type ActionUI =
+  | ActionShowMenu
+  | ActionHideMenu
+  | ActionEnableFullscreen
+  | ActionDisableFullscreen;
