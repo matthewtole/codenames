@@ -30,8 +30,29 @@ export interface ActionCreateRoomSuccess extends BaseAction {
   payload: {};
 }
 
+export interface ActionGenerateCode extends BaseAction {
+  type: ActionTypes.ROOM_GENERATE_CODE;
+  payload: {};
+}
+
+export interface ActionGenerateCodeSuccess extends BaseAction {
+  type: ActionTypes.ROOM_GENERATE_CODE_SUCCESS;
+  payload: {
+    code: string;
+    timeout: Date;
+  };
+}
+
+export interface ActionClearCode extends BaseAction {
+  type: ActionTypes.ROOM_CLEAR_CODE;
+  payload: {};
+}
+
 export type ActionRoom =
   | ActionLoadRoom
   | ActionLoadRoomSuccess
   | ActionCreateRoom
-  | ActionCreateRoomSuccess;
+  | ActionCreateRoomSuccess
+  | ActionGenerateCode
+  | ActionGenerateCodeSuccess
+  | ActionClearCode;

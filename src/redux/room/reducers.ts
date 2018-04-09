@@ -8,6 +8,7 @@ export interface RoomState {
   gameId?: string;
   dictionary?: DictionaryName;
   ruleset?: RulesetName;
+  code?: string;
 }
 
 const initialState: RoomState = {};
@@ -45,6 +46,10 @@ export const room = (
       return handleRoomLoadSuccess(state, action as ActionLoadRoomSuccess);
     case ActionTypes.GAME_LOAD:
       return { ...state, gameId: action.payload.id };
+    case ActionTypes.ROOM_GENERATE_CODE_SUCCESS:
+      return { ...state, code: action.payload.code };
+    case ActionTypes.ROOM_CLEAR_CODE:
+      return { ...state, code: undefined };
     default:
       return state;
   }

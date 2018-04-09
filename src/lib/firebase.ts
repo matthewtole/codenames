@@ -145,6 +145,21 @@ export class FirebaseSync {
     return this.game(id).set(FirebaseSync.gameToDoc(data));
   }
 
+  async generateCode(id: string): Promise<{ code: string; timeout: Date }> {
+    const code = '000000';
+    const timeout = new Date(new Date().getTime() + 5 * 60 * 1000);
+    return firebase
+      .database()
+      .ref(`/codes/${code}`)
+      .set({
+        id,
+        timeout: timeout.getTime(),
+      })
+      .then(() => {
+        return { code, timeout };
+      });
+  }
+
   private game(id: string) {
     return firebase.database().ref(`/games/${id}`);
   }

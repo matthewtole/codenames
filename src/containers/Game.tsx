@@ -28,6 +28,8 @@ import { connect } from 'react-redux';
 import { GameStateLoaded } from '../redux/game/reducers';
 import * as GameSelectors from '../redux/game/selectors';
 import { hideMenu, showMenu } from '../redux/ui/action_creators';
+import { generateCode, clearCode } from '../redux/room/action_creators';
+import { ModalRoomCode } from '../components/game/RoomCode';
 
 interface GameProps {
   id: string;
@@ -44,6 +46,8 @@ interface DispatchProps {
   onNewGame: (mode: BoardMode) => void;
   onMenuOpen: () => void;
   closeMenu: () => void;
+  onGenerateCode: () => void;
+  onClearCode: () => void;
 }
 
 interface StateProps {
@@ -58,6 +62,7 @@ interface StateProps {
   spyCounts?: { [key: string]: number };
   isMenuShown: boolean;
   roomId: string;
+  roomCode?: string;
 }
 
 type Props = GameProps & DispatchProps & StateProps;
@@ -77,6 +82,7 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
       [Team.RED]: GameSelectors.spyCount(state, Team.RED),
       [Team.BLUE]: GameSelectors.spyCount(state, Team.BLUE),
     },
+    roomCode: state.room.code,
   };
 };
 
@@ -112,6 +118,12 @@ const mapDispatchToProps = (
     closeMenu: () => {
       dispatch(hideMenu());
     },
+    onGenerateCode: () => {
+      dispatch(generateCode());
+    },
+    onClearCode: () => {
+      dispatch(clearCode());
+    },
   };
 };
 
@@ -138,6 +150,8 @@ class Game extends React.PureComponent<Props, {}> {
       roomId,
       ruleset,
       dictionary,
+      roomCode,
+      onClearCode,
     } = this.props;
     if (loading) {
       return (
@@ -164,6 +178,9 @@ class Game extends React.PureComponent<Props, {}> {
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
           ) : null}
+          {roomCode ? (
+            <ModalRoomCode code={roomCode} onClose={onClearCode} />
+          ) : null}
           <GameMenu
             isShown={isMenuShown}
             onClose={closeMenu}
@@ -173,6 +190,7 @@ class Game extends React.PureComponent<Props, {}> {
             dictionary={dictionary}
             setRuleset={this.handleSetRuleset}
             setDictionary={this.handleSetDictionary}
+            generateCode={this.handleGenerateCode}
           />
 
           <Board
@@ -205,6 +223,11 @@ class Game extends React.PureComponent<Props, {}> {
   }
 
   private handleSetDictionary = (dictionary: DictionaryName) => {
+    this.props.closeMenu();
+  }
+
+  private handleGenerateCode = () => {
+    this.props.onGenerateCode();
     this.props.closeMenu();
   }
 }

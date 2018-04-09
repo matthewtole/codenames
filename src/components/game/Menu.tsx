@@ -15,6 +15,7 @@ interface Props {
   dictionary: DictionaryName;
   setDictionary: (dictionary: DictionaryName) => void;
   setRuleset: (ruleset: RulesetName) => void;
+  generateCode: () => void;
 }
 
 export class GameMenu extends React.PureComponent<Props, {}> {
@@ -28,6 +29,7 @@ export class GameMenu extends React.PureComponent<Props, {}> {
       dictionary,
       setDictionary,
       setRuleset,
+      generateCode,
     } = this.props;
 
     return (
@@ -41,6 +43,9 @@ export class GameMenu extends React.PureComponent<Props, {}> {
                   <Link to="/">
                     <i className="fa fa-arrow-left fa-fw" /> Exit Game
                   </Link>
+                </li>
+                <li>
+                  <a onClick={() => generateCode()}>Generate Code</a>
                 </li>
                 {boardMode === BoardMode.Viewer ? (
                   <li>

@@ -12,8 +12,13 @@ import {
   ActionCreateRoom,
   ActionLoadRoom,
   ActionLoadRoomSuccess,
+  ActionGenerateCode,
 } from './room/actions';
-import { createRoomSuccess, loadRoomSuccess } from './room/action_creators';
+import {
+  createRoomSuccess,
+  loadRoomSuccess,
+  generateCodeSuccess,
+} from './room/action_creators';
 import { push } from 'react-router-redux';
 import { eventChannel } from 'redux-saga';
 
@@ -114,6 +119,12 @@ function subscribeToRoom(id: string) {
   };
 }
 
+function* generateCode(action: ActionGenerateCode) {
+  const state: State = yield select();
+  const { code, timeout } = yield firebase.generateCode(state.room.id!);
+  yield put(generateCodeSuccess({ code, timeout }));
+}
+
 export function* sagas() {
   yield takeEvery(ActionTypes.ROOM_CREATE, roomCreate);
   yield takeEvery(ActionTypes.GAME_CREATE, gameCreate);
@@ -124,4 +135,5 @@ export function* sagas() {
   yield takeLatest(ActionTypes.GAME_END_TURN, syncGame);
   yield takeLatest(ActionTypes.GAME_HIGHLIGHT_CARD, syncGame);
   yield takeLatest(ActionTypes.GAME_REVEAL_CARD, syncGame);
+  yield takeLatest(ActionTypes.ROOM_GENERATE_CODE, generateCode);
 }
