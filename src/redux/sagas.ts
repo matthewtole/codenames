@@ -13,11 +13,13 @@ import {
   ActionLoadRoom,
   ActionLoadRoomSuccess,
   ActionGenerateCode,
+  ActionJoinRoom,
 } from './room/actions';
 import {
   createRoomSuccess,
   loadRoomSuccess,
   generateCodeSuccess,
+  joinRoomError,
 } from './room/action_creators';
 import { push } from 'react-router-redux';
 import { eventChannel } from 'redux-saga';
@@ -125,6 +127,18 @@ function* generateCode(action: ActionGenerateCode) {
   yield put(generateCodeSuccess({ code, timeout }));
 }
 
+function* joinRoom(action: ActionJoinRoom) {
+  const { code } = action.payload;
+  const id = yield firebase.findRoomByCode(code);
+  if (id) {
+    yield put(push(`/room/${id}/viewer`));
+  } else {
+    yield put(
+      joinRoomError({ code, error: `${code} is not a valid room code!` })
+    );
+  }
+}
+
 export function* sagas() {
   yield takeEvery(ActionTypes.ROOM_CREATE, roomCreate);
   yield takeEvery(ActionTypes.GAME_CREATE, gameCreate);
@@ -136,4 +150,5 @@ export function* sagas() {
   yield takeLatest(ActionTypes.GAME_HIGHLIGHT_CARD, syncGame);
   yield takeLatest(ActionTypes.GAME_REVEAL_CARD, syncGame);
   yield takeLatest(ActionTypes.ROOM_GENERATE_CODE, generateCode);
+  yield takeLatest(ActionTypes.ROOM_JOIN, joinRoom);
 }

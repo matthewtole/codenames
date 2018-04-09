@@ -6,6 +6,8 @@ import {
   ActionGenerateCode,
   ActionGenerateCodeSuccess,
   ActionClearCode,
+  ActionJoinRoom,
+  ActionJoinRoomError,
 } from './actions';
 import { ActionTypes } from '../actions';
 
@@ -66,4 +68,24 @@ export const generateCodeSuccess = ({
 export const clearCode = (): ActionClearCode => ({
   type: ActionTypes.ROOM_CLEAR_CODE,
   payload: {},
+});
+
+export const joinRoom = ({
+  code,
+}: ActionJoinRoom['payload']): ActionJoinRoom => ({
+  type: ActionTypes.ROOM_JOIN,
+  payload: {
+    code,
+  },
+});
+
+export const joinRoomError = ({
+  code,
+  error,
+}: ActionJoinRoomError['payload']): ActionJoinRoomError => ({
+  type: ActionTypes.ROOM_JOIN_ERROR,
+  payload: {
+    code,
+    error,
+  },
 });

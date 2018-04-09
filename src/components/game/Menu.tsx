@@ -40,12 +40,7 @@ export class GameMenu extends React.PureComponent<Props, {}> {
             <aside className="menu">
               <ul className="menu-list">
                 <li>
-                  <Link to="/">
-                    <i className="fa fa-arrow-left fa-fw" /> Exit Game
-                  </Link>
-                </li>
-                <li>
-                  <a onClick={() => generateCode()}>Generate Code</a>
+                  <a onClick={() => generateCode()}>Generate Room Code</a>
                 </li>
                 {boardMode === BoardMode.Viewer ? (
                   <li>
@@ -87,6 +82,14 @@ export class GameMenu extends React.PureComponent<Props, {}> {
                     </a>
                   </li>
                 ))}
+              </ul>
+              <hr />
+              <ul className="menu-list">
+                <li>
+                  <Link to="/">
+                    <i className="fa fa-arrow-left fa-fw" /> Exit Game
+                  </Link>
+                </li>
               </ul>
             </aside>
           </div>

@@ -8,7 +8,6 @@ import {
   Card,
 } from '../redux/game/types';
 import { GameState, GameStateLoaded } from '../redux/game/reducers';
-// import { Card, Team, Coordinate, Message, GameData } from '../lib/types';
 
 export interface FirebaseConfig {
   apiKey: string;
@@ -146,7 +145,7 @@ export class FirebaseSync {
   }
 
   async generateCode(id: string): Promise<{ code: string; timeout: Date }> {
-    const code = '000000';
+    const code = this.generateRandomCode();
     const timeout = new Date(new Date().getTime() + 5 * 60 * 1000);
     return firebase
       .database()
@@ -160,11 +159,33 @@ export class FirebaseSync {
       });
   }
 
+  async findRoomByCode(code: string): Promise<string | null> {
+    return firebase
+      .database()
+      .ref(`/codes/${code}/id`)
+      .once('value')
+      .then((snapshot: firebase.database.DataSnapshot) => {
+        const data = snapshot.val();
+        if (data && data.length) {
+          return data;
+        }
+        return null;
+      });
+  }
+
   private game(id: string) {
     return firebase.database().ref(`/games/${id}`);
   }
 
   private room(id: string) {
     return firebase.database().ref(`/rooms/${id}`);
+  }
+
+  private generateRandomCode(): string {
+    let code = '';
+    for (let c = 0; c < 6; c += 1) {
+      code += Math.floor(Math.random() * Math.floor(9));
+    }
+    return code;
   }
 }

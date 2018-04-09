@@ -48,6 +48,21 @@ export interface ActionClearCode extends BaseAction {
   payload: {};
 }
 
+export interface ActionJoinRoom extends BaseAction {
+  type: ActionTypes.ROOM_JOIN;
+  payload: {
+    code: string;
+  };
+}
+
+export interface ActionJoinRoomError extends BaseAction {
+  type: ActionTypes.ROOM_JOIN_ERROR;
+  payload: {
+    code: string;
+    error: string;
+  };
+}
+
 export type ActionRoom =
   | ActionLoadRoom
   | ActionLoadRoomSuccess
@@ -55,4 +70,6 @@ export type ActionRoom =
   | ActionCreateRoomSuccess
   | ActionGenerateCode
   | ActionGenerateCodeSuccess
-  | ActionClearCode;
+  | ActionClearCode
+  | ActionJoinRoom
+  | ActionJoinRoomError;

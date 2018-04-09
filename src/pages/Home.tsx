@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { SetupContainer } from '../containers/Setup';
+import { JoinContainer } from '../containers/Join';
 
 export class Home extends React.Component<{}, {}> {
   render() {
@@ -23,13 +24,13 @@ export class Home extends React.Component<{}, {}> {
                 <div className="tabs is-right">
                   <ul>
                     <li className="is-active">
-                      <Link to="/">Home</Link>
+                      <a href="#">Home</a>
                     </li>
                     <li>
                       <a href="#setup">Start Game</a>
                     </li>
                     <li>
-                      <Link to="/join">Join Game</Link>
+                      <a href="#join">Join Game</a>
                     </li>
                     <li>
                       <a href="/help">Help</a>
@@ -79,6 +80,14 @@ export class Home extends React.Component<{}, {}> {
           style={{ paddingTop: '3.25rem' }}
         >
           <SetupContainer />
+        </section>
+
+        <section
+          className="hero is-fullheight has-navbar-fixed-top"
+          id="join"
+          style={{ paddingTop: '3.25rem' }}
+        >
+          <JoinContainer />
         </section>
       </div>
     );

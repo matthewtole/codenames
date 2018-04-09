@@ -9,6 +9,7 @@ export interface RoomState {
   dictionary?: DictionaryName;
   ruleset?: RulesetName;
   code?: string;
+  joinError?: string;
 }
 
 const initialState: RoomState = {};
@@ -50,6 +51,10 @@ export const room = (
       return { ...state, code: action.payload.code };
     case ActionTypes.ROOM_CLEAR_CODE:
       return { ...state, code: undefined };
+    case ActionTypes.ROOM_JOIN:
+      return { ...state, joinError: undefined };
+    case ActionTypes.ROOM_JOIN_ERROR:
+      return { ...state, joinError: action.payload.error };
     default:
       return state;
   }
