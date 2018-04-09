@@ -21,7 +21,11 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
   render() {
     const icons = [];
     for (let c = 0; c < this.props.count; c += 1) {
-      icons.push(<div className="Info__counter" key={c} />);
+      icons.push(
+        <div className="Info__counter" key={c}>
+          <i className="fa fa-user-secret fa-fw" />
+        </div>
+      );
     }
     return (
       <div

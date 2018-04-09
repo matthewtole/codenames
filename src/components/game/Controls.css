@@ -53,3 +53,12 @@
 .GameControls_menu:hover {
   background-color: #ccc;
 }
+
+@media only screen and (max-width: 1024px) {
+  .GameControls_end-turn {
+    font-size: 16px;
+  }
+  .GameControls_new-game {
+    font-size: 16px;
+  }
+}

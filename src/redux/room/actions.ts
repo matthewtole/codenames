@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { BaseAction, ActionTypes } from '../actions';
 import { DictionaryName, RulesetName } from '../game/types';
 

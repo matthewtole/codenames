@@ -55,6 +55,7 @@ export const room = (
       return { ...state, joinError: undefined };
     case ActionTypes.ROOM_JOIN_ERROR:
       return { ...state, joinError: action.payload.error };
+    /* istanbul ignore next */
     default:
       return state;
   }

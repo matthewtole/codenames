@@ -8,6 +8,7 @@ import { DictionaryName, RulesetName } from '../redux/game/types';
 import { Action } from '../redux/actions';
 import { createGame } from '../redux/game/action_creators';
 import { loadRoom } from '../redux/room/action_creators';
+import { Loading } from '../components/Loading';
 
 interface RoomProps {
   id: string;
@@ -70,14 +71,7 @@ export class Room extends React.PureComponent<Props, {}> {
         />
       );
     }
-    return (
-      <div className="modal is-active">
-        <div className="modal-background" />
-        <div className="modal-content has-text-centered has-text-white">
-          <i className="fa fa-4x fa-spinner fa-pulse" />
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 }
 

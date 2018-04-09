@@ -30,6 +30,7 @@ import * as GameSelectors from '../redux/game/selectors';
 import { hideMenu, showMenu } from '../redux/ui/action_creators';
 import { generateCode, clearCode } from '../redux/room/action_creators';
 import { ModalRoomCode } from '../components/game/RoomCode';
+import { Loading } from '../components/Loading';
 
 interface GameProps {
   id: string;
@@ -154,14 +155,7 @@ class Game extends React.PureComponent<Props, {}> {
       onClearCode,
     } = this.props;
     if (loading) {
-      return (
-        <div className="modal is-active">
-          <div className="modal-background" />
-          <div className="modal-content has-text-centered has-text-white">
-            <i className="fa fa-4x fa-spinner fa-pulse" />
-          </div>
-        </div>
-      );
+      return <Loading />;
     }
     if (cards) {
       return (

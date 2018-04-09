@@ -9,13 +9,25 @@ exports[`Info renders correctly 1`] = `
   >
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
   </div>
   <div
     className="Info__turn"
@@ -30,19 +42,39 @@ exports[`Info renders correctly 1`] = `
   >
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
     <div
       className="Info__counter"
-    />
+    >
+      <i
+        className="fa fa-user-secret fa-fw"
+      />
+    </div>
   </div>
   <button
     className="GameControls_menu"

@@ -10,15 +10,15 @@
 
 ## Features
 
-* [ ] Better create game flow
-* [ ] Menu for switching between viewer and game modes
+* [x] Better create game flow
+* [x] Menu for switching between viewer and game modes
 
 ## Polish
 
 * [ ] Seperately worded messages for viewer and controller
-* [ ] Human readable room names
+* [x] Human readable room names
 * [ ] Mobile UI
-* [ ] Navbar UI
+* [x] Navbar UI
 
 ## Tests
 

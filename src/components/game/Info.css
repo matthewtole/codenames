@@ -63,6 +63,13 @@
   margin: 8px 4px;
   border: 2px solid #fff;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Info__counter i.fa {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .Info__count--blue .Info__counter {
@@ -75,6 +82,11 @@
 
 @media only screen and (max-width: 1024px) {
   .Info__counter {
-    width: 24px;
+    width: 28px;
+    margin: 8px 2px;
+  }
+
+  .Info__counter i.fa {
+    font-size: 12px;
   }
 }
