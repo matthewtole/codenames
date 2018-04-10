@@ -46,7 +46,7 @@ export class Setup extends React.Component<Props, {}> {
                   </h3>
                   <div className="field">
                     {RulesetNames.map(name => (
-                      <div className="field">
+                      <div className="field" key={name}>
                         <input
                           className="is-checkradio"
                           id={name}
@@ -72,7 +72,7 @@ export class Setup extends React.Component<Props, {}> {
                   </h3>
                   <div className="field">
                     {DictionaryNames.map(name => (
-                      <div className="field">
+                      <div className="field" key={name}>
                         <input
                           className="is-checkradio"
                           id={name}
