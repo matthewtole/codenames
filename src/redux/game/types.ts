@@ -34,6 +34,7 @@ export enum RulesetName {
 export enum DictionaryName {
   ORIGINAL = 'ORIGINAL',
   UNDERCOVER = 'UNDERCOVER',
+  DUET = 'DUET',
 }
 
 export enum MessageKey {
