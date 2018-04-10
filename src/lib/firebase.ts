@@ -51,6 +51,12 @@ export class FirebaseSync {
 
   connect() {
     firebase.initializeApp(this.config);
+    firebase
+      .auth()
+      .signInAnonymously()
+      .catch(function(error: Error) {
+        console.error(error); // tslint:disable-line:no-console
+      });
   }
 
   subscribeToGame(id: string, callback: (data: GameDoc) => void) {
