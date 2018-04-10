@@ -10,6 +10,7 @@ interface DictionaryFile {
 export const DictionaryNames = [
   DictionaryName.ORIGINAL,
   DictionaryName.UNDERCOVER,
+  DictionaryName.DUET,
 ];
 
 const data: { [key: string]: DictionaryFile } = {};
