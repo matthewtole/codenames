@@ -4,7 +4,6 @@ import { BoardMode, Board } from '../components/game/Board';
 import {
   Coordinate,
   Card,
-  Message,
   Team,
   RulesetName,
   DictionaryName,
@@ -31,6 +30,7 @@ import { hideMenu, showMenu } from '../redux/ui/action_creators';
 import { generateCode, clearCode } from '../redux/room/action_creators';
 import { ModalRoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
+import { Messages, Message } from '../lib/message';
 
 interface GameProps {
   id: string;
@@ -69,16 +69,19 @@ interface StateProps {
 type Props = GameProps & DispatchProps & StateProps;
 
 const mapStateToProps = (state: State, ownProps: Props): StateProps => {
+  const game = state.game as GameStateLoaded;
   return {
-    loading: state.game.loading,
-    cards: (state.game as GameStateLoaded).cards,
-    highlighted: (state.game as GameStateLoaded).highlighted,
-    revealedCards: (state.game as GameStateLoaded).revealedCards,
-    message: (state.game as GameStateLoaded).message,
-    winner: (state.game as GameStateLoaded).winner,
+    loading: game.loading,
+    cards: game.cards,
+    highlighted: game.highlighted,
+    revealedCards: game.revealedCards,
+    message: game.messageKey
+      ? Messages.render(game.turn, game.ruleset, game.messageKey, ownProps.mode)
+      : undefined,
+    winner: game.winner,
     isMenuShown: state.ui.isMenuShown,
     roomId: state.room.id!,
-    turn: (state.game as GameStateLoaded).turn,
+    turn: game.turn,
     spyCounts: {
       [Team.RED]: GameSelectors.spyCount(state, Team.RED),
       [Team.BLUE]: GameSelectors.spyCount(state, Team.BLUE),
@@ -167,7 +170,7 @@ class Game extends React.PureComponent<Props, {}> {
             winner={winner!}
             spyCounts={spyCounts!}
             onMenuOpen={onMenuOpen}
-            showMenu={mode === BoardMode.Viewer}
+            showMenu={mode === BoardMode.VIEWER}
           />
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
@@ -197,13 +200,13 @@ class Game extends React.PureComponent<Props, {}> {
             onHighlightCard={onHighlightCard!}
             highlighted={highlighted}
           />
-          {mode === BoardMode.Controller ? (
+          {mode === BoardMode.CONTROLLER ? (
             <Controls
               winner={winner}
               onEndTurn={onEndTurn}
               onNewGame={() => onNewGame(mode!)}
               onMenuOpen={onMenuOpen}
-              showMenu={mode === BoardMode.Controller}
+              showMenu={mode === BoardMode.CONTROLLER}
             />
           ) : null}
         </div>

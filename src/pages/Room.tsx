@@ -9,7 +9,7 @@ export class PageRoom extends React.Component<Props, {}> {
   render() {
     const { mode, id } = this.props.match.params;
     const boardMode =
-      mode === 'controller' ? BoardMode.Controller : BoardMode.Viewer;
+      mode === 'controller' ? BoardMode.CONTROLLER : BoardMode.VIEWER;
     return <RoomContainer id={id} boardMode={boardMode} />;
   }
 }

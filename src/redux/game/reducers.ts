@@ -6,10 +6,10 @@ import {
   Team,
   Role,
   Coordinate,
-  Message,
   Card,
   RulesetName,
   DictionaryName,
+  MessageKey,
 } from './types';
 import {
   ActionHighlightCard,
@@ -22,8 +22,6 @@ import {
 } from './actions';
 import { Action, ActionTypes } from '../actions';
 import { coordinateToIndex, otherPlayer, teamToRole } from './utils';
-import { Messages } from '../../lib/message';
-import { RulesetManager } from '../../lib/ruleset';
 import { DictionaryManager } from '../../lib/dictionary';
 
 export interface GameStateLoaded {
@@ -34,7 +32,7 @@ export interface GameStateLoaded {
   turn: Team;
   highlighted?: Coordinate;
   revealedCards: Set<number>;
-  message?: Message;
+  messageKey?: MessageKey;
   ruleset: RulesetName;
   dictionary: DictionaryName;
   winner?: Team;
@@ -67,7 +65,7 @@ function handleRevealAssassin(
 ): GameState {
   return {
     ...state,
-    message: setMessage(state, 'ASSASSIN'),
+    messageKey: MessageKey.ASSASSIN,
     winner: otherPlayer(state.turn),
     turn: otherPlayer(state.turn),
     highlighted: undefined,
@@ -83,7 +81,7 @@ function handleRevealBystander(
 ): GameState {
   return {
     ...state,
-    message: setMessage(state, 'BYSTANDER'),
+    messageKey: MessageKey.BYSTANDER,
     turn: otherPlayer(state.turn),
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
@@ -98,7 +96,7 @@ function handleRevealFriendlySpy(
 ): GameState {
   state = {
     ...state,
-    message: setMessage(state, 'FRIENDLY_SPY'),
+    messageKey: MessageKey.FRIENDLY_SPY,
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -120,7 +118,7 @@ function handleRevealEnemySpy(
   state = {
     ...state,
     highlighted: undefined,
-    message: setMessage(state, 'ENEMY_SPY'),
+    messageKey: MessageKey.ENEMY_SPY,
     turn: otherPlayer(state.turn),
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -163,25 +161,6 @@ function handleRevealCard(
     default:
       return state;
   }
-}
-
-function setMessage(state: GameStateLoaded, key: string): Message {
-  return {
-    header: formatMessage(state, Messages.get(key)),
-    content: formatMessage(state, RulesetManager.get(state.ruleset, key)),
-    team: state.turn,
-  };
-}
-
-function formatMessage(state: GameStateLoaded, message: string) {
-  return message
-    .replace(
-      '{% other_team %}',
-      otherPlayer(state.turn)
-        .toString()
-        .toLocaleLowerCase()
-    )
-    .replace('{% team %}', state.turn.toString().toLocaleLowerCase());
 }
 
 function handleGameCreate(
@@ -231,7 +210,7 @@ function handleLoadGameSucceess(
     ruleset,
     dictionary,
     highlighted,
-    message,
+    messageKey,
     revealedCards,
     winner,
   } = action.payload;
@@ -243,7 +222,7 @@ function handleLoadGameSucceess(
     turn,
     ruleset,
     dictionary,
-    message: message || undefined,
+    messageKey: messageKey || undefined,
     highlighted: highlighted || undefined,
     revealedCards: Set<number>(revealedCards),
     winner: winner || undefined,
@@ -256,7 +235,7 @@ function handleClearMessage(
 ): GameState {
   return {
     ...state,
-    message: undefined,
+    messageKey: undefined,
   };
 }
 

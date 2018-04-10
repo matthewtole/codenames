@@ -1,11 +1,24 @@
 import { RulesetName } from '../redux/game/types';
+import { BoardMode } from '../components/game/Board';
 
-type Ruleset = { [key: string]: string };
-interface RulesetFile {
+type RulesetSimple = { [key: string]: string };
+type RulesetComplex = { [key: string]: { [key: string]: string } };
+
+interface RulesetFileSimple {
   name: string;
   description?: string;
-  rules: Ruleset;
+  isSimple: true;
+  rules: RulesetSimple;
 }
+
+interface RulesetFileComplex {
+  name: string;
+  description?: string;
+  isSimple: false;
+  rules: RulesetComplex;
+}
+
+type RulesetFile = RulesetFileSimple | RulesetFileComplex;
 
 export const RulesetNames = [
   RulesetName.STANDARD,
@@ -19,8 +32,12 @@ RulesetNames.forEach(name => {
 });
 
 export class RulesetManager {
-  static get(ruleset: RulesetName, key: string): string {
-    return data[ruleset].rules[key];
+  static get(name: RulesetName, key: string, mode: BoardMode): string {
+    const ruleset = data[name];
+    if (ruleset.isSimple) {
+      return ruleset.rules[key];
+    }
+    return ruleset.rules[key][mode];
   }
 
   static getName(ruleset: RulesetName): string {

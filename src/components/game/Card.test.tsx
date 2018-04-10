@@ -13,7 +13,7 @@ describe('Card', () => {
   const defaultProps: CardProps = {
     word: 'test',
     role: Role.BLUE_SPY,
-    boardMode: BoardMode.Viewer,
+    boardMode: BoardMode.VIEWER,
     revealed: false,
     highlighted: false,
     onReveal,

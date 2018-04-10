@@ -16,7 +16,7 @@ import {
   clearMessage,
   endTurn,
 } from './action_creators';
-import { DictionaryName, RulesetName, Message, Team } from './types';
+import { DictionaryName, RulesetName, Team, MessageKey } from './types';
 import { ActionTypes } from '../actions';
 
 describe('Game', () => {
@@ -89,17 +89,13 @@ describe('Game', () => {
       it('should return an action of type ActionLoadGame', () => {
         const dictionary = DictionaryName.ORIGINAL;
         const ruleset = RulesetName.DRINKING;
-        const message: Message = {
-          content: 'This is a message',
-          header: 'Test Message',
-          team: Team.BLUE,
-        };
+        const messageKey = MessageKey.ENEMY_SPY;
         const turn = Team.RED;
 
         const action = loadGameSuccess({
           dictionary,
           ruleset,
-          message,
+          messageKey,
           turn,
           cards: [],
           revealedCards: [],
@@ -109,7 +105,7 @@ describe('Game', () => {
           payload: {
             dictionary,
             ruleset,
-            message,
+            messageKey,
             turn,
             cards: [],
             revealedCards: [],

@@ -22,7 +22,7 @@ export class Card extends React.PureComponent<CardProps, object> {
           Card: true,
           'Card--highlighted': this.props.highlighted,
           'Card--revealed': this.props.revealed,
-          [`Card--${this.props.boardMode}`]: true,
+          [`Card--${this.props.boardMode.toLowerCase()}`]: true,
         })}
         data-role={this.props.role}
         onClick={this.handleClick}

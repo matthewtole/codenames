@@ -4,8 +4,8 @@ import { Card as CardComponent } from './Card';
 import { Card, Coordinate, Role } from '../../redux/game/types';
 
 export enum BoardMode {
-  Viewer = 'viewer',
-  Controller = 'controller',
+  VIEWER = 'VIEWER',
+  CONTROLLER = 'CONTROLLER',
 }
 
 export interface BoardProps {

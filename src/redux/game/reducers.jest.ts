@@ -36,7 +36,7 @@ describe('Game', () => {
         const gameState = nextState as GameStateLoaded;
         expect(gameState.cards).toHaveLength(25);
         expect(gameState.highlighted).toBeUndefined();
-        expect(gameState.message).toBeUndefined();
+        expect(gameState.messageKey).toBeUndefined();
         expect(gameState.revealedCards.count()).toEqual(0);
         expect(gameState.winner).toBeUndefined();
 
@@ -256,9 +256,9 @@ describe('Game', () => {
           initialState,
           revealCard({ card: { row: 1, col: 2 } })
         ) as GameStateLoaded;
-        expect(nextState.message).not.toBeUndefined();
+        expect(nextState.messageKey).not.toBeUndefined();
         nextState = game(nextState, clearMessage()) as GameStateLoaded;
-        expect(nextState.message).toBeUndefined();
+        expect(nextState.messageKey).toBeUndefined();
       });
     });
 

@@ -25,12 +25,6 @@ export enum Team {
   BLUE = 'BLUE',
 }
 
-export interface Message {
-  header: string;
-  content: string;
-  team: Team;
-}
-
 export enum RulesetName {
   STANDARD = 'STANDARD',
   DRINKING = 'DRINKING',
@@ -40,4 +34,12 @@ export enum RulesetName {
 export enum DictionaryName {
   ORIGINAL = 'ORIGINAL',
   UNDERCOVER = 'UNDERCOVER',
+}
+
+export enum MessageKey {
+  ASSASSIN = 'ASSASSIN',
+  BYSTANDER = 'BYSTANDER',
+  FRIENDLY_SPY = 'FRIENDLY_SPY',
+  ENEMY_SPY = 'ENEMY_SPY',
+  VICTORY = 'VICTORY',
 }

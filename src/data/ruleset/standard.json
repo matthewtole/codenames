@@ -1,5 +1,6 @@
 {
   "name": "None",
+  "isSimple": true,
   "rules": {
     "ASSASSIN": "The {% team %} team just lost the game.",
     "BYSTANDER": "It is now the {% other_team %} team's turn.",

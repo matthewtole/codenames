@@ -42,7 +42,7 @@ export class GameMenu extends React.PureComponent<Props, {}> {
                 <li>
                   <a onClick={() => generateCode()}>Generate Room Code</a>
                 </li>
-                {boardMode === BoardMode.Viewer ? (
+                {boardMode === BoardMode.VIEWER ? (
                   <li>
                     <Link to={`/room/${roomId}/controller`}>
                       <i className="fa fa-eye fa-fw" /> Switch to Controller

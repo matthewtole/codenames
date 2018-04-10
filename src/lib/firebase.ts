@@ -3,9 +3,9 @@ import {
   DictionaryName,
   RulesetName,
   Team,
-  Message,
   Coordinate,
   Card,
+  MessageKey,
 } from '../redux/game/types';
 import { GameState, GameStateLoaded } from '../redux/game/reducers';
 
@@ -24,7 +24,7 @@ interface GameDoc {
   ruleset: RulesetName;
   turn: Team;
   dictionary: DictionaryName;
-  message: Message | null;
+  messageKey: MessageKey | null;
   highlighted: Coordinate | null;
   winner: Team | null;
 }
@@ -38,7 +38,7 @@ export class FirebaseSync {
       ruleset: game.ruleset,
       dictionary: game.dictionary,
       turn: game.turn,
-      message: game.message || null,
+      messageKey: game.messageKey || null,
       revealedCards: game.revealedCards.toArray(),
       highlighted: game.highlighted || null,
       winner: game.winner || null,

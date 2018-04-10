@@ -5,8 +5,8 @@ import {
   RulesetName,
   DictionaryName,
   Team,
-  Message,
   Coordinate,
+  MessageKey,
 } from './types';
 import { Card } from '../../components/game/Card';
 
@@ -34,7 +34,7 @@ export interface ActionLoadGameSuccess extends BaseAction {
     ruleset: RulesetName;
     turn: Team;
     dictionary: DictionaryName;
-    message?: Message;
+    messageKey?: MessageKey;
     highlighted?: Coordinate;
     winner?: Team;
   };

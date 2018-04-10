@@ -1,12 +1,31 @@
 {
   "name": "Drinking",
+  "isSimple": false,
   "rules": {
-    "ASSASSIN": "The {% team %} spymaster has to down their drink.",
-    "BYSTANDER":
-      "The {% other_team %} spymaster gets to nominate a member of the {% team %} team to take a drink.",
-    "FRIENDLY_SPY":
-      "The {% team %} spymaster gets to nominate a member of the {% other_team %} team to take a drink.",
-    "ENEMY_SPY": "Everyone on the {% team %} team has to take a drink.",
-    "VICTORY": "Everyone on the {% other_team %} team has to take a drink."
+    "ASSASSIN": {
+      "CONTROLLER": "You have to down your drink.",
+      "VIEWER": "The {% team %} spymaster has to down their drink."
+    },
+    "BYSTANDER": {
+      "CONTROLLER":
+        "Your oponent must nominate a member of your team to take a drink.",
+      "VIEWER":
+        "The {% other_team %} spymaster will nominate a member of the {% team %} team to take a drink."
+    },
+    "FRIENDLY_SPY": {
+      "CONTROLLER":
+        "Nominate a member of the {% other_team %} team to take a drink.",
+      "VIEWER":
+        "The {% team %} spymaster will nominate a member of the {% other_team %} team to take a drink."
+    },
+    "ENEMY_SPY": {
+      "CONTROLLER": "Everyone on your team has to take a drink.",
+      "VIEWER": "Everyone on the {% team %} team has to take a drink."
+    },
+    "VICTORY": {
+      "CONTROLLER":
+        "Everyone on the {% other_team %} team has to take a drink.",
+      "VIEWER": "Everyone on the {% other_team %} team has to take a drink."
+    }
   }
 }

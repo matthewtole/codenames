@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Message } from '../../redux/game/types';
 import './Message.css';
+import { Message } from '../../lib/message';
 
 interface Props {
   message: Message;
