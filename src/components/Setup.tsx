@@ -32,7 +32,7 @@ export class Setup extends React.Component<Props, {}> {
         <section className="hero is-primary">
           <div className="hero-body">
             <div className="container has-text-centered">
-              <h1 className="title">Start New Game</h1>
+              <h1 className="title">Create Game</h1>
             </div>
           </div>
         </section>
@@ -95,11 +95,11 @@ export class Setup extends React.Component<Props, {}> {
                   <br />
                   <div className="has-text-centered">
                     <button
-                      className="button is-primary is-medium"
+                      className="button is-success is-medium"
                       onClick={() => this.props.onSubmit()}
                       style={{ width: '100%' }}
                     >
-                      Start Game
+                      Start Game &rarr;
                     </button>
                   </div>
                 </div>
