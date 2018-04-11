@@ -20,6 +20,7 @@ interface StateProps {
   dictionary?: DictionaryName;
   ruleset?: RulesetName;
   gameId?: string;
+  error?: string;
 }
 
 interface DispatchProps {
@@ -35,6 +36,7 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
     ruleset: state.room.ruleset,
     dictionary: state.room.dictionary,
     gameId: state.room.gameId,
+    error: state.room.error,
   };
 };
 
@@ -71,7 +73,7 @@ export class Room extends React.PureComponent<Props, {}> {
         />
       );
     }
-    return <Loading />;
+    return <Loading error={this.props.error} />;
   }
 }
 

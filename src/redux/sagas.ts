@@ -22,6 +22,7 @@ import {
   loadRoomSuccess,
   generateCodeSuccess,
   joinRoomError,
+  loadRoomError,
 } from './room/action_creators';
 import { push } from 'react-router-redux';
 import { eventChannel } from 'redux-saga';
@@ -60,9 +61,13 @@ function* roomCreate(action: ActionCreateRoom) {
 }
 
 function* roomLoad(action: ActionLoadRoom) {
-  const data = yield firebase.loadRoom({ id: action.payload.id });
-  yield put(loadRoomSuccess(data));
-  yield fork(subscribeToRoom(action.payload.id));
+  try {
+    const data = yield firebase.loadRoom({ id: action.payload.id });
+    yield put(loadRoomSuccess(data));
+    yield fork(subscribeToRoom(action.payload.id));
+  } catch (ex) {
+    yield put(loadRoomError({ error: ex.message }));
+  }
 }
 
 function* roomLoaded(action: ActionLoadRoomSuccess) {

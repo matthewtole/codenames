@@ -20,6 +20,13 @@ export interface ActionLoadRoomSuccess extends BaseAction {
   };
 }
 
+export interface ActionLoadRoomError extends BaseAction {
+  type: ActionTypes.ROOM_LOAD_ERROR;
+  payload: {
+    error: string;
+  };
+}
+
 export interface ActionCreateRoom extends BaseAction {
   type: ActionTypes.ROOM_CREATE;
   payload: {
@@ -82,6 +89,7 @@ export interface ActionChangeDictionary extends BaseAction {
 export type ActionRoom =
   | ActionLoadRoom
   | ActionLoadRoomSuccess
+  | ActionLoadRoomError
   | ActionCreateRoom
   | ActionCreateRoomSuccess
   | ActionGenerateCode

@@ -71,10 +71,10 @@ describe('Room', () => {
     describe('ROOM_JOIN', () => {
       it('should clear the joinError', () => {
         const nextState = room(
-          { joinError: 'error' },
+          { error: 'error' },
           joinRoom({ code: '000000' })
         );
-        expect(nextState.joinError).toBeUndefined();
+        expect(nextState.error).toBeUndefined();
       });
     });
 
@@ -84,7 +84,7 @@ describe('Room', () => {
           undefined,
           joinRoomError({ code: '000000', error: 'error' })
         );
-        expect(nextState.joinError).toBe('error');
+        expect(nextState.error).toBe('error');
       });
     });
   });

@@ -116,6 +116,9 @@ export class FirebaseSync {
       .once('value')
       .then((snapshot: firebase.database.DataSnapshot) => {
         const data = snapshot.val();
+        if (!data) {
+          throw new Error('Room not found!');
+        }
         return {
           id: snapshot.key!,
           gameId: data.gameId,

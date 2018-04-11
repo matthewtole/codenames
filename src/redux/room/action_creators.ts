@@ -10,6 +10,7 @@ import {
   ActionJoinRoomError,
   ActionChangeRuleset,
   ActionChangeDictionary,
+  ActionLoadRoomError,
 } from './actions';
 import { ActionTypes } from '../actions';
 
@@ -34,6 +35,15 @@ export const loadRoomSuccess = ({
     gameId,
     ruleset,
     dictionary,
+  },
+});
+
+export const loadRoomError = ({
+  error,
+}: ActionLoadRoomError['payload']): ActionLoadRoomError => ({
+  type: ActionTypes.ROOM_LOAD_ERROR,
+  payload: {
+    error,
   },
 });
 

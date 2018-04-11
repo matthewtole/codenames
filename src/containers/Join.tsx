@@ -18,7 +18,7 @@ type Props = JoinProps & JoinDispatchProps & JoinStateProps;
 
 const mapStateToProps = (state: State, ownProps: Props): JoinStateProps => {
   return {
-    error: state.room.joinError,
+    error: state.room.error,
   };
 };
 
