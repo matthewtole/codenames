@@ -1,51 +1,11 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { SetupContainer } from '../containers/Setup';
-import { JoinContainer } from '../containers/Join';
+import { Navbar } from '../components/Navbar';
 
 export class Home extends React.Component<{}, {}> {
   render() {
     return (
-      <div>
-        <nav className="navbar is-fixed-top">
-          <div className="container">
-            <div className="navbar-brand">
-              <Link className="navbar-item" to="/">
-                <strong>Codenames++</strong>
-              </Link>
-              <span className="navbar-burger burger" data-target="navbarMenu">
-                <span />
-                <span />
-                <span />
-              </span>
-            </div>
-            <div id="navbarMenu" className="navbar-menu">
-              <div className="navbar-end">
-                <div className="tabs is-right">
-                  <ul>
-                    <li className="is-active">
-                      <a href="#">Home</a>
-                    </li>
-                    <li>
-                      <a href="#setup">Start Game</a>
-                    </li>
-                    <li>
-                      <a href="#join">Join Game</a>
-                    </li>
-                    <li>
-                      <a href="/help">Help</a>
-                    </li>
-                    <li>
-                      <a href="https://github.com/matthewtole/codenames">
-                        <i className="fa fa-github" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+      <div className="has-navbar-fixed-top">
+        <Navbar page="home" />
         <section className="hero is-fullheight is-default is-bold">
           <div className="hero-body">
             <div className="container has-text-centered">
@@ -73,21 +33,6 @@ export class Home extends React.Component<{}, {}> {
               </div>
             </div>
           </div>
-        </section>
-        <section
-          className="hero is-fullheight has-navbar-fixed-top"
-          id="setup"
-          style={{ paddingTop: '3.25rem' }}
-        >
-          <SetupContainer />
-        </section>
-
-        <section
-          className="hero is-fullheight has-navbar-fixed-top"
-          id="join"
-          style={{ paddingTop: '3.25rem' }}
-        >
-          <JoinContainer />
         </section>
       </div>
     );
