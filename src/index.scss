@@ -1,0 +1,36 @@
+@import './node_modules/bulma/sass/utilities/initial-variables';
+@import './node_modules/bulma/sass/utilities/functions';
+
+@import './node_modules/bulma/bulma';
+@import './node_modules/bulma/bulma';
+@import './node_modules/bulma-checkradio/dist/bulma-checkradio';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+html,
+body {
+  font-family: 'Open Sans';
+}
+
+body,
+html,
+#root,
+.Router {
+  height: 100%;
+}
+
+#root > div[data-reactroot] {
+  height: 100%;
+}
+
+.has-navbar-fixed-top {
+  padding-top: $navbar-height;
+}
+
+.navbar-logo {
+  margin-right: 0.5rem;
+}

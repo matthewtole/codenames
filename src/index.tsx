@@ -4,9 +4,7 @@ import { Provider } from 'react-redux';
 import { store, history } from './redux/store';
 import { Route } from 'react-router';
 
-import 'bulma/css/bulma.css';
-import 'bulma-checkradio/dist/bulma-checkradio.min.css';
-import './index.css';
+import './index.scss';
 import { ConnectedRouter } from 'react-router-redux';
 import { Home } from './pages/Home';
 import { PageRoom } from './pages/Room';
