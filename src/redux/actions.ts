@@ -9,6 +9,8 @@ export interface BaseAction {
 }
 
 export enum ActionTypes {
+  NONE = 'NONE',
+
   GAME_CREATE = 'GAME/CREATE',
   GAME_LOAD = 'GAME/LOAD',
   GAME_LOAD_SUCCESS = 'GAME/LOAD_SUCCESS',
@@ -32,8 +34,17 @@ export enum ActionTypes {
 
   UI_SHOW_MENU = 'UI/SHOW_MENU',
   UI_HIDE_MENU = 'UI/HIDE_MENU',
-  UI_FULLSCREEN_ENABLE = 'UI/FULLSCREEN_ENABLE',
-  UI_FULLSCREEN_DISABLE = 'UI/FULLSCREEN_DISABLE',
+  UI_ENTER_FULLSCREEN = 'UI/ENTER_FULLSCREEN',
 }
 
-export type Action = ActionGame | ActionSetup | ActionRoom | ActionUI;
+export interface ActionNone extends BaseAction {
+  type: ActionTypes.NONE;
+  payload: {};
+}
+
+export type Action =
+  | ActionNone
+  | ActionGame
+  | ActionSetup
+  | ActionRoom
+  | ActionUI;
