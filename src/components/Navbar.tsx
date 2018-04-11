@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as cx from 'classnames';
 import { Link } from 'react-router-dom';
 
-interface Props {
+export interface NavbarProps {
   page: 'home' | 'create' | 'join' | 'help';
 }
 
-export const Navbar = (props: Props) => {
+export const Navbar = (props: NavbarProps) => {
   return (
     <nav className="navbar is-fixed-top is-dark">
       <div className="navbar-brand">

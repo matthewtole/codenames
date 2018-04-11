@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface Props {
+export interface JoinProps {
   error?: string;
   onSubmit: (code: string) => void;
 }
@@ -9,8 +9,8 @@ interface State {
   code: string;
 }
 
-export class Join extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class Join extends React.Component<JoinProps, State> {
+  constructor(props: JoinProps) {
     super(props);
 
     this.state = {
@@ -74,5 +74,5 @@ export class Join extends React.Component<Props, State> {
     this.setState({
       code: event.target.value,
     });
-  }
+  };
 }
