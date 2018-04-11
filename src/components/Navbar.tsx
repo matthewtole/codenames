@@ -62,7 +62,7 @@ export const Navbar = (props: Props) => {
             href="https://github.com/matthewtole/codenames"
             className="navbar-item"
           >
-            <i className="fa fa-github" />
+            <i className="fab fa-github" />
           </a>
         </div>
       </div>
