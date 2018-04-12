@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './RoomCode.css';
+import './RoomCode.scss';
 
 interface Props {
   code: string;
@@ -21,8 +21,7 @@ export class ModalRoomCode extends React.Component<Props, State> {
           <section className="hero">
             <div className="hero-body">
               <div className="container has-text-centered">
-                <h1 className="title has-text-white">Room Code: {code}</h1>
-                {/* <h2 className="subtitle has-text-white"></h2> */}
+                <h1 className="title has-text-white">{code}</h1>
               </div>
             </div>
           </section>

@@ -1,11 +1,13 @@
+@import '../../sass/_variables';
+
 .game__message.modal .modal-content {
   width: 100%;
 }
 
 .game__message--BLUE .hero {
-  background-color: #2196f3;
+  background-color: $blue-spy--dark;
 }
 
 .game__message--RED .hero {
-  background-color: #d32f2f;
+  background-color: $red-spy--dark;
 }

@@ -6,7 +6,7 @@ export class JoinPage extends React.Component<{}, {}> {
   render() {
     return (
       <div className="has-navbar-fixed-top">
-        <Navbar page="create" />
+        <Navbar page="join" />
         <JoinContainer />
       </div>
     );

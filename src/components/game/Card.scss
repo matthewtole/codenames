@@ -1,3 +1,5 @@
+@import '../../sass/_variables';
+
 .Card {
   width: 20%;
   font-size: 1.75rem;
@@ -29,37 +31,37 @@
 }
 
 .Card--controller[data-role='BLUE_SPY'] > div {
-  background-color: #bbdefb;
+  background-color: $blue-spy--light;
 }
 
 .Card--controller[data-role='RED_SPY'] > div {
-  background-color: #ef9a9a;
+  background-color: $red-spy--light;
 }
 
 .Card--controller[data-role='BYSTANDER'] > div {
-  background-color: #ff9100;
+  background-color: $bystander--light;
 }
 
 .Card--controller[data-role='ASSASSIN'] > div {
-  background-color: #999;
+  background-color: $assassin--light;
 }
 
 .Card[data-role='BLUE_SPY'].Card--revealed > div {
-  background-color: #2196f3;
-  color: #bbdefb;
+  background-color: $blue-spy--dark;
+  color: $blue-spy--light;
 }
 
 .Card[data-role='RED_SPY'].Card--revealed > div {
-  background-color: #d32f2f;
-  color: #ef9a9a;
+  background-color: $red-spy--dark;
+  color: $red-spy--light;
 }
 
 .Card[data-role='BYSTANDER'].Card--revealed > div {
-  background-color: #ff9100;
+  background-color: $bystander--dark;
 }
 
 .Card[data-role='ASSASSIN'].Card--revealed > div {
-  background-color: #222;
+  background-color: $assassin--dark;
 }
 
 .Card--highlighted > div {
@@ -67,7 +69,7 @@
   /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   margin: -7px;
-  z-index: 200;
+  z-index: 10;
 }
 
 @media only screen and (max-width: 1024px) {

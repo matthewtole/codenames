@@ -1,0 +1,11 @@
+@import '../sass/_variables';
+
+#home {
+  .hero {
+    background-image: url('/images/splash.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: $blue-spy--light;
+  }
+}

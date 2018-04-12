@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Card.css';
+import './Card.scss';
 import { Role } from '../../redux/game/types';
 import * as cx from 'classnames';
 import { BoardMode } from './Board';

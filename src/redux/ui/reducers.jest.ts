@@ -12,6 +12,7 @@ describe('UI', () => {
 
       expect(initialState).toEqual({
         isMenuShown: false,
+        isFullscreen: false,
       });
     });
 

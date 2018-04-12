@@ -43,7 +43,7 @@ export class Join extends React.Component<JoinProps, State> {
                   <div className="control">
                     <input
                       className="input has-text-centered is-large"
-                      type="text"
+                      type="tel"
                       placeholder="Room Code"
                       value={this.state.code}
                       onChange={this.handleCodeChange}
@@ -54,7 +54,7 @@ export class Join extends React.Component<JoinProps, State> {
                   <div className="has-text-centered">
                     <button
                       disabled={!this.state.code.length}
-                      className="button is-primary is-medium"
+                      className="button is-success is-medium"
                       onClick={() => onSubmit(this.state.code)}
                       style={{ width: '100%' }}
                     >
@@ -74,5 +74,5 @@ export class Join extends React.Component<JoinProps, State> {
     this.setState({
       code: event.target.value,
     });
-  };
+  }
 }

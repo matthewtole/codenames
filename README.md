@@ -1,6 +1,6 @@
 # Codenames
 
-[![Travis](https://img.shields.io/travis/matthewtole/codenames.svg?style=flat-square)](https://travis-ci.org/matthewtole/codenames) [![Codecov](https://img.shields.io/codecov/c/github/matthewtole/codenames.svg?style=flat-square)](https://codecov.io/gh/matthewtole/codenames) [![license](https://img.shields.io/github/license/matthewtole/codenames.svg?style=flat-square)](./LICENSE)
+[![Travis](https://img.shields.io/travis/matthewtole/codenames/develop.svg?style=flat-square)](https://travis-ci.org/matthewtole/codenames) [![Codecov](https://img.shields.io/codecov/c/github/matthewtole/codenames/develop.svg?style=flat-square)](https://codecov.io/gh/matthewtole/codenames/branch/develop) [![license](https://img.shields.io/github/license/matthewtole/codenames.svg?style=flat-square)](./LICENSE)
 
 A web based implementation of the board game [Codenames](https://boardgamegeek.com/boardgame/178900/codenames).
 
