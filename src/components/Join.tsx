@@ -54,7 +54,7 @@ export class Join extends React.Component<JoinProps, State> {
                   <div className="has-text-centered">
                     <button
                       disabled={!this.state.code.length}
-                      className="button is-primary is-medium"
+                      className="button is-success is-medium"
                       onClick={() => onSubmit(this.state.code)}
                       style={{ width: '100%' }}
                     >

@@ -1,3 +1,5 @@
+@import '../../sass/_variables';
+
 .Info {
   display: flex;
   flex-direction: row;
@@ -12,11 +14,11 @@
 }
 
 .Info--red {
-  background-color: #ef9a9a;
+  background-color: $red-spy--dark;
 }
 
 .Info--blue {
-  background-color: #bbdefb;
+  background-color: $blue-spy--dark;
 }
 
 .Info__turn {
@@ -26,6 +28,7 @@
   font-size: 24px;
   line-height: 24px;
   text-transform: uppercase;
+  color: #fff;
 }
 
 .Info--winner .Info__turn {
@@ -61,7 +64,7 @@
   height: 32px;
   width: 32px;
   margin: 8px 4px;
-  border: 2px solid #fff;
+  border: 2px solid #000;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -69,15 +72,15 @@
 }
 
 .Info__counter i.fa {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .Info__count--blue .Info__counter {
-  background-color: #2196f3;
+  background-color: $blue-spy--light;
 }
 
 .Info__count--red .Info__counter {
-  background-color: #d32f2f;
+  background-color: $red-spy--light;
 }
 
 @media only screen and (max-width: 1024px) {

@@ -1,7 +1,13 @@
 @import './node_modules/bulma/sass/utilities/initial-variables';
 @import './node_modules/bulma/sass/utilities/functions';
+@import './sass/_variables';
 
-@import './node_modules/bulma/bulma';
+$primary: $blue-spy--light;
+$primary-invert: $assassin--dark;
+
+$success: $blue-spy--dark;
+$link: $blue-spy--dark;
+
 @import './node_modules/bulma/bulma';
 @import './node_modules/bulma-checkradio/dist/bulma-checkradio';
 

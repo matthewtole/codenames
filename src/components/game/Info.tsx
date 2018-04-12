@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Team } from '../../redux/game/types';
-import './Info.css';
+import './Info.scss';
 import * as cx from 'classnames';
 
 export interface InfoProps {

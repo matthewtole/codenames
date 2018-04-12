@@ -1,7 +1,9 @@
+@import '../../sass/_variables';
+
 .game__room-code.modal .modal-content {
   width: 100%;
 }
 
 .game__room-code .hero {
-  background-color: #2196f3;
+  background-color: $blue-spy--dark;
 }

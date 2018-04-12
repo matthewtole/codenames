@@ -50,7 +50,7 @@ exports[`<Join /> renders correctly 1`] = `
               className="has-text-centered"
             >
               <button
-                className="button is-primary is-medium"
+                className="button is-success is-medium"
                 disabled={true}
                 onClick={[Function]}
                 style={
