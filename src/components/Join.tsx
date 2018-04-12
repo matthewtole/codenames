@@ -74,5 +74,5 @@ export class Join extends React.Component<JoinProps, State> {
     this.setState({
       code: event.target.value,
     });
-  };
+  }
 }
