@@ -16,6 +16,9 @@ interface Props {
   setDictionary: (dictionary: DictionaryName) => void;
   setRuleset: (ruleset: RulesetName) => void;
   generateCode: () => void;
+  enterFullscreen: () => void;
+  exitFullscreen: () => void;
+  isFullscreen: boolean;
 }
 
 export class GameMenu extends React.PureComponent<Props, {}> {
@@ -30,6 +33,9 @@ export class GameMenu extends React.PureComponent<Props, {}> {
       setDictionary,
       setRuleset,
       generateCode,
+      enterFullscreen,
+      exitFullscreen,
+      isFullscreen,
     } = this.props;
 
     return (
@@ -44,18 +50,25 @@ export class GameMenu extends React.PureComponent<Props, {}> {
                 </li>
                 {boardMode === BoardMode.VIEWER ? (
                   <li>
-                    <Link to={`/room/${roomId}/controller`}>
-                      <i className="fa fa-eye fa-fw" /> Switch to Controller
-                      Mode
+                    <Link to={`/room/${roomId}/controller`} onClick={onClose}>
+                      Switch to Controller Mode
                     </Link>
                   </li>
                 ) : (
                   <li>
-                    <Link to={`/room/${roomId}/viewer`}>
-                      <i className="fa fa-eye fa-fw" /> Switch to Viewer Mode
+                    <Link to={`/room/${roomId}/viewer`} onClick={onClose}>
+                      Switch to Viewer Mode
                     </Link>
                   </li>
                 )}
+
+                <li>
+                  {isFullscreen ? (
+                    <a onClick={() => exitFullscreen()}>Exit Fullscreen</a>
+                  ) : (
+                    <a onClick={() => enterFullscreen()}>Go Fullscreen</a>
+                  )}
+                </li>
               </ul>
               <p className="menu-label">Change Ruleset</p>
               <ul className="menu-list">

@@ -43,7 +43,7 @@ export class Join extends React.Component<JoinProps, State> {
                   <div className="control">
                     <input
                       className="input has-text-centered is-large"
-                      type="text"
+                      type="tel"
                       placeholder="Room Code"
                       value={this.state.code}
                       onChange={this.handleCodeChange}

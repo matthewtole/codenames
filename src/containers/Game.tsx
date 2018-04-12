@@ -26,7 +26,12 @@ import { Controls } from '../components/game/Controls';
 import { connect } from 'react-redux';
 import { GameStateLoaded } from '../redux/game/reducers';
 import * as GameSelectors from '../redux/game/selectors';
-import { hideMenu, showMenu } from '../redux/ui/action_creators';
+import {
+  hideMenu,
+  showMenu,
+  enterFullscreen,
+  exitFullscreen,
+} from '../redux/ui/action_creators';
 import { generateCode, clearCode } from '../redux/room/action_creators';
 import { ModalRoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
@@ -49,6 +54,8 @@ interface DispatchProps {
   closeMenu: () => void;
   onGenerateCode: () => void;
   onClearCode: () => void;
+  onEnterFullscreen: () => void;
+  onExitFullscreen: () => void;
 }
 
 interface StateProps {
@@ -64,6 +71,7 @@ interface StateProps {
   isMenuShown: boolean;
   roomId: string;
   roomCode?: string;
+  isFullscreen: boolean;
 }
 
 type Props = GameProps & DispatchProps & StateProps;
@@ -87,6 +95,7 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
       [Team.BLUE]: GameSelectors.spyCount(state, Team.BLUE),
     },
     roomCode: state.room.code,
+    isFullscreen: state.ui.isFullscreen,
   };
 };
 
@@ -118,6 +127,12 @@ const mapDispatchToProps = (
     },
     onMenuOpen: () => {
       dispatch(showMenu());
+    },
+    onEnterFullscreen: () => {
+      dispatch(enterFullscreen());
+    },
+    onExitFullscreen: () => {
+      dispatch(exitFullscreen());
     },
     closeMenu: () => {
       dispatch(hideMenu());
@@ -156,6 +171,9 @@ class Game extends React.PureComponent<Props, {}> {
       dictionary,
       roomCode,
       onClearCode,
+      onEnterFullscreen,
+      onExitFullscreen,
+      isFullscreen,
     } = this.props;
     if (loading) {
       return <Loading />;
@@ -188,6 +206,9 @@ class Game extends React.PureComponent<Props, {}> {
             setRuleset={this.handleSetRuleset}
             setDictionary={this.handleSetDictionary}
             generateCode={this.handleGenerateCode}
+            enterFullscreen={onEnterFullscreen}
+            exitFullscreen={onExitFullscreen}
+            isFullscreen={isFullscreen}
           />
 
           <Board

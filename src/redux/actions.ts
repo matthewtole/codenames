@@ -35,6 +35,8 @@ export enum ActionTypes {
   UI_SHOW_MENU = 'UI/SHOW_MENU',
   UI_HIDE_MENU = 'UI/HIDE_MENU',
   UI_ENTER_FULLSCREEN = 'UI/ENTER_FULLSCREEN',
+  UI_EXIT_FULLSCREEN = 'UI/EXIT_FULLSCREEN',
+  UI_SET_IS_FULLSCREEN = 'UI/SET_IS_FULLSCREEN',
 }
 
 export interface ActionNone extends BaseAction {

@@ -41,7 +41,7 @@ exports[`<Join /> renders correctly 1`] = `
                 className="input has-text-centered is-large"
                 onChange={[Function]}
                 placeholder="Room Code"
-                type="text"
+                type="tel"
                 value=""
               />
             </div>

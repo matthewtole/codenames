@@ -25,6 +25,7 @@ exports[`<Navbar /> renders correctly 1`] = `
     <span
       className="navbar-burger burger"
       data-target="navbarMenu"
+      onClick={[Function]}
     >
       <span />
       <span />
@@ -69,10 +70,17 @@ exports[`<Navbar /> renders correctly 1`] = `
       <a
         className="navbar-item"
         href="https://github.com/matthewtole/codenames"
+        rel="nofollow"
+        target="_blank"
       >
         <i
           className="fab fa-github"
         />
+        <span
+          className="is-hidden-desktop"
+        >
+           View on Github
+        </span>
       </a>
     </div>
   </div>

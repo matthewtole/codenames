@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Navbar } from '../components/Navbar';
+import { Link } from 'react-router-dom';
 
 export class Home extends React.Component<{}, {}> {
   render() {
@@ -22,12 +23,12 @@ export class Home extends React.Component<{}, {}> {
                   </h2>
                   <br />
                   <p className="has-text-centered">
-                    <a
-                      href="#setup"
+                    <Link
+                      to="/create"
                       className="button is-medium is-info is-outlined"
                     >
-                      Start Game
-                    </a>
+                      Create Game
+                    </Link>
                   </p>
                 </div>
               </div>
