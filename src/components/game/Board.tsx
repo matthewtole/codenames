@@ -32,22 +32,22 @@ export class Board extends React.PureComponent<BoardProps, {}> {
         <div className="Board">
           {Array(this.props.height)
             .fill(0)
-            .map((_: number, r: number) => (
-              <div className="BoardRow" key={`row_${r}`}>
+            .map((_: number, row: number) => (
+              <div className="BoardRow" key={`row_${row}`}>
                 {Array(this.props.width)
                   .fill(0)
-                  .map((__: number, c: number) => (
+                  .map((__: number, col: number) => (
                     <CardComponent
-                      key={`card_${r}_${c}`}
-                      word={this.getWord({ row: r, col: c })}
-                      role={this.getRole({ row: r, col: c })}
-                      revealed={this.isRevealed({ row: r, col: c })}
-                      highlighted={this.isHighlighted({ row: r, col: c })}
+                      key={`card_${row}_${col}`}
+                      word={this.getWord({ row, col })}
+                      role={this.getRole({ row, col })}
+                      revealed={this.isRevealed({ row, col })}
+                      highlighted={this.isHighlighted({ row, col })}
                       onHighlight={() => {
-                        this.highlightCard({ row: r, col: c });
+                        this.highlightCard({ row: row, col });
                       }}
                       onReveal={() => {
-                        this.revealCard({ row: r, col: c });
+                        this.revealCard({ row, col });
                       }}
                       boardMode={this.props.mode}
                       isGameOver={this.props.isGameOver}
@@ -60,19 +60,19 @@ export class Board extends React.PureComponent<BoardProps, {}> {
     );
   }
 
-  getWord = (card: Coordinate): string => {
+  private getWord = (card: Coordinate): string => {
     return this.props.cards[this.coordinateToIndex(card)].word;
   }
 
-  getRole = (card: Coordinate): Role => {
+  private getRole = (card: Coordinate): Role => {
     return this.props.cards[this.coordinateToIndex(card)].role;
   }
 
-  isRevealed = (card: Coordinate): boolean => {
+  private isRevealed = (card: Coordinate): boolean => {
     return this.props.revealedCards.indexOf(this.coordinateToIndex(card)) >= 0;
   }
 
-  isHighlighted = (card: Coordinate): boolean => {
+  private isHighlighted = (card: Coordinate): boolean => {
     if (this.props.highlighted === undefined) {
       return false;
     }
@@ -82,11 +82,11 @@ export class Board extends React.PureComponent<BoardProps, {}> {
     );
   }
 
-  highlightCard = (card?: Coordinate) => {
+  private highlightCard = (card?: Coordinate) => {
     this.props.onHighlightCard(card);
   }
 
-  revealCard = (card: Coordinate) => {
+  private revealCard = (card: Coordinate) => {
     this.props.onRevealCard(card);
   }
 
