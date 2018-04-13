@@ -239,6 +239,7 @@ class Game extends React.PureComponent<Props, {}> {
             onRevealCard={onRevealCard!}
             onHighlightCard={onHighlightCard!}
             highlighted={highlighted}
+            isGameOver={!!winner}
           />
           {mode === BoardMode.CONTROLLER ? (
             <Controls

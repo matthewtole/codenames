@@ -15,6 +15,7 @@ export interface BoardProps {
   revealedCards: number[];
   mode: BoardMode;
   highlighted?: Coordinate;
+  isGameOver: boolean;
   onRevealCard: (card: Coordinate) => void;
   onHighlightCard: (card?: Coordinate) => void;
 }
@@ -49,6 +50,7 @@ export class Board extends React.PureComponent<BoardProps, {}> {
                         this.revealCard({ row: r, col: c });
                       }}
                       boardMode={this.props.mode}
+                      isGameOver={this.props.isGameOver}
                     />
                   ))}
               </div>

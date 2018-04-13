@@ -3,73 +3,97 @@
 .Card {
   width: 20%;
   font-size: 1.75rem;
-  /* margin: 1px; */
   user-select: none;
   position: relative;
-}
 
-.Card > div {
-  background-color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  border-radius: 4px;
-  transition: margin 0.1s ease-out;
-  margin: 0;
-  border: 2px solid #fff;
-}
+  & > div {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    border-radius: 4px;
+    margin: 0;
+    border: 2px solid #fff;
+  }
 
-.Card--revealed {
-  text-decoration: line-through;
-  opacity: 0.2;
-}
+  &--revealed {
+    text-decoration: line-through;
+    opacity: 0.2;
+  }
 
-.Card--controller[data-role='BLUE_SPY'] > div {
-  background-color: $blue-spy--light;
-}
+  &[data-role='BLUE_SPY'] {
+    &.Card--controller,
+    &.Card--game-over {
+      > div {
+        background-color: $blue-spy--light;
+      }
+    }
 
-.Card--controller[data-role='RED_SPY'] > div {
-  background-color: $red-spy--light;
-}
+    &.Card--revealed {
+      > div {
+        background-color: $blue-spy--dark;
+        color: $blue-spy--light;
+      }
+    }
+  }
 
-.Card--controller[data-role='BYSTANDER'] > div {
-  background-color: $bystander--light;
-}
+  &[data-role='RED_SPY'] {
+    &.Card--controller,
+    &.Card--game-over {
+      > div {
+        background-color: $red-spy--light;
+      }
+    }
 
-.Card--controller[data-role='ASSASSIN'] > div {
-  background-color: $assassin--light;
-}
+    &.Card--revealed {
+      > div {
+        background-color: $red-spy--dark;
+        color: $red-spy--light;
+      }
+    }
+  }
 
-.Card[data-role='BLUE_SPY'].Card--revealed > div {
-  background-color: $blue-spy--dark;
-  color: $blue-spy--light;
-}
+  &[data-role='BYSTANDER'] {
+    &.Card--controller,
+    &.Card--game-over {
+      > div {
+        background-color: $bystander--light;
+      }
+    }
 
-.Card[data-role='RED_SPY'].Card--revealed > div {
-  background-color: $red-spy--dark;
-  color: $red-spy--light;
-}
+    &.Card--revealed {
+      > div {
+        background-color: $bystander--dark;
+      }
+    }
+  }
 
-.Card[data-role='BYSTANDER'].Card--revealed > div {
-  background-color: $bystander--dark;
-}
+  &[data-role='ASSASIN'] {
+    &.Card--controller,
+    &.Card--game-over {
+      > div {
+        background-color: $assassin--light;
+      }
+    }
 
-.Card[data-role='ASSASSIN'].Card--revealed > div {
-  background-color: $assassin--dark;
-}
+    &.Card--revealed {
+      > div {
+        background-color: $assassin--dark;
+      }
+    }
+  }
 
-.Card--highlighted > div {
-  /* border: 5px solid #000; */
-  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  margin: -7px;
-  z-index: 10;
+  &--highlighted > div {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    margin: -7px;
+    z-index: 10;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
