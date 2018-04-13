@@ -14,6 +14,8 @@ import {
   ActionLoadRoomSuccess,
   ActionGenerateCode,
   ActionJoinRoom,
+  ActionChangeRuleset,
+  ActionChangeDictionary,
 } from './room/actions';
 import {
   createRoomSuccess,
@@ -30,14 +32,17 @@ import { State } from './store';
 import { createGame, loadGame, loadGameSuccess } from './game/action_creators';
 import { ActionCreateGame, ActionLoadGame } from './game/actions';
 import { GameStateLoaded } from './game/reducers';
+import { ActionEnterFullscreen, ActionExitFullscreen } from './ui/actions';
+import { Fullscreen } from '../lib/fullscreen';
+import { setIsFullscreen } from './ui/action_creators';
 
 const firebase = new FirebaseSync(config.firebase);
 firebase.connect();
 
 function* gameCreate(action: ActionCreateGame) {
   const state: State = yield select();
-  yield firebase.createGame(state.game);
   yield firebase.setGameId(state.room.id!, state.game.id!);
+  yield firebase.createGame(state.game);
 }
 
 function* roomCreate(action: ActionCreateRoom) {
@@ -139,6 +144,42 @@ function* joinRoom(action: ActionJoinRoom) {
   }
 }
 
+function enterFullscreen(action: ActionEnterFullscreen) {
+  Fullscreen.enter();
+}
+
+function exitFullscreen(action: ActionExitFullscreen) {
+  Fullscreen.leave();
+}
+
+function subscribeToFullscreen() {
+  return function*() {
+    const channel = eventChannel(emit => {
+      Fullscreen.subscribe(emit);
+      return () => Fullscreen.unsubscribe();
+    });
+
+    while (true) {
+      const isFullscreen: boolean = yield take(channel);
+      yield put(setIsFullscreen({ isFullscreen }));
+    }
+  };
+}
+
+function* changeDictionary(action: ActionChangeDictionary) {
+  const state: State = yield select();
+  yield firebase.updateRoom(state.room.id!, {
+    dictionary: action.payload.dictionary,
+  });
+}
+
+function* changeRuleset(action: ActionChangeRuleset) {
+  const state: State = yield select();
+  yield firebase.updateRoom(state.room.id!, {
+    ruleset: action.payload.ruleset,
+  });
+}
+
 export function* sagas() {
   yield takeEvery(ActionTypes.ROOM_CREATE, roomCreate);
   yield takeEvery(ActionTypes.GAME_CREATE, gameCreate);
@@ -151,4 +192,10 @@ export function* sagas() {
   yield takeLatest(ActionTypes.GAME_REVEAL_CARD, syncGame);
   yield takeLatest(ActionTypes.ROOM_GENERATE_CODE, generateCode);
   yield takeLatest(ActionTypes.ROOM_JOIN, joinRoom);
+  yield takeEvery(ActionTypes.UI_ENTER_FULLSCREEN, enterFullscreen);
+  yield takeEvery(ActionTypes.UI_EXIT_FULLSCREEN, exitFullscreen);
+  yield takeLatest(ActionTypes.ROOM_CHANGE_DICTIONARY, changeDictionary);
+  yield takeLatest(ActionTypes.ROOM_CHANGE_RULESET, changeRuleset);
+
+  yield fork(subscribeToFullscreen());
 }

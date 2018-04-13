@@ -95,7 +95,6 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -187,6 +186,15 @@ module.exports = {
                   ],
                 },
               },
+            ],
+          },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            loaders: [
+              require.resolve('style-loader'),
+              require.resolve('css-loader'),
+              require.resolve('sass-loader'),
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.

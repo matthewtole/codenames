@@ -1,8 +1,9 @@
 import {
   ActionShowMenu,
   ActionHideMenu,
-  ActionEnableFullscreen,
-  ActionDisableFullscreen,
+  ActionEnterFullscreen,
+  ActionSetIsFullscreen,
+  ActionExitFullscreen,
 } from './actions';
 import { ActionTypes } from '../actions';
 
@@ -16,12 +17,21 @@ export const hideMenu = (): ActionHideMenu => ({
   payload: {},
 });
 
-export const enableFullscreen = (): ActionEnableFullscreen => ({
-  type: ActionTypes.UI_FULLSCREEN_ENABLE,
+export const enterFullscreen = (): ActionEnterFullscreen => ({
+  type: ActionTypes.UI_ENTER_FULLSCREEN,
   payload: {},
 });
 
-export const disableFullscreen = (): ActionDisableFullscreen => ({
-  type: ActionTypes.UI_FULLSCREEN_DISABLE,
+export const exitFullscreen = (): ActionExitFullscreen => ({
+  type: ActionTypes.UI_EXIT_FULLSCREEN,
   payload: {},
+});
+
+export const setIsFullscreen = ({
+  isFullscreen,
+}: ActionSetIsFullscreen['payload']): ActionSetIsFullscreen => ({
+  type: ActionTypes.UI_SET_IS_FULLSCREEN,
+  payload: {
+    isFullscreen,
+  },
 });

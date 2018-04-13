@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar /> renders correctly 1`] = `
+<nav
+  className="navbar is-fixed-top is-dark"
+>
+  <div
+    className="navbar-brand"
+  >
+    <a
+      className="navbar-item"
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        className="navbar-logo"
+        height={32}
+        src="/logo.png"
+        width={32}
+      />
+      <strong>
+        Codenames
+      </strong>
+    </a>
+    <span
+      className="navbar-burger burger"
+      data-target="navbarMenu"
+      onClick={[Function]}
+    >
+      <span />
+      <span />
+      <span />
+    </span>
+  </div>
+  <div
+    className="navbar-menu"
+    id="navbarMenu"
+  >
+    <div
+      className="navbar-end"
+    >
+      <a
+        className="navbar-item is-active"
+        href="/"
+        onClick={[Function]}
+      >
+        Home
+      </a>
+      <a
+        className="navbar-item"
+        href="/create"
+        onClick={[Function]}
+      >
+        Create Game
+      </a>
+      <a
+        className="navbar-item"
+        href="/join"
+        onClick={[Function]}
+      >
+        Join Game
+      </a>
+      <a
+        className="navbar-item"
+        href="/help"
+        onClick={[Function]}
+      >
+        Help
+      </a>
+      <a
+        className="navbar-item"
+        href="https://github.com/matthewtole/codenames"
+        rel="nofollow"
+        target="_blank"
+      >
+        <i
+          className="fab fa-github"
+        />
+        <span
+          className="is-hidden-desktop"
+        >
+           View on Github
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+`;

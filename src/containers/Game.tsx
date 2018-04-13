@@ -26,9 +26,19 @@ import { Controls } from '../components/game/Controls';
 import { connect } from 'react-redux';
 import { GameStateLoaded } from '../redux/game/reducers';
 import * as GameSelectors from '../redux/game/selectors';
-import { hideMenu, showMenu } from '../redux/ui/action_creators';
-import { generateCode, clearCode } from '../redux/room/action_creators';
-import { ModalRoomCode } from '../components/game/RoomCode';
+import {
+  hideMenu,
+  showMenu,
+  enterFullscreen,
+  exitFullscreen,
+} from '../redux/ui/action_creators';
+import {
+  generateCode,
+  clearCode,
+  changeRuleset,
+  changeDictionary,
+} from '../redux/room/action_creators';
+import { RoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
 import { Messages, Message } from '../lib/message';
 
@@ -41,6 +51,7 @@ interface GameProps {
 
 interface DispatchProps {
   onHighlightCard: (card: Coordinate) => void;
+  onClearHighlight: () => void;
   onRevealCard: (card: Coordinate) => void;
   onMessageClosed: () => void;
   onEndTurn: () => void;
@@ -49,6 +60,10 @@ interface DispatchProps {
   closeMenu: () => void;
   onGenerateCode: () => void;
   onClearCode: () => void;
+  onEnterFullscreen: () => void;
+  onExitFullscreen: () => void;
+  onChangeRuleset: (ruleset: RulesetName) => void;
+  onChangeDictionary: (dictionary: DictionaryName) => void;
 }
 
 interface StateProps {
@@ -64,6 +79,7 @@ interface StateProps {
   isMenuShown: boolean;
   roomId: string;
   roomCode?: string;
+  isFullscreen: boolean;
 }
 
 type Props = GameProps & DispatchProps & StateProps;
@@ -87,6 +103,7 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
       [Team.BLUE]: GameSelectors.spyCount(state, Team.BLUE),
     },
     roomCode: state.room.code,
+    isFullscreen: state.ui.isFullscreen,
   };
 };
 
@@ -97,6 +114,9 @@ const mapDispatchToProps = (
   return {
     onHighlightCard: (card: Coordinate) => {
       dispatch(highlightCard({ card }));
+    },
+    onClearHighlight: () => {
+      dispatch(highlightCard({ card: null }));
     },
     onRevealCard: (card: Coordinate) => {
       dispatch(revealCard({ card }));
@@ -119,6 +139,12 @@ const mapDispatchToProps = (
     onMenuOpen: () => {
       dispatch(showMenu());
     },
+    onEnterFullscreen: () => {
+      dispatch(enterFullscreen());
+    },
+    onExitFullscreen: () => {
+      dispatch(exitFullscreen());
+    },
     closeMenu: () => {
       dispatch(hideMenu());
     },
@@ -128,6 +154,12 @@ const mapDispatchToProps = (
     onClearCode: () => {
       dispatch(clearCode());
     },
+    onChangeRuleset: (ruleset: RulesetName) => {
+      dispatch(changeRuleset({ ruleset }));
+    },
+    onChangeDictionary: (dictionary: DictionaryName) => {
+      dispatch(changeDictionary({ dictionary }));
+    },
   };
 };
 
@@ -135,6 +167,7 @@ class Game extends React.PureComponent<Props, {}> {
   render() {
     const {
       onHighlightCard,
+      onClearHighlight,
       onRevealCard,
       cards,
       highlighted,
@@ -156,6 +189,9 @@ class Game extends React.PureComponent<Props, {}> {
       dictionary,
       roomCode,
       onClearCode,
+      onEnterFullscreen,
+      onExitFullscreen,
+      isFullscreen,
     } = this.props;
     if (loading) {
       return <Loading />;
@@ -171,13 +207,12 @@ class Game extends React.PureComponent<Props, {}> {
             spyCounts={spyCounts!}
             onMenuOpen={onMenuOpen}
             showMenu={mode === BoardMode.VIEWER}
+            onClearHighlight={onClearHighlight}
           />
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
           ) : null}
-          {roomCode ? (
-            <ModalRoomCode code={roomCode} onClose={onClearCode} />
-          ) : null}
+          {roomCode ? <RoomCode code={roomCode} onClose={onClearCode} /> : null}
           <GameMenu
             isShown={isMenuShown}
             onClose={closeMenu}
@@ -188,6 +223,9 @@ class Game extends React.PureComponent<Props, {}> {
             setRuleset={this.handleSetRuleset}
             setDictionary={this.handleSetDictionary}
             generateCode={this.handleGenerateCode}
+            enterFullscreen={onEnterFullscreen}
+            exitFullscreen={onExitFullscreen}
+            isFullscreen={isFullscreen}
           />
 
           <Board
@@ -199,6 +237,7 @@ class Game extends React.PureComponent<Props, {}> {
             onRevealCard={onRevealCard!}
             onHighlightCard={onHighlightCard!}
             highlighted={highlighted}
+            isGameOver={!!winner}
           />
           {mode === BoardMode.CONTROLLER ? (
             <Controls
@@ -217,10 +256,12 @@ class Game extends React.PureComponent<Props, {}> {
 
   private handleSetRuleset = (ruleset: RulesetName) => {
     this.props.closeMenu();
+    this.props.onChangeRuleset(ruleset);
   }
 
   private handleSetDictionary = (dictionary: DictionaryName) => {
     this.props.closeMenu();
+    this.props.onChangeDictionary(dictionary);
   }
 
   private handleGenerateCode = () => {

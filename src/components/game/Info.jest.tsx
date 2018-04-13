@@ -11,6 +11,7 @@ describe('Info', () => {
       [Team.BLUE]: 3,
     },
     onMenuOpen: jest.fn(),
+    onClearHighlight: jest.fn(),
     showMenu: true,
   };
 

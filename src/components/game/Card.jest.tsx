@@ -18,6 +18,7 @@ describe('Card', () => {
     highlighted: false,
     onReveal,
     onHighlight,
+    isGameOver: false,
   };
 
   beforeEach(() => {

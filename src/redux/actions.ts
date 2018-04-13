@@ -9,6 +9,8 @@ export interface BaseAction {
 }
 
 export enum ActionTypes {
+  NONE = 'NONE',
+
   GAME_CREATE = 'GAME/CREATE',
   GAME_LOAD = 'GAME/LOAD',
   GAME_LOAD_SUCCESS = 'GAME/LOAD_SUCCESS',
@@ -29,11 +31,24 @@ export enum ActionTypes {
   ROOM_CLEAR_CODE = 'ROOM/CLEAR_CODE',
   ROOM_JOIN = 'ROOM/JOIN',
   ROOM_JOIN_ERROR = 'ROOM/JOIN_ERROR',
+  ROOM_CHANGE_RULESET = 'ROOM/CHANGE_RULESET',
+  ROOM_CHANGE_DICTIONARY = 'ROOM/CHANGE_DICTIONARY',
 
   UI_SHOW_MENU = 'UI/SHOW_MENU',
   UI_HIDE_MENU = 'UI/HIDE_MENU',
-  UI_FULLSCREEN_ENABLE = 'UI/FULLSCREEN_ENABLE',
-  UI_FULLSCREEN_DISABLE = 'UI/FULLSCREEN_DISABLE',
+  UI_ENTER_FULLSCREEN = 'UI/ENTER_FULLSCREEN',
+  UI_EXIT_FULLSCREEN = 'UI/EXIT_FULLSCREEN',
+  UI_SET_IS_FULLSCREEN = 'UI/SET_IS_FULLSCREEN',
 }
 
-export type Action = ActionGame | ActionSetup | ActionRoom | ActionUI;
+export interface ActionNone extends BaseAction {
+  type: ActionTypes.NONE;
+  payload: {};
+}
+
+export type Action =
+  | ActionNone
+  | ActionGame
+  | ActionSetup
+  | ActionRoom
+  | ActionUI;

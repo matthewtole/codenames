@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Message.css';
+import './Message.scss';
 import { Message } from '../../lib/message';
 
 interface Props {

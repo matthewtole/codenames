@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameMenu should render correctly 1`] = `
+<div
+  className="modal is-active"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="modal-content"
+  >
+    <div
+      className="box"
+    >
+      <aside
+        className="menu"
+      >
+        <ul
+          className="menu-list"
+        >
+          <li>
+            <a
+              onClick={[Function]}
+            >
+              Generate Room Code
+            </a>
+          </li>
+          <li>
+            <a
+              href="/room/room-id/viewer"
+              onClick={[Function]}
+            >
+              Switch to Viewer Mode
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={[Function]}
+            >
+              Go Fullscreen
+            </a>
+          </li>
+        </ul>
+        <p
+          className="menu-label"
+        >
+          Change Ruleset
+        </p>
+        <ul
+          className="menu-list"
+        >
+          <li>
+            <a
+              className=""
+              onClick={[Function]}
+            >
+              None
+            </a>
+          </li>
+          <li>
+            <a
+              className="is-active"
+              onClick={[Function]}
+            >
+              Drinking
+            </a>
+          </li>
+          <li>
+            <a
+              className=""
+              onClick={[Function]}
+            >
+              Strip
+            </a>
+          </li>
+        </ul>
+        <p
+          className="menu-label"
+        >
+          Change Word List
+        </p>
+        <ul
+          className="menu-list"
+        >
+          <li>
+            <a
+              className=""
+              onClick={[Function]}
+            >
+              Original
+            </a>
+          </li>
+          <li>
+            <a
+              className=""
+              onClick={[Function]}
+            >
+              Undercover
+            </a>
+          </li>
+          <li>
+            <a
+              className="is-active"
+              onClick={[Function]}
+            >
+              Duet
+            </a>
+          </li>
+        </ul>
+        <hr />
+        <ul
+          className="menu-list"
+        >
+          <li>
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              <i
+                className="fa fa-arrow-left fa-fw"
+              />
+               Exit Game
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+  <button
+    aria-label="close"
+    className="modal-close is-large"
+    onClick={[Function]}
+  />
+  ;
+</div>
+`;

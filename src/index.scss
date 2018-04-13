@@ -1,0 +1,66 @@
+@import './node_modules/bulma/sass/utilities/initial-variables';
+@import './node_modules/bulma/sass/utilities/functions';
+@import './sass/_variables';
+
+$primary: $blue-spy--light;
+$primary-invert: $assassin--dark;
+
+$success: $blue-spy--dark;
+$link: $blue-spy--dark;
+
+@import './node_modules/bulma/bulma';
+@import './node_modules/bulma-checkradio/dist/bulma-checkradio';
+@import './node_modules/bulma-tooltip/dist/bulma-tooltip';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+html,
+body {
+  font-family: 'Open Sans';
+}
+
+body,
+html,
+#root,
+.Router {
+  height: 100%;
+}
+
+#root > div[data-reactroot] {
+  height: 100%;
+}
+
+.has-navbar-fixed-top {
+  padding-top: $navbar-height;
+}
+
+.navbar-logo {
+  margin-right: 0.75rem;
+}
+
+p.text {
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.menu-list {
+  a {
+    font-size: 0.85rem;
+  }
+
+  li ul {
+    margin: 0 0.75em;
+  }
+}
+
+// Move the tooltip icon away from the text on the Create form
+.icon.tooltip {
+  margin-left: 0.5rem;
+}

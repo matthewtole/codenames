@@ -101,7 +101,6 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -162,6 +161,15 @@ module.exports = {
                   transpileOnly: true,
                 },
               },
+            ],
+          },
+          {
+            test: /\.scss$/,
+            include: paths.appSrc,
+            loaders: [
+              require.resolve('style-loader'),
+              require.resolve('css-loader'),
+              require.resolve('sass-loader'),
             ],
           },
           // The notation here is somewhat confusing.

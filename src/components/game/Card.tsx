@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Card.css';
+import './Card.scss';
 import { Role } from '../../redux/game/types';
 import * as cx from 'classnames';
 import { BoardMode } from './Board';
@@ -10,6 +10,7 @@ export interface CardProps {
   revealed: boolean;
   highlighted: boolean;
   boardMode: BoardMode;
+  isGameOver: boolean;
   onReveal: () => void;
   onHighlight: () => void;
 }
@@ -22,6 +23,7 @@ export class Card extends React.PureComponent<CardProps, object> {
           Card: true,
           'Card--highlighted': this.props.highlighted,
           'Card--revealed': this.props.revealed,
+          'Card--game-over': this.props.isGameOver,
           [`Card--${this.props.boardMode.toLowerCase()}`]: true,
         })}
         data-role={this.props.role}
