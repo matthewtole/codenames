@@ -8,6 +8,8 @@ import {
   ActionClearCode,
   ActionJoinRoom,
   ActionJoinRoomError,
+  ActionChangeRuleset,
+  ActionChangeDictionary,
 } from './actions';
 import { ActionTypes } from '../actions';
 
@@ -87,5 +89,23 @@ export const joinRoomError = ({
   payload: {
     code,
     error,
+  },
+});
+
+export const changeRuleset = ({
+  ruleset,
+}: ActionChangeRuleset['payload']): ActionChangeRuleset => ({
+  type: ActionTypes.ROOM_CHANGE_RULESET,
+  payload: {
+    ruleset,
+  },
+});
+
+export const changeDictionary = ({
+  dictionary,
+}: ActionChangeDictionary['payload']): ActionChangeDictionary => ({
+  type: ActionTypes.ROOM_CHANGE_DICTIONARY,
+  payload: {
+    dictionary,
   },
 });

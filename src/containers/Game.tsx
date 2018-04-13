@@ -32,7 +32,12 @@ import {
   enterFullscreen,
   exitFullscreen,
 } from '../redux/ui/action_creators';
-import { generateCode, clearCode } from '../redux/room/action_creators';
+import {
+  generateCode,
+  clearCode,
+  changeRuleset,
+  changeDictionary,
+} from '../redux/room/action_creators';
 import { ModalRoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
 import { Messages, Message } from '../lib/message';
@@ -57,6 +62,8 @@ interface DispatchProps {
   onClearCode: () => void;
   onEnterFullscreen: () => void;
   onExitFullscreen: () => void;
+  onChangeRuleset: (ruleset: RulesetName) => void;
+  onChangeDictionary: (dictionary: DictionaryName) => void;
 }
 
 interface StateProps {
@@ -146,6 +153,12 @@ const mapDispatchToProps = (
     },
     onClearCode: () => {
       dispatch(clearCode());
+    },
+    onChangeRuleset: (ruleset: RulesetName) => {
+      dispatch(changeRuleset({ ruleset }));
+    },
+    onChangeDictionary: (dictionary: DictionaryName) => {
+      dispatch(changeDictionary({ dictionary }));
     },
   };
 };
@@ -244,10 +257,12 @@ class Game extends React.PureComponent<Props, {}> {
 
   private handleSetRuleset = (ruleset: RulesetName) => {
     this.props.closeMenu();
+    this.props.onChangeRuleset(ruleset);
   }
 
   private handleSetDictionary = (dictionary: DictionaryName) => {
     this.props.closeMenu();
+    this.props.onChangeDictionary(dictionary);
   }
 
   private handleGenerateCode = () => {

@@ -132,6 +132,16 @@ export class FirebaseSync {
       .set(gameId);
   }
 
+  async updateRoom(
+    roomId: string,
+    data: { ruleset?: RulesetName; dictionary?: DictionaryName }
+  ) {
+    return firebase
+      .database()
+      .ref(`/rooms/${roomId}`)
+      .update(data);
+  }
+
   async loadGame({ id }: { id: string }): Promise<GameDoc> {
     return this.game(id)
       .once('value')

@@ -14,6 +14,8 @@ import {
   ActionLoadRoomSuccess,
   ActionGenerateCode,
   ActionJoinRoom,
+  ActionChangeRuleset,
+  ActionChangeDictionary,
 } from './room/actions';
 import {
   createRoomSuccess,
@@ -164,6 +166,20 @@ function subscribeToFullscreen() {
   };
 }
 
+function* changeDictionary(action: ActionChangeDictionary) {
+  const state: State = yield select();
+  yield firebase.updateRoom(state.room.id!, {
+    dictionary: action.payload.dictionary,
+  });
+}
+
+function* changeRuleset(action: ActionChangeRuleset) {
+  const state: State = yield select();
+  yield firebase.updateRoom(state.room.id!, {
+    ruleset: action.payload.ruleset,
+  });
+}
+
 export function* sagas() {
   yield takeEvery(ActionTypes.ROOM_CREATE, roomCreate);
   yield takeEvery(ActionTypes.GAME_CREATE, gameCreate);
@@ -178,6 +194,8 @@ export function* sagas() {
   yield takeLatest(ActionTypes.ROOM_JOIN, joinRoom);
   yield takeEvery(ActionTypes.UI_ENTER_FULLSCREEN, enterFullscreen);
   yield takeEvery(ActionTypes.UI_EXIT_FULLSCREEN, exitFullscreen);
+  yield takeLatest(ActionTypes.ROOM_CHANGE_DICTIONARY, changeDictionary);
+  yield takeLatest(ActionTypes.ROOM_CHANGE_RULESET, changeRuleset);
 
   yield fork(subscribeToFullscreen());
 }

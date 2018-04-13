@@ -65,6 +65,20 @@ export interface ActionJoinRoomError extends BaseAction {
   };
 }
 
+export interface ActionChangeRuleset extends BaseAction {
+  type: ActionTypes.ROOM_CHANGE_RULESET;
+  payload: {
+    ruleset: RulesetName;
+  };
+}
+
+export interface ActionChangeDictionary extends BaseAction {
+  type: ActionTypes.ROOM_CHANGE_DICTIONARY;
+  payload: {
+    dictionary: DictionaryName;
+  };
+}
+
 export type ActionRoom =
   | ActionLoadRoom
   | ActionLoadRoomSuccess
@@ -74,4 +88,6 @@ export type ActionRoom =
   | ActionGenerateCodeSuccess
   | ActionClearCode
   | ActionJoinRoom
-  | ActionJoinRoomError;
+  | ActionJoinRoomError
+  | ActionChangeDictionary
+  | ActionChangeRuleset;
