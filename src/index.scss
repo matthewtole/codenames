@@ -10,6 +10,7 @@ $link: $blue-spy--dark;
 
 @import './node_modules/bulma/bulma';
 @import './node_modules/bulma-checkradio/dist/bulma-checkradio';
+@import './node_modules/bulma-tooltip/dist/bulma-tooltip';
 
 body {
   margin: 0;
@@ -49,10 +50,17 @@ p.text {
   }
 }
 
-.menu-list a {
-  font-size: 0.85rem;
+.menu-list {
+  a {
+    font-size: 0.85rem;
+  }
+
+  li ul {
+    margin: 0 0.75em;
+  }
 }
 
-.menu-list li ul {
-  margin: 0 0.75em;
+// Move the tooltip icon away from the text on the Create form
+.icon.tooltip {
+  margin-left: 0.5rem;
 }

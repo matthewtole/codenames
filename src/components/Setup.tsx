@@ -43,7 +43,10 @@ export class Setup extends React.Component<Props, {}> {
                 checked={dictionary === name}
                 onChange={() => this.props.onChangeDictionary(name)}
               />
-              <label htmlFor={name}>{DictionaryManager.getName(name)}</label>
+              <label htmlFor={name}>
+                {DictionaryManager.getName(name)}
+                {this.renderDictionaryTooltip(name)}
+              </label>
             </div>
           ))}
         </div>
@@ -63,10 +66,10 @@ export class Setup extends React.Component<Props, {}> {
                 checked={ruleset === name}
                 onChange={() => this.props.onChangeRuleset(name)}
               />
-              <label htmlFor={name}>{RulesetManager.getName(name)}</label>
-              {RulesetManager.hasDescription(name) ? (
-                <p className="help">{RulesetManager.getDescription(name)}</p>
-              ) : null}
+              <label htmlFor={name}>
+                {RulesetManager.getName(name)}
+                {this.renderRulesetTooltip(name)}
+              </label>
             </div>
           ))}
         </div>
@@ -82,6 +85,31 @@ export class Setup extends React.Component<Props, {}> {
           </button>
         </div>
       </div>
+    );
+  }
+
+  private renderDictionaryTooltip = (dictionary: DictionaryName) => {
+    if (!DictionaryManager.hasDescription(dictionary)) {
+      return null;
+    }
+    return this.renderTooltip(DictionaryManager.getDescription(dictionary));
+  }
+
+  private renderRulesetTooltip = (ruleset: RulesetName) => {
+    if (!RulesetManager.hasDescription(ruleset)) {
+      return null;
+    }
+    return this.renderTooltip(RulesetManager.getDescription(ruleset));
+  }
+
+  private renderTooltip = (content: string) => {
+    return (
+      <span
+        className="icon is-small tooltip is-tooltip-right"
+        data-tooltip={content}
+      >
+        <i className="fa fa-question-circle" />
+      </span>
     );
   }
 }
