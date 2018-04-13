@@ -36,6 +36,8 @@ export const ui = (state: UIState = initialState, action: Action): UIState => {
       return { ...state, isMenuShown: false };
     case ActionTypes.UI_SET_IS_FULLSCREEN:
       return { ...state, isFullscreen: action.payload.isFullscreen };
+    case ActionTypes.ROOM_LOAD:
+      return { ...state, isMenuShown: false };
     default:
       return state;
   }
