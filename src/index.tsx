@@ -26,3 +26,10 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
+
+// tslint:disable
+if (process.env.NODE_ENV === 'production') {
+  (window as any).Raven.config(
+    'https://59d80f4d5ace403f83ba45c19f11aa06@sentry.io/1187696'
+  ).install();
+}
