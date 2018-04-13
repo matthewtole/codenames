@@ -38,5 +38,13 @@ html,
 }
 
 .navbar-logo {
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+}
+
+p.text {
+  margin-bottom: 0.75rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
