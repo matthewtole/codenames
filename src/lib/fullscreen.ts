@@ -1,6 +1,8 @@
 export class Fullscreen {
   private static callback: (event: Event) => void;
 
+  static _window: any;
+
   static enter() {
     Fullscreen.requestFullscreen.call(Fullscreen.docElement);
   }
@@ -14,18 +16,22 @@ export class Fullscreen {
       callback(!!Fullscreen.fullscreenElement);
     };
     Fullscreen.eventNames.forEach(name =>
-      document.addEventListener(name, Fullscreen.callback)
+      Fullscreen.doc.addEventListener(name, Fullscreen.callback)
     );
   }
 
   static unsubscribe() {
     Fullscreen.eventNames.forEach(name =>
-      document.removeEventListener(name, Fullscreen.callback)
+      Fullscreen.doc.removeEventListener(name, Fullscreen.callback)
     );
   }
 
+  private static get window() {
+    return Fullscreen._window || window;
+  }
+
   private static get doc() {
-    return window.document as any; // tslint:disable-line:no-any
+    return Fullscreen.window.document as any; // tslint:disable-line:no-any
   }
 
   private static get docElement() {
