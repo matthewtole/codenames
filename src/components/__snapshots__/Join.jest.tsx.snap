@@ -4,33 +4,37 @@ exports[`<Join /> renders correctly 1`] = `
 <div
   className="box"
 >
-  <div
-    className="control"
+  <form
+    onSubmit={[Function]}
   >
-    <input
-      className="input has-text-centered is-large"
-      onChange={[Function]}
-      placeholder="Room Code"
-      type="tel"
-      value=""
-    />
-  </div>
-  <br />
-  <div
-    className="has-text-centered"
-  >
-    <button
-      className="button is-success is-medium"
-      disabled={true}
-      onClick={[Function]}
-      style={
-        Object {
-          "width": "100%",
-        }
-      }
+    <div
+      className="control"
     >
-      Join Game
-    </button>
-  </div>
+      <input
+        className="input has-text-centered is-large"
+        onChange={[Function]}
+        placeholder="Room Code"
+        type="tel"
+        value=""
+      />
+    </div>
+    <br />
+    <div
+      className="has-text-centered"
+    >
+      <input
+        className="button is-success is-medium"
+        disabled={true}
+        onClick={[Function]}
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+        type="submit"
+        value="Join Game"
+      />
+    </div>
+  </form>
 </div>
 `;

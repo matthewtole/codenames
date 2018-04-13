@@ -16,9 +16,9 @@ export class HelpPage extends React.Component<{}, {}> {
           </section>
           <section className="section">
             <div className="container is-fluid" />
-            <div className="columns">
+            <div className="columns is-centered">
               <div className="column is-one-quarter">
-                <div className="bosx">
+                <div className="box">
                   <aside className="menu">
                     {/* <p className="menu-label">General</p>
                     <ul className="menu-list">
@@ -49,7 +49,7 @@ export class HelpPage extends React.Component<{}, {}> {
                   </aside>
                 </div>
               </div>
-              <div className="column">
+              <div className="column is-half">
                 <h2 className="title is-size-3">Creating a Game</h2>
 
                 <h2 className="title is-size-3">Joining a Game</h2>

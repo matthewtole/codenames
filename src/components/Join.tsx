@@ -19,36 +19,43 @@ export class Join extends React.Component<JoinProps, State> {
   }
 
   render() {
-    const { onSubmit } = this.props;
-
     return (
       <div className="box">
-        {this.props.error && (
-          <div className="notification is-danger">{this.props.error}</div>
-        )}
-        <div className="control">
-          <input
-            className="input has-text-centered is-large"
-            type="tel"
-            placeholder="Room Code"
-            value={this.state.code}
-            onChange={this.handleCodeChange}
-          />
-        </div>
-
-        <br />
-        <div className="has-text-centered">
-          <button
-            disabled={!this.state.code.length}
-            className="button is-success is-medium"
-            onClick={() => onSubmit(this.state.code)}
-            style={{ width: '100%' }}
-          >
-            Join Game
-          </button>
-        </div>
+        <form onSubmit={this.handleSubmit}>
+          {this.props.error && (
+            <div className="notification is-danger">{this.props.error}</div>
+          )}
+          <div className="control">
+            <input
+              className="input has-text-centered is-large"
+              type="tel"
+              placeholder="Room Code"
+              value={this.state.code}
+              onChange={this.handleCodeChange}
+            />
+          </div>
+          <br />
+          <div className="has-text-centered">
+            <input
+              type="submit"
+              disabled={this.state.code.length !== 6}
+              className="button is-success is-medium"
+              onClick={this.handleSubmit}
+              style={{ width: '100%' }}
+              value="Join Game"
+            />
+          </div>
+        </form>
       </div>
     );
+  }
+
+  private handleSubmit = (
+    event: React.MouseEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
+  ) => {
+    event.stopPropagation();
+    event.preventDefault();
+    this.props.onSubmit(this.state.code);
   }
 
   private handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
