@@ -23,6 +23,10 @@ npm start
 
 ## Developing
 
+### Commits
+
+This project uses the [gitmoji](https://gitmoji.carloscuesta.me/) format for commit messages.
+
 ### Built With
 
 * [React](https://reactjs.org/)
