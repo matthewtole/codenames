@@ -39,8 +39,8 @@ firebase.connect();
 
 function* gameCreate(action: ActionCreateGame) {
   const state: State = yield select();
-  yield firebase.createGame(state.game);
   yield firebase.setGameId(state.room.id!, state.game.id!);
+  yield firebase.createGame(state.game);
 }
 
 function* roomCreate(action: ActionCreateRoom) {
