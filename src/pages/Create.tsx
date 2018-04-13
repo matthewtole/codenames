@@ -3,6 +3,7 @@ import { SetupContainer } from '../containers/Setup';
 import { Navbar } from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import { DictionaryNames } from '../lib/dictionary';
+import { COLUMNS } from '../config';
 
 export class CreatePage extends React.Component<{}, {}> {
   render() {
@@ -20,7 +21,7 @@ export class CreatePage extends React.Component<{}, {}> {
           <section className="section">
             <div className="container is-fluid">
               <div className="columns is-mobile is-multiline">
-                <div className="column is-one-third-desktop is-one-half-tablet is-full-mobile">
+                <div className={COLUMNS.INSTRUCTIONS}>
                   <div className="box">
                     <h3 className="title is-size-4">Instructions</h3>
                     <p className="text">
@@ -46,7 +47,7 @@ export class CreatePage extends React.Component<{}, {}> {
                     </p>
                   </div>
                 </div>
-                <div className="column is-half-desktop is-half-tablet is-full-mobile is-one-third-widescreen">
+                <div className={COLUMNS.FORM}>
                   <SetupContainer />
                 </div>
               </div>

@@ -1,71 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Join /> renders correctly 1`] = `
-<div>
-  <section
-    className="hero is-primary"
+<div
+  className="box"
+>
+  <div
+    className="control"
   >
-    <div
-      className="hero-body"
-    >
-      <div
-        className="container has-text-centered"
-      >
-        <h1
-          className="title"
-        >
-          Join Existing Game
-        </h1>
-      </div>
-    </div>
-  </section>
-  <section
-    className="section"
+    <input
+      className="input has-text-centered is-large"
+      onChange={[Function]}
+      placeholder="Room Code"
+      type="tel"
+      value=""
+    />
+  </div>
+  <br />
+  <div
+    className="has-text-centered"
   >
-    <div
-      className="container is-fluid"
+    <button
+      className="button is-success is-medium"
+      disabled={true}
+      onClick={[Function]}
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
     >
-      <div
-        className="columns is-mobile is-centered"
-      >
-        <div
-          className="column is-half-desktop is-two-thirds-tablet is-full-mobile is-one-third-widescreen "
-        >
-          <div
-            className="box"
-          >
-            <div
-              className="control"
-            >
-              <input
-                className="input has-text-centered is-large"
-                onChange={[Function]}
-                placeholder="Room Code"
-                type="tel"
-                value=""
-              />
-            </div>
-            <br />
-            <div
-              className="has-text-centered"
-            >
-              <button
-                className="button is-success is-medium"
-                disabled={true}
-                onClick={[Function]}
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                Join Game
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      Join Game
+    </button>
+  </div>
 </div>
 `;

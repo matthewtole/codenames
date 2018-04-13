@@ -23,3 +23,9 @@ export const firebase: FirebaseConfig = {
   storageBucket: process.env.CN_FIREBASE_STORAGE_BUCKET!,
   messagingSenderId: process.env.CN_FIREBASE_MESSAGING_SENDER_ID!,
 };
+
+export const COLUMNS = {
+  INSTRUCTIONS: 'column is-one-third-desktop is-one-half-tablet is-full-mobile',
+  FORM:
+    'column is-half-desktop is-half-tablet is-full-mobile is-one-third-widescreen',
+};
