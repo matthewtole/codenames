@@ -9,6 +9,7 @@ export interface InfoProps {
   spyCounts: { [key: string]: number };
   showMenu: boolean;
   onMenuOpen: () => void;
+  onClearHighlight: () => void;
 }
 
 interface SpyCounterProps {
@@ -43,7 +44,7 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
 
 export class Info extends React.Component<InfoProps, {}> {
   render() {
-    const { turn, winner, spyCounts, showMenu } = this.props;
+    const { turn, winner, spyCounts, showMenu, onClearHighlight } = this.props;
     let contents = null;
     if (winner !== undefined) {
       contents = (
@@ -76,6 +77,7 @@ export class Info extends React.Component<InfoProps, {}> {
     }
     return (
       <div
+        onClick={onClearHighlight}
         className={cx({
           Info: true,
           'Info--red': turn === Team.RED,
@@ -93,11 +95,16 @@ export class Info extends React.Component<InfoProps, {}> {
     return (
       <button
         className="GameControls_menu"
-        onClick={() => this.props.onMenuOpen()}
+        onClick={this.handleMenuClick}
         key="menu"
       >
         <i className="fas fa-bars fa-fw" />
       </button>
     );
+  }
+
+  private handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    this.props.onMenuOpen();
   }
 }

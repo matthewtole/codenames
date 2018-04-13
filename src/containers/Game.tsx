@@ -46,6 +46,7 @@ interface GameProps {
 
 interface DispatchProps {
   onHighlightCard: (card: Coordinate) => void;
+  onClearHighlight: () => void;
   onRevealCard: (card: Coordinate) => void;
   onMessageClosed: () => void;
   onEndTurn: () => void;
@@ -107,6 +108,9 @@ const mapDispatchToProps = (
     onHighlightCard: (card: Coordinate) => {
       dispatch(highlightCard({ card }));
     },
+    onClearHighlight: () => {
+      dispatch(highlightCard({ card: null }));
+    },
     onRevealCard: (card: Coordinate) => {
       dispatch(revealCard({ card }));
     },
@@ -150,6 +154,7 @@ class Game extends React.PureComponent<Props, {}> {
   render() {
     const {
       onHighlightCard,
+      onClearHighlight,
       onRevealCard,
       cards,
       highlighted,
@@ -189,6 +194,7 @@ class Game extends React.PureComponent<Props, {}> {
             spyCounts={spyCounts!}
             onMenuOpen={onMenuOpen}
             showMenu={mode === BoardMode.VIEWER}
+            onClearHighlight={onClearHighlight}
           />
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
