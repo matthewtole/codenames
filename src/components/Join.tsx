@@ -53,9 +53,13 @@ export class Join extends React.Component<JoinProps, State> {
   private handleSubmit = (
     event: React.MouseEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
   ) => {
-    event.stopPropagation();
-    event.preventDefault();
-    this.props.onSubmit(this.state.code);
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    if (this.state.code.length === 6) {
+      this.props.onSubmit(this.state.code);
+    }
   }
 
   private handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
