@@ -1,7 +1,6 @@
 export class Fullscreen {
+  static _window: any; // tslint:disable-line:no-any
   private static callback: (event: Event) => void;
-
-  static _window: any;
 
   static enter() {
     Fullscreen.requestFullscreen.call(Fullscreen.docElement);
