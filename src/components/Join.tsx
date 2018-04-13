@@ -9,6 +9,8 @@ interface State {
   code: string;
 }
 
+const VALID_CODE = /^[0-9]{6}$/;
+
 export class Join extends React.Component<JoinProps, State> {
   constructor(props: JoinProps) {
     super(props);
@@ -38,7 +40,7 @@ export class Join extends React.Component<JoinProps, State> {
           <div className="has-text-centered">
             <input
               type="submit"
-              disabled={this.state.code.length !== 6}
+              disabled={!this.isValidCode}
               className="button is-success is-medium"
               onClick={this.handleSubmit}
               style={{ width: '100%' }}
@@ -50,6 +52,10 @@ export class Join extends React.Component<JoinProps, State> {
     );
   }
 
+  private get isValidCode(): boolean {
+    return VALID_CODE.test(this.state.code);
+  }
+
   private handleSubmit = (
     event: React.MouseEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
   ) => {
@@ -57,9 +63,11 @@ export class Join extends React.Component<JoinProps, State> {
       event.stopPropagation();
       event.preventDefault();
     }
-    if (this.state.code.length === 6) {
-      this.props.onSubmit(this.state.code);
+    if (!this.isValidCode) {
+      return;
     }
+
+    this.props.onSubmit(this.state.code);
   }
 
   private handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
