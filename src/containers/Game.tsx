@@ -38,7 +38,7 @@ import {
   changeRuleset,
   changeDictionary,
 } from '../redux/room/action_creators';
-import { ModalRoomCode } from '../components/game/RoomCode';
+import { RoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
 import { Messages, Message } from '../lib/message';
 
@@ -212,9 +212,7 @@ class Game extends React.PureComponent<Props, {}> {
           {message ? (
             <ModalMessage message={message} onClose={onMessageClosed!} />
           ) : null}
-          {roomCode ? (
-            <ModalRoomCode code={roomCode} onClose={onClearCode} />
-          ) : null}
+          {roomCode ? <RoomCode code={roomCode} onClose={onClearCode} /> : null}
           <GameMenu
             isShown={isMenuShown}
             onClose={closeMenu}

@@ -6,7 +6,7 @@ import { DictionaryNames, DictionaryManager } from '../../lib/dictionary';
 import { RulesetNames, RulesetManager } from '../../lib/ruleset';
 import { DictionaryName, RulesetName } from '../../redux/game/types';
 
-interface Props {
+export interface GameMenuProps {
   isShown: boolean;
   onClose: () => void;
   roomId: string;
@@ -21,7 +21,7 @@ interface Props {
   isFullscreen: boolean;
 }
 
-export class GameMenu extends React.PureComponent<Props, {}> {
+export class GameMenu extends React.PureComponent<GameMenuProps, {}> {
   render() {
     const {
       isShown,

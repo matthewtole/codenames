@@ -1,14 +1,12 @@
 import * as React from 'react';
 import './RoomCode.scss';
 
-interface Props {
+export interface RoomCodeProps {
   code: string;
   onClose: () => void;
 }
 
-interface State {}
-
-export class ModalRoomCode extends React.Component<Props, State> {
+export class RoomCode extends React.Component<RoomCodeProps, {}> {
   render() {
     const { code } = this.props;
     return (

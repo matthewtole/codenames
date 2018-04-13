@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board renders correctly 1`] = `
+<div
+  className="BoardWrapper"
+  onClick={[Function]}
+>
+  <div
+    className="Board"
+  >
+    <div
+      className="BoardRow"
+    >
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          King
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Bug
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Loch Ness
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Scale
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Figure
+        </div>
+      </div>
+    </div>
+    <div
+      className="BoardRow"
+    >
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          March
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Hood
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Trip
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Pan
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Wind
+        </div>
+      </div>
+    </div>
+    <div
+      className="BoardRow"
+    >
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Port
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Chick
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Copper
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Tube
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Chest
+        </div>
+      </div>
+    </div>
+    <div
+      className="BoardRow"
+    >
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Robin
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Band
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Fire
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Chair
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="ASSASSIN"
+        onClick={[Function]}
+      >
+        <div>
+          Cat
+        </div>
+      </div>
+    </div>
+    <div
+      className="BoardRow"
+    >
+      <div
+        className="Card Card--controller"
+        data-role="BLUE_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Undertaker
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Cover
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Suit
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="RED_SPY"
+        onClick={[Function]}
+      >
+        <div>
+          Roulette
+        </div>
+      </div>
+      <div
+        className="Card Card--controller"
+        data-role="BYSTANDER"
+        onClick={[Function]}
+      >
+        <div>
+          Chocolate
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
