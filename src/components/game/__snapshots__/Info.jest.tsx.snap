@@ -3,6 +3,7 @@
 exports[`Info renders correctly 1`] = `
 <div
   className="Info Info--red"
+  onClick={[Function]}
 >
   <div
     className="Info__count Info__count--blue"
