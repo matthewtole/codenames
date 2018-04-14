@@ -130,7 +130,7 @@ exports[`GameMenu should render correctly 1`] = `
   <button
     aria-label="close"
     className="modal-close is-large"
-    onClick={[Function]}
+    onClick={[MockFunction]}
   />
   ;
 </div>
