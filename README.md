@@ -4,7 +4,7 @@
 
 A web based implementation of the board game [Codenames](https://boardgamegeek.com/boardgame/178900/codenames).
 
-You can play with a stable build of the app at [http://codenames.sexyboardgames.com/](http://codenames.sexyboardgames.com/)
+You can play with a stable build of the app at [http://codenames.sexyboardgames.com/](http://codenames.sexyboardgames.com/). The latest build of the [develop](https://github.com/matthewtole/codenames/tree/develop) branch is deployed at https://develop--romantic-shannon-c698ba.netlify.com/.
 
 **NOTE: This project is a passion project by fans of the game and is in no way associated with the original game or its creators.**
 
