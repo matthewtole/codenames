@@ -13,7 +13,7 @@ export class Home extends React.Component<{}, {}> {
             <div className="container">
               <div className="columns is-vcentered">
                 <div className="column is-6">
-                  <h1 className="title is-1">Codenames</h1>
+                  <h1 className="title is-1">Code Names</h1>
                   <h2 className="subtitle is-3">
                     An online, advanced version of the Codenames boardgame!
                   </h2>
