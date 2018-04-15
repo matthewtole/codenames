@@ -15,16 +15,23 @@ export interface InfoProps {
 interface SpyCounterProps {
   team: Team;
   count: number;
-  winner?: Team;
 }
 
 class SpyCounter extends React.Component<SpyCounterProps, {}> {
   render() {
+    const { count, team } = this.props;
     const icons = [];
-    for (let c = 0; c < this.props.count; c += 1) {
+    for (let c = 0; c < count; c += 1) {
       icons.push(
         <div className="Info__counter" key={c}>
-          <i className="fa fa-user-secret fa-fw" />
+          <i
+            className={cx({
+              fa: true,
+              'fa-fw': true,
+              'fa-fire': team === Team.RED,
+              'fa-tint': team === Team.BLUE,
+            })}
+          />
         </div>
       );
     }
@@ -32,8 +39,8 @@ class SpyCounter extends React.Component<SpyCounterProps, {}> {
       <div
         className={cx({
           Info__count: true,
-          'Info__count--blue': this.props.team === Team.BLUE,
-          'Info__count--red': this.props.team === Team.RED,
+          'Info__count--blue': team === Team.BLUE,
+          'Info__count--red': team === Team.RED,
         })}
       >
         {icons}
@@ -58,7 +65,6 @@ export class Info extends React.Component<InfoProps, {}> {
           key="spy-counter-blue"
           team={Team.BLUE}
           count={spyCounts[Team.BLUE]}
-          winner={winner}
         />,
         <div className="Info__turn" key="turn">
           {turn === Team.RED ? null : <i className="fa fa-angle-double-left" />}
@@ -71,7 +77,6 @@ export class Info extends React.Component<InfoProps, {}> {
           key="spy-counter-red"
           team={Team.RED}
           count={spyCounts[Team.RED]}
-          winner={winner}
         />,
       ];
     }

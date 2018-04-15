@@ -10,8 +10,17 @@
     position: absolute;
     top: 0.5rem;
     left: 0.5rem;
-    opacity: 0.2;
+    opacity: 0.5;
     font-size: 2rem;
+    display: none;
+  }
+
+  &--controller,
+  &--revealed,
+  &--game-over {
+    i.fa {
+      display: block;
+    }
   }
 
   & > div {
@@ -39,97 +48,50 @@
 
   &--highlighted > div {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    // margin: -7px;
     z-index: 10;
   }
 
   &--revealed {
     text-decoration: line-through;
-    opacity: 0.2;
-  }
+    opacity: 0.5;
 
-  &[data-role='BLUE_SPY'] {
-    &.Card--controller,
-    &.Card--game-over {
-      > div {
-        background-color: $blue-spy--light;
-        border-color: $blue-spy--dark;
-      }
-
-      &.Card--controller.Card--highlighted > div {
-        background-color: $blue-spy--dark;
-        color: #fff;
-      }
-    }
-
-    &.Card--revealed {
-      > div {
-        background-color: $blue-spy--dark;
-        color: $blue-spy--light;
-      }
+    i.fa {
+      opacity: 1;
     }
   }
 
-  &[data-role='RED_SPY'] {
-    &.Card--controller,
-    &.Card--game-over {
-      > div {
-        background-color: $red-spy--light;
-        border-color: $red-spy--dark;
+  @each $role in $roles {
+    &[data-role='#{to-upper-case($role)}'] {
+      &.Card--controller,
+      &.Card--game-over {
+        > div {
+          background-color: map-get($light-colors, $role);
+          border-color: map-get($dark-colors, $role);
+        }
+
+        i.fa {
+          color: map-get($dark-colors, $role);
+        }
+
+        &.Card--controller.Card--highlighted > div {
+          background-color: map-get($dark-colors, $role);
+          color: #fff;
+
+          i.fa {
+            color: map-get($light-colors, $role);
+          }
+        }
       }
-    }
 
-    &.Card--controller.Card--highlighted > div {
-      background-color: $red-spy--dark;
-      color: #fff;
-    }
+      &.Card--revealed {
+        > div {
+          background-color: map-get($light-colors, $role);
+          color: map-get($dark-colors, $role);
 
-    &.Card--revealed {
-      > div {
-        background-color: $red-spy--dark;
-        color: $red-spy--light;
-      }
-    }
-  }
-
-  &[data-role='BYSTANDER'] {
-    &.Card--controller,
-    &.Card--game-over {
-      > div {
-        background-color: $bystander--light;
-        border-color: $bystander--dark;
-      }
-    }
-
-    &.Card--controller.Card--highlighted > div {
-      background-color: $bystander--dark;
-      color: #fff;
-    }
-
-    &.Card--revealed {
-      > div {
-        background-color: $bystander--dark;
-      }
-    }
-  }
-
-  &[data-role='ASSASSIN'] {
-    &.Card--controller,
-    &.Card--game-over {
-      > div {
-        background-color: $assassin--light;
-        border-color: $assassin--dark;
-      }
-    }
-
-    &.Card--controller.Card--highlighted > div {
-      background-color: $assassin--dark;
-      color: #fff;
-    }
-
-    &.Card--revealed {
-      > div {
-        background-color: $assassin--dark;
+          i.fa {
+            color: map-get($dark-colors, $role);
+          }
+        }
       }
     }
   }
@@ -138,6 +100,10 @@
 @media only screen and (max-width: 1024px) {
   .Card {
     font-size: 1.2rem;
+
+    i.fa {
+      font-size: 1.5rem;
+    }
 
     & > div {
       margin: 3px;

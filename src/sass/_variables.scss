@@ -14,3 +14,19 @@ $bystander--dark: material-color('orange', $dark-number);
 
 $assassin--light: material-color('grey', $light-number);
 $assassin--dark: material-color('grey', $dark-number);
+
+$roles: blue_spy red_spy bystander assassin;
+
+$dark-colors: (
+  'blue_spy': $blue-spy--dark,
+  'red_spy': $red-spy--dark,
+  'bystander': $bystander--dark,
+  'assassin': $assassin--dark
+);
+
+$light-colors: (
+  'blue_spy': $blue-spy--light,
+  'red_spy': $red-spy--light,
+  'bystander': $bystander--light,
+  'assassin': $assassin--light
+);
