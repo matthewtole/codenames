@@ -1,11 +1,16 @@
-$blue-spy--light: #bbdefb;
-$blue-spy--dark: #2196f3;
+@import 'node_modules/sass-material-colors/sass/_sass-material-colors';
 
-$red-spy--light: #ef9a9a;
-$red-spy--dark: #d32f2f;
+$dark-number: '500';
+$light-number: '200';
 
-$bystander--light: #ff9100;
-$bystander--dark: #ff9100;
+$blue-spy--light: material-color('blue', $light-number);
+$blue-spy--dark: material-color('blue', $dark-number);
 
-$assassin--light: #999;
-$assassin--dark: #222;
+$red-spy--light: material-color('red', $light-number);
+$red-spy--dark: material-color('red', $dark-number);
+
+$bystander--light: material-color('orange', $light-number);
+$bystander--dark: material-color('orange', $dark-number);
+
+$assassin--light: material-color('grey', $light-number);
+$assassin--dark: material-color('grey', $dark-number);
