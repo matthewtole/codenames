@@ -12,21 +12,21 @@ exports[`Info renders correctly 1`] = `
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-tint"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-tint"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-tint"
       />
     </div>
   </div>
@@ -45,35 +45,35 @@ exports[`Info renders correctly 1`] = `
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-fire"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-fire"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-fire"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-fire"
       />
     </div>
     <div
       className="Info__counter"
     >
       <i
-        className="fa fa-user-secret fa-fw"
+        className="fa fa-fw fa-fire"
       />
     </div>
   </div>
