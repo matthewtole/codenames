@@ -18,6 +18,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           King
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
       <div
@@ -27,6 +30,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Bug
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -36,6 +42,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Loch Ness
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -45,6 +54,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Scale
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -54,6 +66,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Figure
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
     </div>
@@ -67,6 +82,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           March
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -76,6 +94,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Hood
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
       <div
@@ -85,6 +106,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Trip
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -94,6 +118,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Pan
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
       <div
@@ -103,6 +130,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Wind
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
     </div>
@@ -116,6 +146,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Port
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -125,6 +158,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Chick
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -134,6 +170,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Copper
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -143,6 +182,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Tube
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -152,6 +194,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Chest
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
     </div>
@@ -165,6 +210,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Robin
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -174,6 +222,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Band
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -183,6 +234,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Fire
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -192,6 +246,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Chair
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
       <div
@@ -201,6 +258,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Cat
+          <i
+            className="fa fa-bullseye"
+          />
         </div>
       </div>
     </div>
@@ -214,6 +274,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Undertaker
+          <i
+            className="fa fa-tint"
+          />
         </div>
       </div>
       <div
@@ -223,6 +286,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Cover
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -232,6 +298,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Suit
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
       <div
@@ -241,6 +310,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Roulette
+          <i
+            className="fa fa-fire"
+          />
         </div>
       </div>
       <div
@@ -250,6 +322,9 @@ exports[`Board renders correctly 1`] = `
       >
         <div>
           Chocolate
+          <i
+            className="fa fa-child"
+          />
         </div>
       </div>
     </div>

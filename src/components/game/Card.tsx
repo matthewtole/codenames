@@ -29,9 +29,27 @@ export class Card extends React.PureComponent<CardProps, object> {
         data-role={this.props.role}
         onClick={this.handleClick}
       >
-        <div>{this.props.word}</div>
+        <div>
+          {this.props.word}
+          {this.renderIcon()}
+        </div>
       </div>
     );
+  }
+
+  renderIcon() {
+    switch (this.props.role) {
+      case Role.BLUE_SPY:
+        return <i className="fa fa-tint" />;
+      case Role.RED_SPY:
+        return <i className="fa fa-fire" />;
+      case Role.ASSASSIN:
+        return <i className="fa fa-bullseye" />;
+      case Role.BYSTANDER:
+        return <i className="fa fa-child" />;
+      default:
+        return null;
+    }
   }
 
   handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
