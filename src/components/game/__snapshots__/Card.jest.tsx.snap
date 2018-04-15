@@ -8,6 +8,9 @@ exports[`Card renders correctly 1`] = `
 >
   <div>
     test
+    <i
+      className="fa fa-tint"
+    />
   </div>
 </div>
 `;
