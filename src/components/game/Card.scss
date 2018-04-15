@@ -18,8 +18,21 @@
     bottom: 0;
     top: 0;
     border-radius: 4px;
-    margin: 0;
-    border: 2px solid #fff;
+    margin: 5px;
+    border: 2px solid #ddd;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  &--revealed > div {
+    border: 0;
+  }
+
+  &--highlighted > div {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    // margin: -7px;
+    z-index: 10;
   }
 
   &--revealed {
@@ -32,6 +45,12 @@
     &.Card--game-over {
       > div {
         background-color: $blue-spy--light;
+        border-color: $blue-spy--dark;
+      }
+
+      &.Card--controller.Card--highlighted > div {
+        background-color: $blue-spy--dark;
+        color: #fff;
       }
     }
 
@@ -48,7 +67,13 @@
     &.Card--game-over {
       > div {
         background-color: $red-spy--light;
+        border-color: $red-spy--dark;
       }
+    }
+
+    &.Card--controller.Card--highlighted > div {
+      background-color: $red-spy--dark;
+      color: #fff;
     }
 
     &.Card--revealed {
@@ -64,7 +89,13 @@
     &.Card--game-over {
       > div {
         background-color: $bystander--light;
+        border-color: $bystander--dark;
       }
+    }
+
+    &.Card--controller.Card--highlighted > div {
+      background-color: $bystander--dark;
+      color: #fff;
     }
 
     &.Card--revealed {
@@ -74,12 +105,18 @@
     }
   }
 
-  &[data-role='ASSASIN'] {
+  &[data-role='ASSASSIN'] {
     &.Card--controller,
     &.Card--game-over {
       > div {
         background-color: $assassin--light;
+        border-color: $assassin--dark;
       }
+    }
+
+    &.Card--controller.Card--highlighted > div {
+      background-color: $assassin--dark;
+      color: #fff;
     }
 
     &.Card--revealed {
@@ -88,16 +125,14 @@
       }
     }
   }
-
-  &--highlighted > div {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    margin: -7px;
-    z-index: 10;
-  }
 }
 
 @media only screen and (max-width: 1024px) {
   .Card {
     font-size: 1.2rem;
+
+    & > div {
+      margin: 3px;
+    }
   }
 }
