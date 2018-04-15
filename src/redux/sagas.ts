@@ -24,7 +24,11 @@ import {
   joinRoomError,
   loadRoomError,
 } from './room/action_creators';
-import { push } from 'react-router-redux';
+import {
+  push,
+  LOCATION_CHANGE,
+  LocationChangeAction,
+} from 'react-router-redux';
 import { eventChannel } from 'redux-saga';
 
 import { FirebaseSync } from '../lib/firebase';
@@ -36,6 +40,8 @@ import { GameStateLoaded } from './game/reducers';
 import { ActionEnterFullscreen, ActionExitFullscreen } from './ui/actions';
 import { Fullscreen } from '../lib/fullscreen';
 import { setIsFullscreen } from './ui/action_creators';
+
+import { ReactGA } from '../analytics';
 
 const firebase = new FirebaseSync(config.firebase);
 firebase.connect();
@@ -185,6 +191,10 @@ function* changeRuleset(action: ActionChangeRuleset) {
   });
 }
 
+function locationChange(action: LocationChangeAction) {
+  ReactGA.pageview(action.payload.pathname);
+}
+
 export function* sagas() {
   yield takeEvery(ActionTypes.ROOM_CREATE, roomCreate);
   yield takeEvery(ActionTypes.GAME_CREATE, gameCreate);
@@ -203,4 +213,6 @@ export function* sagas() {
   yield takeLatest(ActionTypes.ROOM_CHANGE_RULESET, changeRuleset);
 
   yield fork(subscribeToFullscreen());
+
+  yield takeEvery(LOCATION_CHANGE, locationChange);
 }
