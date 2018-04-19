@@ -20,7 +20,7 @@ export class JoinPage extends React.Component<{}, {}> {
               </div>
             </section>
             <section className="section">
-              <div className="columns is-mobile is-multiline">
+              <div className="columns is-mobile is-centered">
                 <div className={COLUMNS.INSTRUCTIONS}>
                   <div className="box">
                     <h3 className="title is-size-4">Instructions</h3>
@@ -41,12 +41,16 @@ export class JoinPage extends React.Component<{}, {}> {
                       <Link to="/help">Help page.</Link>
                     </p>
 
-                    <p className="text has-text-weight-semibold">
-                      Need more help? Don't fret, check out the{' '}
-                      <Link to="/help">Help page</Link>.
-                    </p>
+                    <div className="notification is-info">
+                      <p className="text has-text-weight-semibold">
+                        Need more help? Don't fret, check out the{' '}
+                        <Link to="/help">Help page</Link>.
+                      </p>
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div className="columns is-mobile is-centered">
                 <div className={COLUMNS.FORM}>
                   <JoinContainer />
                 </div>

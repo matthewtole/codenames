@@ -29,51 +29,54 @@ export class Setup extends React.Component<Props, {}> {
 
     return (
       <div className="box">
-        <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
-          Dictionary
-        </h3>
-        <div className="field">
-          {DictionaryNames.map(name => (
-            <div className="field" key={name}>
-              <input
-                className="is-checkradio"
-                id={name}
-                type="radio"
-                name={name}
-                checked={dictionary === name}
-                onChange={() => this.props.onChangeDictionary(name)}
-              />
-              <label htmlFor={name}>
-                {DictionaryManager.getName(name)}
-                {this.renderDictionaryTooltip(name)}
-              </label>
+        <div className="columns is-multiline">
+          <div className="column is-half-widescreen is-full-mobile is-full-tablet is-half-desktop">
+            <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
+              Dictionary
+            </h3>
+            <div className="field">
+              {DictionaryNames.map(name => (
+                <div className="field" key={name}>
+                  <input
+                    className="is-checkradio"
+                    id={name}
+                    type="radio"
+                    name={name}
+                    checked={dictionary === name}
+                    onChange={() => this.props.onChangeDictionary(name)}
+                  />
+                  <label htmlFor={name}>
+                    {DictionaryManager.getName(name)}
+                    {this.renderDictionaryTooltip(name)}
+                  </label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <br />
-
-        <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
-          Additional Rules
-        </h3>
-        <div className="field">
-          {RulesetNames.map(name => (
-            <div className="field" key={name}>
-              <input
-                className="is-checkradio"
-                id={name}
-                type="radio"
-                name={name}
-                checked={ruleset === name}
-                onChange={() => this.props.onChangeRuleset(name)}
-              />
-              <label htmlFor={name}>
-                {RulesetManager.getName(name)}
-                {this.renderRulesetTooltip(name)}
-              </label>
+          </div>
+          <div className="column is-half-widescreen is-full-mobile is-full-tablet is-half-desktop">
+            <h3 className="title is-4" style={{ marginBottom: '1rem' }}>
+              Additional Rules
+            </h3>
+            <div className="field">
+              {RulesetNames.map(name => (
+                <div className="field" key={name}>
+                  <input
+                    className="is-checkradio"
+                    id={name}
+                    type="radio"
+                    name={name}
+                    checked={ruleset === name}
+                    onChange={() => this.props.onChangeRuleset(name)}
+                  />
+                  <label htmlFor={name}>
+                    {RulesetManager.getName(name)}
+                    {this.renderRulesetTooltip(name)}
+                  </label>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-        <br />
 
         <div className="has-text-centered">
           <button

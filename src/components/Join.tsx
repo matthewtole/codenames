@@ -31,7 +31,6 @@ export class Join extends React.Component<JoinProps, State> {
             <input
               className="input has-text-centered is-large"
               type="tel"
-              placeholder="Room Code"
               value={this.state.code}
               onChange={this.handleCodeChange}
             />
@@ -44,7 +43,8 @@ export class Join extends React.Component<JoinProps, State> {
               className="button is-success is-medium"
               onClick={this.handleSubmit}
               style={{ width: '100%' }}
-              value="Join Game"
+              value="Join Game &rarr;"
+              autoFocus={true}
             />
           </div>
         </form>

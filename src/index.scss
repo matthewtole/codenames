@@ -8,6 +8,8 @@ $primary-invert: #fff;
 $success: $blue-spy--dark;
 $link: $blue-spy--dark;
 
+$info: $bystander--dark;
+
 @import './node_modules/bulma/bulma';
 @import './node_modules/bulma-checkradio/dist/bulma-checkradio';
 @import './node_modules/bulma-tooltip/dist/bulma-tooltip';
