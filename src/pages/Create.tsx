@@ -16,13 +16,13 @@ export class CreatePage extends React.Component<{}, {}> {
             <section className="hero is-primary">
               <div className="hero-body">
                 <div className="container has-text-centered">
-                  <h1 className="title">Create Game</h1>
+                  <h1 className="title">Create New Game</h1>
                 </div>
               </div>
             </section>
             <section className="section">
               <div className="container is-fluid">
-                <div className="columns is-mobile is-multiline">
+                <div className="columns is-mobile is-centered">
                   <div className={COLUMNS.INSTRUCTIONS}>
                     <div className="box">
                       <h3 className="title is-size-4">Instructions</h3>
@@ -39,18 +39,24 @@ export class CreatePage extends React.Component<{}, {}> {
                         Choose between the {DictionaryNames.length}{' '}
                         dictionaries, and then select the additional ruleset if
                         you want to play the drinking or strip versions of
-                        Codenames.{' '}
+                        Codenames.
+                      </p>
+                      <p className="text">
                         <em>
                           (Don't worry, you can always change your mind later
                           on!)
                         </em>
                       </p>
-                      <p className="text has-text-weight-semibold">
-                        Need more help? Don't fret, check out the{' '}
-                        <Link to="/help">Help page</Link>.
-                      </p>
+                      <div className="notification is-info">
+                        <p className="text has-text-weight-semibold">
+                          Need more help? Don't fret, check out the{' '}
+                          <Link to="/help">Help page</Link>.
+                        </p>
+                      </div>
                     </div>
                   </div>
+                </div>
+                <div className="columns is-mobile is-centered">
                   <div className={COLUMNS.FORM}>
                     <SetupContainer />
                   </div>

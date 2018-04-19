@@ -25,7 +25,18 @@ export const firebase: FirebaseConfig = {
 };
 
 export const COLUMNS = {
-  INSTRUCTIONS: 'column is-one-third-desktop is-one-half-tablet is-full-mobile',
-  FORM:
-    'column is-half-desktop is-half-tablet is-full-mobile is-one-third-widescreen',
+  INSTRUCTIONS: [
+    'column',
+    'is-half-widescreen',
+    'is-two-thirds-desktop',
+    'is-two-thirds-tablet',
+    'is-full-mobile',
+  ].join(' '),
+  FORM: [
+    'column',
+    'is-half-widescreen',
+    'is-two-thirds-desktop',
+    'is-half-tablet',
+    'is-full-mobile',
+  ].join(' '),
 };
