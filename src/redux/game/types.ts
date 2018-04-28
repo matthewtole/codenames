@@ -44,3 +44,8 @@ export enum MessageKey {
   ENEMY_SPY = 'ENEMY_SPY',
   VICTORY = 'VICTORY',
 }
+
+export interface Message {
+  key: MessageKey;
+  team: Team;
+}

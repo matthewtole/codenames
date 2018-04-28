@@ -91,8 +91,13 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
     cards: game.cards,
     highlighted: game.highlighted,
     revealedCards: game.revealedCards,
-    message: game.messageKey
-      ? Messages.render(game.turn, game.ruleset, game.messageKey, ownProps.mode)
+    message: game.message
+      ? Messages.render(
+          game.message.team,
+          game.ruleset,
+          game.message.key,
+          ownProps.mode
+        )
       : undefined,
     winner: game.winner,
     isMenuShown: state.ui.isMenuShown,

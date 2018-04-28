@@ -10,6 +10,7 @@ import {
   RulesetName,
   DictionaryName,
   MessageKey,
+  Message,
 } from './types';
 import {
   ActionHighlightCard,
@@ -32,7 +33,7 @@ export interface GameStateLoaded {
   turn: Team;
   highlighted?: Coordinate;
   revealedCards: Set<number>;
-  messageKey?: MessageKey;
+  message?: Message;
   ruleset: RulesetName;
   dictionary: DictionaryName;
   winner?: Team;
@@ -65,7 +66,11 @@ function handleRevealAssassin(
 ): GameState {
   return {
     ...state,
-    messageKey: MessageKey.ASSASSIN,
+    message: {
+      key: MessageKey.ASSASSIN,
+      team: state.turn,
+      otherTeam: otherPlayer(state.turn),
+    },
     winner: otherPlayer(state.turn),
     turn: otherPlayer(state.turn),
     highlighted: undefined,
@@ -81,7 +86,10 @@ function handleRevealBystander(
 ): GameState {
   return {
     ...state,
-    messageKey: MessageKey.BYSTANDER,
+    message: {
+      key: MessageKey.BYSTANDER,
+      team: state.turn,
+    },
     turn: otherPlayer(state.turn),
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
@@ -96,7 +104,10 @@ function handleRevealFriendlySpy(
 ): GameState {
   state = {
     ...state,
-    messageKey: MessageKey.FRIENDLY_SPY,
+    message: {
+      key: MessageKey.FRIENDLY_SPY,
+      team: state.turn,
+    },
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -118,7 +129,10 @@ function handleRevealEnemySpy(
   state = {
     ...state,
     highlighted: undefined,
-    messageKey: MessageKey.ENEMY_SPY,
+    message: {
+      key: MessageKey.ENEMY_SPY,
+      team: state.turn,
+    },
     turn: otherPlayer(state.turn),
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -210,7 +224,7 @@ function handleLoadGameSucceess(
     ruleset,
     dictionary,
     highlighted,
-    messageKey,
+    message,
     revealedCards,
     winner,
   } = action.payload;
@@ -222,7 +236,7 @@ function handleLoadGameSucceess(
     turn,
     ruleset,
     dictionary,
-    messageKey: messageKey || undefined,
+    message: message || undefined,
     highlighted: highlighted || undefined,
     revealedCards: Set<number>(revealedCards),
     winner: winner || undefined,
@@ -235,7 +249,7 @@ function handleClearMessage(
 ): GameState {
   return {
     ...state,
-    messageKey: undefined,
+    message: undefined,
   };
 }
 

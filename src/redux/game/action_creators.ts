@@ -55,7 +55,7 @@ export const loadGameSuccess = ({
   ruleset,
   turn,
   dictionary,
-  messageKey,
+  message,
   highlighted,
   winner,
 }: ActionLoadGameSuccess['payload']): ActionLoadGameSuccess => ({
@@ -66,7 +66,7 @@ export const loadGameSuccess = ({
     ruleset,
     turn,
     dictionary,
-    messageKey,
+    message,
     highlighted,
     winner,
   },

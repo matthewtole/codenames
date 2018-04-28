@@ -89,13 +89,13 @@ describe('Game', () => {
       it('should return an action of type ActionLoadGame', () => {
         const dictionary = DictionaryName.ORIGINAL;
         const ruleset = RulesetName.DRINKING;
-        const messageKey = MessageKey.ENEMY_SPY;
+        const message = { key: MessageKey.ENEMY_SPY, team: Team.BLUE };
         const turn = Team.RED;
 
         const action = loadGameSuccess({
           dictionary,
           ruleset,
-          messageKey,
+          message,
           turn,
           cards: [],
           revealedCards: [],
@@ -105,7 +105,7 @@ describe('Game', () => {
           payload: {
             dictionary,
             ruleset,
-            messageKey,
+            message,
             turn,
             cards: [],
             revealedCards: [],
