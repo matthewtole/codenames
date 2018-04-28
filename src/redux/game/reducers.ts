@@ -208,7 +208,6 @@ function handleGameCreate(
 
 function handleLoadGame(state: GameState, action: ActionLoadGame) {
   return {
-    ...state,
     id: action.payload.id,
     loading: true,
   };

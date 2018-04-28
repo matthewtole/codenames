@@ -300,11 +300,12 @@ describe('Game', () => {
             id: 'test-id',
           })
         );
-        expect(nextState).not.toBeUndefined();
-        expect(nextState.id).toBe('test-id');
-        expect(nextState.loading).toBeTruthy();
+        expect(nextState).toEqual({
+          id: 'test-id',
+          loading: true
+        });
       });
-    });
+    }); ,
 
     describe('GAME_LOAD_SUCCESS', () => {
       it('should populate the rest of the game data', () => {
