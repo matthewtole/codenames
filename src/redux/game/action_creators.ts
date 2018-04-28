@@ -6,6 +6,7 @@ import {
   ActionLoadGameSuccess,
   ActionClearMessage,
   ActionEndTurn,
+  ActionHighlightRow,
 } from './actions';
 import { ActionTypes } from '../actions';
 
@@ -80,4 +81,13 @@ export const clearMessage = (): ActionClearMessage => ({
 export const endTurn = (): ActionEndTurn => ({
   type: ActionTypes.GAME_END_TURN,
   payload: {},
+});
+
+export const highlightRow = ({
+  row,
+}: ActionHighlightRow['payload']): ActionHighlightRow => ({
+  type: ActionTypes.GAME_HIGHLIGHT_ROW,
+  payload: {
+    row,
+  },
 });

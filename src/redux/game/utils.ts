@@ -1,4 +1,4 @@
-import { Team, Role, Coordinate } from './types';
+import { Team, Role, Coordinate, CoordinateValue } from './types';
 
 export const otherPlayer = (color: Team): Team => {
   if (color === Team.RED) {
@@ -41,7 +41,7 @@ export const indexToCoordinate = (index: number): Coordinate => {
   if (index < 0 || index >= 5 * 5) {
     throw new Error();
   }
-  const col = index % 5;
-  const row = (index - col) / 5;
+  const col = (index % 5) as CoordinateValue;
+  const row = ((index - col) / 5) as CoordinateValue;
   return { col, row };
 };

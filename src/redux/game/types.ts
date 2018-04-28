@@ -1,6 +1,8 @@
+export type CoordinateValue = 0 | 1 | 2 | 3 | 4;
+
 export interface Coordinate {
-  row: number;
-  col: number;
+  row: CoordinateValue;
+  col: CoordinateValue;
 }
 
 export interface GameOptions {

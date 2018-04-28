@@ -7,6 +7,7 @@ import {
   Team,
   Coordinate,
   Message,
+  CoordinateValue,
 } from './types';
 import { Card } from '../../components/game/Card';
 
@@ -64,6 +65,13 @@ export interface ActionEndTurn extends BaseAction {
   payload: {};
 }
 
+export interface ActionHighlightRow extends BaseAction {
+  type: ActionTypes.GAME_HIGHLIGHT_ROW;
+  payload: {
+    row: CoordinateValue;
+  };
+}
+
 export type ActionGame =
   | ActionHighlightCard
   | ActionRevealCard
@@ -71,4 +79,5 @@ export type ActionGame =
   | ActionLoadGame
   | ActionLoadGameSuccess
   | ActionClearMessage
-  | ActionEndTurn;
+  | ActionEndTurn
+  | ActionHighlightRow;

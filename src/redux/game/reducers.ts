@@ -11,6 +11,7 @@ import {
   DictionaryName,
   MessageKey,
   Message,
+  CoordinateValue,
 } from './types';
 import {
   ActionHighlightCard,
@@ -20,6 +21,7 @@ import {
   ActionEndTurn,
   ActionRevealCard,
   ActionLoadGameSuccess,
+  ActionHighlightRow,
 } from './actions';
 import { Action, ActionTypes } from '../actions';
 import { coordinateToIndex, otherPlayer, teamToRole } from './utils';
@@ -32,6 +34,7 @@ export interface GameStateLoaded {
   cards: Card[];
   turn: Team;
   highlighted?: Coordinate;
+  highlightedRow?: CoordinateValue;
   revealedCards: Set<number>;
   message?: Message;
   ruleset: RulesetName;
@@ -54,9 +57,15 @@ function handleHighlightCard(
     return state;
   }
 
+  let card = action.payload.card;
+  if (card && state.revealedCards.includes(coordinateToIndex(card))) {
+    card = null;
+  }
+
   return {
     ...state,
-    highlighted: action.payload.card || undefined,
+    highlighted: card || undefined,
+    highlightedRow: undefined,
   };
 }
 
@@ -263,6 +272,21 @@ function handleEndTurn(
   };
 }
 
+function handleHighlightRow(
+  state: GameStateLoaded,
+  action: ActionHighlightRow
+) {
+  if (GameSelectors.winner(state)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    highlightedRow: action.payload.row,
+    highlighted: undefined,
+  };
+}
+
 function randomRoles(firstPlayer: Team): Role[] {
   const roles: Role[] = [];
   for (let red = 0; red < (firstPlayer === Team.RED ? 9 : 8); red += 1) {
@@ -324,6 +348,8 @@ export const game = (
       );
     case ActionTypes.GAME_END_TURN:
       return handleEndTurn(state as GameStateLoaded, action as ActionEndTurn);
+    case ActionTypes.GAME_HIGHLIGHT_ROW:
+      return handleHighlightRow(state as GameStateLoaded, action);
     /* istanbul ignore next */
     default:
       return state;

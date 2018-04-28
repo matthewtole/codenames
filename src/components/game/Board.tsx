@@ -1,7 +1,12 @@
 import * as React from 'react';
 import './Board.css';
 import { Card as CardComponent } from './Card';
-import { Card, Coordinate, Role } from '../../redux/game/types';
+import {
+  Card,
+  Coordinate,
+  Role,
+  CoordinateValue,
+} from '../../redux/game/types';
 
 export enum BoardMode {
   VIEWER = 'VIEWER',
@@ -15,6 +20,7 @@ export interface BoardProps {
   revealedCards: number[];
   mode: BoardMode;
   highlighted?: Coordinate;
+  highlightedRow?: number;
   isGameOver: boolean;
   onRevealCard: (card: Coordinate) => void;
   onHighlightCard: (card?: Coordinate) => void;
@@ -30,25 +36,48 @@ export class Board extends React.PureComponent<BoardProps, {}> {
     return (
       <div className="BoardWrapper" onClick={() => this.highlightCard()}>
         <div className="Board">
+          {this.renderRowHighlight()}
           {Array(this.props.height)
             .fill(0)
-            .map((_: number, row: number) => this.renderRow(row))}
+            .map((_: number, row: CoordinateValue) => this.renderRow(row))}
         </div>
       </div>
     );
   }
 
-  private renderRow = (row: number) => {
+  private renderRowHighlight() {
+    if (this.props.highlightedRow === undefined) {
+      return null;
+    }
+    const row = this.props.highlightedRow;
     return (
-      <div className="BoardRow" key={`row_${row}`}>
-        {Array(this.props.width)
-          .fill(0)
-          .map((__: number, col: number) => this.renderCard(row, col))}
+      <div className="Board__row-highlight-wrapper">
+        <div
+          className="Board__row-highlight"
+          style={{ top: 0, height: `${row * 20}%` }}
+        />
+        <div
+          className="Board__row-highlight"
+          style={{
+            top: `${(row + 1) * 20}%`,
+            height: `${(5 - row + 1) * 20}%`,
+          }}
+        />
       </div>
     );
   }
 
-  private renderCard = (row: number, col: number) => {
+  private renderRow = (row: CoordinateValue) => {
+    return (
+      <div className="BoardRow" key={`row_${row}`}>
+        {Array(this.props.width)
+          .fill(0)
+          .map((__: number, col: CoordinateValue) => this.renderCard(row, col))}
+      </div>
+    );
+  }
+
+  private renderCard = (row: CoordinateValue, col: CoordinateValue) => {
     const index = this.coordinateToIndex({ row, col });
     return (
       <CardComponent
