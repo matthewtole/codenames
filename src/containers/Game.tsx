@@ -44,6 +44,7 @@ import { RoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
 import { Messages, Message } from '../lib/message';
 import { HotKeys } from 'react-hotkeys';
+import { areKeyboardShortcutsEnabled } from '../config';
 
 interface GameProps {
   id: string;
@@ -275,6 +276,10 @@ class Game extends React.PureComponent<Props, {}> {
   }
 
   private get keyMap() {
+    if (!areKeyboardShortcutsEnabled) {
+      return;
+    }
+
     return {
       num1: '1',
       num2: '2',
@@ -295,6 +300,10 @@ class Game extends React.PureComponent<Props, {}> {
       onEndTurn,
       onClearHighlight,
     } = this.props;
+
+    if (!areKeyboardShortcutsEnabled) {
+      return;
+    }
 
     return {
       num1: this.makeNumHandler(0),
