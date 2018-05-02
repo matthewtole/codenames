@@ -22,7 +22,18 @@ body {
 
 html,
 body {
-  font-family: 'Open Sans';
+  font-family: 'Source Sans Pro';
+}
+
+.title,
+.subtitle,
+.button,
+.Card {
+  font-family: 'Roboto Slab';
+}
+
+.title {
+  font-weight: 300;
 }
 
 body,
@@ -38,10 +49,6 @@ html,
 
 .has-navbar-fixed-top {
   padding-top: $navbar-height;
-}
-
-.navbar-logo {
-  margin-right: 0.75rem;
 }
 
 p.text {

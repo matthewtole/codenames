@@ -18,9 +18,6 @@ exports[`<Navbar /> renders correctly 1`] = `
         src="/logo.png"
         width={32}
       />
-      <strong>
-        Codenames
-      </strong>
     </a>
     <span
       className="navbar-burger burger"

@@ -6,12 +6,13 @@
   justify-content: center;
 }
 
+.GameControls .button {
+  border-radius: 0;
+}
+
 .GameControls_end-turn {
   height: 100%;
   flex: 2 1;
-  background-color: #333;
-  color: #fff;
-  border: 0;
   font-size: 22px;
   letter-spacing: 2px;
   font-weight: 900;
@@ -19,39 +20,25 @@
 }
 
 .GameControls_end-turn:hover {
-  background-color: #888;
+  /* background-color: #888; */
 }
 
 .GameControls_new-game {
   height: 100%;
   flex: 1 1;
-  background-color: #fff;
-  color: #333;
-  border: 0;
   font-size: 22px;
   letter-spacing: 2px;
   font-weight: 900;
   text-transform: uppercase;
-}
-
-.GameControls_new-game:hover {
-  background-color: #ccc;
 }
 
 .GameControls_menu {
   height: 100%;
   flex: 0 0;
-  background-color: #fff;
-  color: #333;
-  border: 0;
   font-size: 22px;
   letter-spacing: 2px;
   font-weight: 900;
   text-transform: uppercase;
-}
-
-.GameControls_menu:hover {
-  background-color: #ccc;
 }
 
 @media only screen and (max-width: 1024px) {

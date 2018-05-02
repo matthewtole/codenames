@@ -28,7 +28,6 @@ export class Navbar extends React.Component<NavbarProps, State> {
               height={32}
               className="navbar-logo"
             />
-            <strong>Codenames</strong>
           </Link>
           <span
             className={cx({

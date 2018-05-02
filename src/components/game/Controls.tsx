@@ -18,7 +18,7 @@ export class Controls extends React.Component<Props, {}> {
       controls.push(
         <button
           key="end-turn"
-          className="GameControls_end-turn"
+          className="GameControls_end-turn button is-dark"
           onClick={() => onEndTurn()}
         >
           End Turn
@@ -28,7 +28,7 @@ export class Controls extends React.Component<Props, {}> {
     controls.push(
       <button
         key="new-game"
-        className="GameControls_new-game"
+        className="GameControls_new-game button is-light"
         onClick={() => onNewGame()}
       >
         Start New Game
@@ -37,7 +37,7 @@ export class Controls extends React.Component<Props, {}> {
     if (showMenu) {
       controls.push(
         <button
-          className="GameControls_menu"
+          className="GameControls_menu button is-white"
           onClick={() => onMenuOpen()}
           key="menu"
         >
