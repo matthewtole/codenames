@@ -15,7 +15,7 @@ exports[`<Navbar /> renders correctly 1`] = `
       <img
         className="navbar-logo"
         height={32}
-        src="/logo.png"
+        src="/logo.svg"
         width={32}
       />
     </a>
