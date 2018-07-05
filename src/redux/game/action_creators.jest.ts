@@ -16,14 +16,20 @@ import {
   clearMessage,
   endTurn,
 } from './action_creators';
-import { DictionaryName, RulesetName, Team, MessageKey } from './types';
+import {
+  DictionaryName,
+  RulesetName,
+  Team,
+  MessageKey,
+  Coordinate,
+} from './types';
 import { ActionTypes } from '../actions';
 
 describe('Game', () => {
   describe('ActionCreators', () => {
     describe('highlightCard', () => {
       it('should return an action of type ActionHighlightCard', () => {
-        const card = { row: 2, col: 4 };
+        const card: Coordinate = { row: 2, col: 4 };
         const action = highlightCard({ card });
         const expectedAction: ActionHighlightCard = {
           type: ActionTypes.GAME_HIGHLIGHT_CARD,
@@ -37,7 +43,7 @@ describe('Game', () => {
 
     describe('revealCard', () => {
       it('should return an action of type ActionRevealCard', () => {
-        const card = { row: 0, col: 1 };
+        const card: Coordinate = { row: 0, col: 1 };
         const action = revealCard({ card });
         const expectedAction: ActionRevealCard = {
           type: ActionTypes.GAME_REVEAL_CARD,
@@ -89,13 +95,13 @@ describe('Game', () => {
       it('should return an action of type ActionLoadGame', () => {
         const dictionary = DictionaryName.ORIGINAL;
         const ruleset = RulesetName.DRINKING;
-        const messageKey = MessageKey.ENEMY_SPY;
+        const message = { key: MessageKey.ENEMY_SPY, team: Team.BLUE };
         const turn = Team.RED;
 
         const action = loadGameSuccess({
           dictionary,
           ruleset,
-          messageKey,
+          message,
           turn,
           cards: [],
           revealedCards: [],
@@ -105,7 +111,7 @@ describe('Game', () => {
           payload: {
             dictionary,
             ruleset,
-            messageKey,
+            message,
             turn,
             cards: [],
             revealedCards: [],

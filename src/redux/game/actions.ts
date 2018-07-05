@@ -6,7 +6,8 @@ import {
   DictionaryName,
   Team,
   Coordinate,
-  MessageKey,
+  Message,
+  CoordinateValue,
 } from './types';
 import { Card } from '../../components/game/Card';
 
@@ -34,7 +35,7 @@ export interface ActionLoadGameSuccess extends BaseAction {
     ruleset: RulesetName;
     turn: Team;
     dictionary: DictionaryName;
-    messageKey?: MessageKey;
+    message?: Message;
     highlighted?: Coordinate;
     winner?: Team;
   };
@@ -64,6 +65,13 @@ export interface ActionEndTurn extends BaseAction {
   payload: {};
 }
 
+export interface ActionHighlightRow extends BaseAction {
+  type: ActionTypes.GAME_HIGHLIGHT_ROW;
+  payload: {
+    row: CoordinateValue;
+  };
+}
+
 export type ActionGame =
   | ActionHighlightCard
   | ActionRevealCard
@@ -71,4 +79,5 @@ export type ActionGame =
   | ActionLoadGame
   | ActionLoadGameSuccess
   | ActionClearMessage
-  | ActionEndTurn;
+  | ActionEndTurn
+  | ActionHighlightRow;

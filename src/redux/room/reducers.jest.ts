@@ -20,8 +20,10 @@ describe('Room', () => {
             id: 'test-id',
           })
         );
-        expect(nextState.id).toEqual('test-id');
-        expect(nextState.loading).toBeTruthy();
+        expect(nextState).toEqual({
+          id: 'test-id',
+          loading: true,
+        });
       });
     });
 

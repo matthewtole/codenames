@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { DictionaryNames } from '../lib/dictionary';
 import { COLUMNS } from '../config';
 import DocumentTitle from 'react-document-title';
+import { PageHeader } from '../components/PageHeader';
 
 export class CreatePage extends React.Component<{}, {}> {
   render() {
@@ -13,13 +14,7 @@ export class CreatePage extends React.Component<{}, {}> {
         <div className="has-navbar-fixed-top">
           <Navbar page="create" />
           <div>
-            <section className="hero is-primary">
-              <div className="hero-body">
-                <div className="container has-text-centered">
-                  <h1 className="title">Create New Game</h1>
-                </div>
-              </div>
-            </section>
+            <PageHeader text="Create New Game" />
             <section className="section">
               <div className="container is-fluid">
                 <div className="columns is-mobile is-centered">
@@ -50,7 +45,7 @@ export class CreatePage extends React.Component<{}, {}> {
                       <div className="notification is-info">
                         <p className="text has-text-weight-semibold">
                           Need more help? Don't fret, check out the{' '}
-                          <Link to="/help">Help page</Link>.
+                          <Link to="/help#create">Help page</Link>.
                         </p>
                       </div>
                     </div>

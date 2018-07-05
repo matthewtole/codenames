@@ -40,3 +40,6 @@ export const COLUMNS = {
     'is-full-mobile',
   ].join(' '),
 };
+
+export const areKeyboardShortcutsEnabled =
+  process.env.CN_KEYBOARD_SHORTCUTS === 'true';

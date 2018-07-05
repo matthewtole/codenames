@@ -1,6 +1,8 @@
+export type CoordinateValue = 0 | 1 | 2 | 3 | 4;
+
 export interface Coordinate {
-  row: number;
-  col: number;
+  row: CoordinateValue;
+  col: CoordinateValue;
 }
 
 export interface GameOptions {
@@ -43,4 +45,9 @@ export enum MessageKey {
   FRIENDLY_SPY = 'FRIENDLY_SPY',
   ENEMY_SPY = 'ENEMY_SPY',
   VICTORY = 'VICTORY',
+}
+
+export interface Message {
+  key: MessageKey;
+  team: Team;
 }

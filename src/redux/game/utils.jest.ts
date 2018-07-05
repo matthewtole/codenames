@@ -52,17 +52,21 @@ describe('Game', () => {
       });
 
       it('should throw an error for invalid coordinates', () => {
-        expect(() =>
-          GameUtils.coordinateToIndex({ col: -1, row: 0 })
+        expect(
+          () => GameUtils.coordinateToIndex({ col: -1, row: 0 } as any) // tslint:disable-line:no-any
         ).toThrow();
 
-        expect(() => GameUtils.coordinateToIndex({ col: 5, row: 0 })).toThrow();
-
-        expect(() =>
-          GameUtils.coordinateToIndex({ col: 0, row: -1 })
+        expect(
+          () => GameUtils.coordinateToIndex({ col: 5, row: 0 } as any) // tslint:disable-line:no-any
         ).toThrow();
 
-        expect(() => GameUtils.coordinateToIndex({ col: 0, row: 5 })).toThrow();
+        expect(
+          () => GameUtils.coordinateToIndex({ col: 0, row: -1 } as any) // tslint:disable-line:no-any
+        ).toThrow();
+
+        expect(
+          () => GameUtils.coordinateToIndex({ col: 0, row: 5 } as any) // tslint:disable-line:no-any
+        ).toThrow();
       });
     });
 

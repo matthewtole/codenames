@@ -10,6 +10,8 @@ import {
   RulesetName,
   DictionaryName,
   MessageKey,
+  Message,
+  CoordinateValue,
 } from './types';
 import {
   ActionHighlightCard,
@@ -19,6 +21,7 @@ import {
   ActionEndTurn,
   ActionRevealCard,
   ActionLoadGameSuccess,
+  ActionHighlightRow,
 } from './actions';
 import { Action, ActionTypes } from '../actions';
 import { coordinateToIndex, otherPlayer, teamToRole } from './utils';
@@ -31,8 +34,9 @@ export interface GameStateLoaded {
   cards: Card[];
   turn: Team;
   highlighted?: Coordinate;
+  highlightedRow?: CoordinateValue;
   revealedCards: Set<number>;
-  messageKey?: MessageKey;
+  message?: Message;
   ruleset: RulesetName;
   dictionary: DictionaryName;
   winner?: Team;
@@ -53,9 +57,15 @@ function handleHighlightCard(
     return state;
   }
 
+  let card = action.payload.card;
+  if (card && state.revealedCards.includes(coordinateToIndex(card))) {
+    card = null;
+  }
+
   return {
     ...state,
-    highlighted: action.payload.card || undefined,
+    highlighted: card || undefined,
+    highlightedRow: undefined,
   };
 }
 
@@ -65,7 +75,11 @@ function handleRevealAssassin(
 ): GameState {
   return {
     ...state,
-    messageKey: MessageKey.ASSASSIN,
+    message: {
+      key: MessageKey.ASSASSIN,
+      team: state.turn,
+      otherTeam: otherPlayer(state.turn),
+    },
     winner: otherPlayer(state.turn),
     turn: otherPlayer(state.turn),
     highlighted: undefined,
@@ -81,7 +95,10 @@ function handleRevealBystander(
 ): GameState {
   return {
     ...state,
-    messageKey: MessageKey.BYSTANDER,
+    message: {
+      key: MessageKey.BYSTANDER,
+      team: state.turn,
+    },
     turn: otherPlayer(state.turn),
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
@@ -96,7 +113,10 @@ function handleRevealFriendlySpy(
 ): GameState {
   state = {
     ...state,
-    messageKey: MessageKey.FRIENDLY_SPY,
+    message: {
+      key: MessageKey.FRIENDLY_SPY,
+      team: state.turn,
+    },
     highlighted: undefined,
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -118,7 +138,10 @@ function handleRevealEnemySpy(
   state = {
     ...state,
     highlighted: undefined,
-    messageKey: MessageKey.ENEMY_SPY,
+    message: {
+      key: MessageKey.ENEMY_SPY,
+      team: state.turn,
+    },
     turn: otherPlayer(state.turn),
     revealedCards: state.revealedCards.add(
       coordinateToIndex(action.payload.card)
@@ -194,7 +217,6 @@ function handleGameCreate(
 
 function handleLoadGame(state: GameState, action: ActionLoadGame) {
   return {
-    ...state,
     id: action.payload.id,
     loading: true,
   };
@@ -210,7 +232,7 @@ function handleLoadGameSucceess(
     ruleset,
     dictionary,
     highlighted,
-    messageKey,
+    message,
     revealedCards,
     winner,
   } = action.payload;
@@ -222,7 +244,7 @@ function handleLoadGameSucceess(
     turn,
     ruleset,
     dictionary,
-    messageKey: messageKey || undefined,
+    message: message || undefined,
     highlighted: highlighted || undefined,
     revealedCards: Set<number>(revealedCards),
     winner: winner || undefined,
@@ -235,7 +257,7 @@ function handleClearMessage(
 ): GameState {
   return {
     ...state,
-    messageKey: undefined,
+    message: undefined,
   };
 }
 
@@ -247,6 +269,21 @@ function handleEndTurn(
     ...state,
     highlighted: undefined,
     turn: otherPlayer(state.turn),
+  };
+}
+
+function handleHighlightRow(
+  state: GameStateLoaded,
+  action: ActionHighlightRow
+) {
+  if (GameSelectors.winner(state)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    highlightedRow: action.payload.row,
+    highlighted: undefined,
   };
 }
 
@@ -311,6 +348,8 @@ export const game = (
       );
     case ActionTypes.GAME_END_TURN:
       return handleEndTurn(state as GameStateLoaded, action as ActionEndTurn);
+    case ActionTypes.GAME_HIGHLIGHT_ROW:
+      return handleHighlightRow(state as GameStateLoaded, action);
     /* istanbul ignore next */
     default:
       return state;

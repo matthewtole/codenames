@@ -29,7 +29,7 @@ import {
   LOCATION_CHANGE,
   LocationChangeAction,
 } from 'react-router-redux';
-import { eventChannel } from 'redux-saga';
+import { eventChannel, Channel } from 'redux-saga';
 
 import { FirebaseSync } from '../lib/firebase';
 import * as config from '../config';
@@ -91,8 +91,12 @@ function* roomLoaded(action: ActionLoadRoomSuccess) {
 
 function* gameLoad(action: ActionLoadGame) {
   const data = yield firebase.loadGame({ id: action.payload.id });
-  yield put(loadGameSuccess(data));
-  yield fork(subscribeToGame(action.payload.id));
+  if (data) {
+    yield put(loadGameSuccess(data));
+    yield fork(subscribeToGame(action.payload.id));
+  } else {
+    yield put(loadGame({ id: action.payload.id }));
+  }
 }
 
 function* syncGame() {
@@ -103,29 +107,42 @@ function* syncGame() {
   });
 }
 
+let gameChannel: Channel<{}> | undefined = undefined;
+
 function subscribeToGame(id: string) {
   return function*() {
-    const channel = eventChannel(emit => {
+    unsubscribeFromGame();
+    gameChannel = eventChannel(emit => {
       firebase.subscribeToGame(id, emit);
       return () => firebase.unsubscribeFromGame(id);
     });
 
     while (true) {
-      const data = yield take(channel);
+      const data = yield take(gameChannel);
       yield put(loadGameSuccess(data));
     }
   };
 }
 
+function unsubscribeFromGame() {
+  if (gameChannel) {
+    gameChannel.close();
+    gameChannel = undefined;
+  }
+}
+
+let roomChannel: Channel<{}> | undefined = undefined;
+
 function subscribeToRoom(id: string) {
   return function*() {
-    const channel = eventChannel(emit => {
+    unsubscribeFromRoom();
+    roomChannel = eventChannel(emit => {
       firebase.subscribeToRoom(id, emit);
       return () => firebase.unsubscribeFromRoom(id);
     });
 
     while (true) {
-      const data = yield take(channel);
+      const data = yield take(roomChannel);
       yield put(loadGame({ id: data.gameId }));
       yield put(
         loadRoomSuccess({
@@ -135,6 +152,14 @@ function subscribeToRoom(id: string) {
       );
     }
   };
+}
+
+function unsubscribeFromRoom() {
+  if (roomChannel) {
+    roomChannel.close();
+    roomChannel = undefined;
+    unsubscribeFromGame();
+  }
 }
 
 function* generateCode(action: ActionGenerateCode) {
@@ -191,7 +216,14 @@ function* changeRuleset(action: ActionChangeRuleset) {
   });
 }
 
+function isRoomPath(path: string): boolean {
+  return !!/\/room\//.exec(path);
+}
+
 function locationChange(action: LocationChangeAction) {
+  if (!isRoomPath(action.payload.pathname)) {
+    unsubscribeFromRoom();
+  }
   ReactGA.pageview(action.payload.pathname);
 }
 

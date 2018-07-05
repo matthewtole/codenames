@@ -36,7 +36,7 @@ describe('Game', () => {
         const gameState = nextState as GameStateLoaded;
         expect(gameState.cards).toHaveLength(25);
         expect(gameState.highlighted).toBeUndefined();
-        expect(gameState.messageKey).toBeUndefined();
+        expect(gameState.message).toBeUndefined();
         expect(gameState.revealedCards.count()).toEqual(0);
         expect(gameState.winner).toBeUndefined();
 
@@ -256,9 +256,9 @@ describe('Game', () => {
           initialState,
           revealCard({ card: { row: 1, col: 2 } })
         ) as GameStateLoaded;
-        expect(nextState.messageKey).not.toBeUndefined();
+        expect(nextState.message).not.toBeUndefined();
         nextState = game(nextState, clearMessage()) as GameStateLoaded;
-        expect(nextState.messageKey).toBeUndefined();
+        expect(nextState.message).toBeUndefined();
       });
     });
 
@@ -300,11 +300,12 @@ describe('Game', () => {
             id: 'test-id',
           })
         );
-        expect(nextState).not.toBeUndefined();
-        expect(nextState.id).toBe('test-id');
-        expect(nextState.loading).toBeTruthy();
+        expect(nextState).toEqual({
+          id: 'test-id',
+          loading: true
+        });
       });
-    });
+    }); ,
 
     describe('GAME_LOAD_SUCCESS', () => {
       it('should populate the rest of the game data', () => {

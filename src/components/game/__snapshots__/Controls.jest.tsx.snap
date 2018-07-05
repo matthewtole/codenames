@@ -5,13 +5,13 @@ exports[`Controls renders correctly 1`] = `
   className="GameControls"
 >
   <button
-    className="GameControls_end-turn"
+    className="GameControls_end-turn button is-dark"
     onClick={[Function]}
   >
     End Turn
   </button>
   <button
-    className="GameControls_new-game"
+    className="GameControls_new-game button is-light"
     onClick={[Function]}
   >
     Start New Game

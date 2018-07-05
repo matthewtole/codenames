@@ -7,6 +7,7 @@ import {
   Team,
   RulesetName,
   DictionaryName,
+  CoordinateValue,
 } from '../redux/game/types';
 import { State } from '../redux/store';
 import {
@@ -15,6 +16,7 @@ import {
   endTurn,
   revealCard,
   highlightCard,
+  highlightRow,
 } from '../redux/game/action_creators';
 import * as uuid from 'uuid';
 import { Dispatch } from 'redux';
@@ -41,6 +43,8 @@ import {
 import { RoomCode } from '../components/game/RoomCode';
 import { Loading } from '../components/Loading';
 import { Messages, Message } from '../lib/message';
+import { HotKeys } from 'react-hotkeys';
+import { areKeyboardShortcutsEnabled } from '../config';
 
 interface GameProps {
   id: string;
@@ -64,6 +68,7 @@ interface DispatchProps {
   onExitFullscreen: () => void;
   onChangeRuleset: (ruleset: RulesetName) => void;
   onChangeDictionary: (dictionary: DictionaryName) => void;
+  onHighlightRow: (row: number) => void;
 }
 
 interface StateProps {
@@ -71,6 +76,7 @@ interface StateProps {
   mode?: BoardMode;
   cards?: Card[];
   highlighted?: Coordinate;
+  highlightedRow?: CoordinateValue;
   revealedCards?: Immutable.Set<number>;
   message?: Message;
   winner?: Team;
@@ -90,9 +96,15 @@ const mapStateToProps = (state: State, ownProps: Props): StateProps => {
     loading: game.loading,
     cards: game.cards,
     highlighted: game.highlighted,
+    highlightedRow: game.highlightedRow,
     revealedCards: game.revealedCards,
-    message: game.messageKey
-      ? Messages.render(game.turn, game.ruleset, game.messageKey, ownProps.mode)
+    message: game.message
+      ? Messages.render(
+          game.message.team,
+          game.ruleset,
+          game.message.key,
+          ownProps.mode
+        )
       : undefined,
     winner: game.winner,
     isMenuShown: state.ui.isMenuShown,
@@ -160,6 +172,9 @@ const mapDispatchToProps = (
     onChangeDictionary: (dictionary: DictionaryName) => {
       dispatch(changeDictionary({ dictionary }));
     },
+    onHighlightRow: (row: CoordinateValue) => {
+      dispatch(highlightRow({ row }));
+    },
   };
 };
 
@@ -192,13 +207,18 @@ class Game extends React.PureComponent<Props, {}> {
       onEnterFullscreen,
       onExitFullscreen,
       isFullscreen,
+      highlightedRow,
     } = this.props;
+
     if (loading) {
       return <Loading />;
     }
+
     if (cards) {
       return (
-        <div
+        <HotKeys
+          keyMap={this.keyMap}
+          handlers={this.keyHandlers}
           style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
         >
           <Info
@@ -237,6 +257,7 @@ class Game extends React.PureComponent<Props, {}> {
             onRevealCard={onRevealCard!}
             onHighlightCard={onHighlightCard!}
             highlighted={highlighted}
+            highlightedRow={highlightedRow}
             isGameOver={!!winner}
           />
           {mode === BoardMode.CONTROLLER ? (
@@ -248,10 +269,77 @@ class Game extends React.PureComponent<Props, {}> {
               showMenu={mode === BoardMode.CONTROLLER}
             />
           ) : null}
-        </div>
+        </HotKeys>
       );
     }
     return null;
+  }
+
+  private get keyMap() {
+    if (!areKeyboardShortcutsEnabled) {
+      return;
+    }
+
+    return {
+      num1: '1',
+      num2: '2',
+      num3: '3',
+      num4: '4',
+      num5: '5',
+      enter: 'enter',
+      escape: 'esc',
+    };
+  }
+
+  private get keyHandlers() {
+    const {
+      message,
+      onMessageClosed,
+      highlighted,
+      onRevealCard,
+      onEndTurn,
+      onClearHighlight,
+    } = this.props;
+
+    if (!areKeyboardShortcutsEnabled) {
+      return;
+    }
+
+    return {
+      num1: this.makeNumHandler(0),
+      num2: this.makeNumHandler(1),
+      num3: this.makeNumHandler(2),
+      num4: this.makeNumHandler(3),
+      num5: this.makeNumHandler(4),
+      enter: () => {
+        if (message) {
+          onMessageClosed();
+        } else if (highlighted) {
+          onRevealCard(highlighted);
+        } else {
+          onEndTurn();
+        }
+      },
+      escape: () => {
+        if (message) {
+          onMessageClosed();
+        }
+        onClearHighlight();
+      },
+    };
+  }
+
+  private makeNumHandler(num: CoordinateValue) {
+    const { highlightedRow, onHighlightCard, onHighlightRow } = this.props;
+
+    return () => {
+      highlightedRow !== undefined
+        ? onHighlightCard({
+            row: highlightedRow,
+            col: num,
+          })
+        : onHighlightRow(num);
+    };
   }
 
   private handleSetRuleset = (ruleset: RulesetName) => {

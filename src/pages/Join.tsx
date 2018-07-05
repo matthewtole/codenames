@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import { COLUMNS } from '../config';
 import DocumentTitle from 'react-document-title';
+import { PageHeader } from '../components/PageHeader';
 
 export class JoinPage extends React.Component<{}, {}> {
   render() {
@@ -13,11 +14,7 @@ export class JoinPage extends React.Component<{}, {}> {
           <Navbar page="join" />
           <div>
             <section className="hero is-primary">
-              <div className="hero-body">
-                <div className="container has-text-centered">
-                  <h1 className="title">Join Existing Game</h1>
-                </div>
-              </div>
+              <PageHeader text="Join Existing Game" />
             </section>
             <section className="section">
               <div className="columns is-mobile is-centered">

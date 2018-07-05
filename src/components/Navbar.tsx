@@ -23,12 +23,11 @@ export class Navbar extends React.Component<NavbarProps, State> {
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
             <img
-              src="/logo.png"
+              src="/logo.svg"
               width={32}
               height={32}
               className="navbar-logo"
             />
-            <strong>Codenames</strong>
           </Link>
           <span
             className={cx({

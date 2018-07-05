@@ -8,22 +8,28 @@ export class Home extends React.Component<{}, {}> {
     return (
       <div id="home">
         <Navbar page="home" />
-        <section className="hero is-fullheight is-default is-bold has-navbar-fixed-top">
+        <section className="hero is-dark has-navbar-fixed-top is-vcentered has-text-centered is-medium">
           <div className="hero-body">
-            <div className="container">
-              <div className="columns is-vcentered">
-                <div className="column is-6">
-                  <h1 className="title is-1">Codenames</h1>
-                  <h2 className="subtitle is-3">
-                    An online, advanced version of the Codenames boardgame!
-                  </h2>
-                  <p>
-                    <Link to="/create" className="button is-medium is-success">
-                      Create Game
-                    </Link>
-                  </p>
-                </div>
-              </div>
+            <h1 className="title is-1">Codenames</h1>
+            <h2 className="title is-4">
+              An online version of the Codenames boardgame, with drinking and
+              stripping rules!
+            </h2>
+          </div>
+        </section>
+        <section className="hero is-primary has-text-centered">
+          <div className="hero-body">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
+                <Link to="/create" className="button is-medium is-success">
+                  Create New Game
+                </Link>
+              </p>
+              <p className="control">
+                <Link to="/join" className="button is-medium is-success">
+                  Join Existing Game
+                </Link>
+              </p>
             </div>
           </div>
         </section>

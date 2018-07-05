@@ -25,7 +25,6 @@ const initialState: RoomState = {};
 
 function handleRoomLoad(state: RoomState, action: ActionLoadRoom): RoomState {
   return {
-    ...initialState,
     id: action.payload.id,
     loading: true,
   };
